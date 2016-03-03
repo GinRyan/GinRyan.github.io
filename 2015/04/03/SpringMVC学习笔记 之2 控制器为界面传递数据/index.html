@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>SpringMVC学习笔记 之2 控制器为界面传递数据 | 孤星独吟 | 一樽长水天下泪，万里孤行独作吟</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="SpringMVC学习">
+  <meta name="description" content="SpringMVC学习笔记 之2 控制器为界面传递数据一、传递普通的字符串给JSP页面
+在上一次的笔记的基础上创建的项目中，我们在HelloWorldController类中做一定的修改，如下：123456789101112public class HelloWorldController implements Controller &amp;#123;	@Override	public ModelAnd">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC学习笔记 之2 控制器为界面传递数据">
+<meta property="og:url" content="http://yoursite.com/2015/04/03/SpringMVC学习笔记 之2 控制器为界面传递数据/index.html">
+<meta property="og:site_name" content="孤星独吟">
+<meta property="og:description" content="SpringMVC学习笔记 之2 控制器为界面传递数据一、传递普通的字符串给JSP页面
+在上一次的笔记的基础上创建的项目中，我们在HelloWorldController类中做一定的修改，如下：123456789101112public class HelloWorldController implements Controller &amp;#123;	@Override	public ModelAnd">
+<meta property="og:updated_time" content="2016-03-03T14:43:07.078Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringMVC学习笔记 之2 控制器为界面传递数据">
+<meta name="twitter:description" content="SpringMVC学习笔记 之2 控制器为界面传递数据一、传递普通的字符串给JSP页面
+在上一次的笔记的基础上创建的项目中，我们在HelloWorldController类中做一定的修改，如下：123456789101112public class HelloWorldController implements Controller &amp;#123;	@Override	public ModelAnd">
+  
+    <link rel="alternative" href="/atom.xml" title="孤星独吟" type="application/atom+xml">
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="./" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">Xelloss</h5>
+        <a href="mailto:undefined" title="gino3@qq.com" class="mail">gino3@qq.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>Home
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>Archives
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>Tags
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="https://github.com/GinRyan" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>Github
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤星独吟 &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">SpringMVC学习笔记 之2 控制器为界面传递数据</div>
+        <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">SpringMVC学习笔记 之2 控制器为界面传递数据</h1>
+    <h5 class="subtitle">2015-04-03</h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      
+  <article id="post-SpringMVC学习笔记 之2 控制器为界面传递数据" class="article article-type-post" itemscope itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC学习/">SpringMVC学习</a></li></ul>
+</div>
+      </div>
+      <div class="post-body">
+
+        <aside class="post-widget" id="post-widget">
+
+          
+          <div class="post-share" id="post-share" data-title="SpringMVC学习笔记 之2 控制器为界面传递数据" data-pic="/img/logo.jpg" data-summary="技术随行，心动随笔" data-url="http://yoursite.com/2015/04/03/SpringMVC学习笔记 之2 控制器为界面传递数据/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SpringMVC学习笔记-之2-控制器为界面传递数据"><span class="post-toc-text">SpringMVC学习笔记 之2 控制器为界面传递数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-text">传递数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-text">传递数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-text">传递数据</span></a></li></ol>
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" itemprop="postContent"><h1 id="SpringMVC学习笔记-之2-控制器为界面传递数据"><a href="#SpringMVC学习笔记-之2-控制器为界面传递数据" class="headerlink" title="SpringMVC学习笔记 之2 控制器为界面传递数据"></a>SpringMVC学习笔记 之2 控制器为界面传递数据</h1><p><strong>一、传递普通的字符串给JSP页面</strong></p>
+<p>在上一次的笔记的基础上创建的项目中，我们在<code>HelloWorldController</code>类中做一定的修改，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldController</span> <span class="keyword">implements</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequest</span><span class="params">(HttpServletRequest httpServletRequest,</span><br><span class="line">			HttpServletResponse httpServletResponse)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Hello spring mvc!"</span>);</span><br><span class="line">		<span class="comment">//我们定义一个示例用的字符串变量</span></span><br><span class="line">		String hello = <span class="string">" this is the data from Controller layer，传递数据"</span>;</span><br><span class="line">		<span class="comment">//在"/welcome"这个View中，通过ModelAndView传递一个“键值对变量”进去</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"/welcome"</span>, <span class="string">"result"</span>, hello);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>将<code>/WEB-INF/jsp/welcome.jsp</code>文件做以下修改<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Insert title here<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	欢迎使用SpringMVC框架。</span><br><span class="line">	<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>传递数据<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--增加一个获取"result"键值对/变量的EL表达式--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">br</span>&gt;</span> $&#123;result&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>重新部署项目后，我们打开地址<code>http://localhost:8080/SpringMVC1/test1/helloworld</code>可以看到结果</p>
+<hr>
+<p>欢迎使用SpringMVC框架。<br><br></p>
+<p></p><h1>传递数据</h1><br><!--增加一个获取"result"键值对/变量的表达式--><br><br>  this is the data from Controller layer，传递数据<p></p>
+<hr>
+<p>我们可以看到结果已经传递给result变量并且显示出来了。</p>
+<p><strong>二、传递一个Map给页面(用EL表达式提取数据)</strong></p>
+<p>我们继续修改HelloWorldController类，让这个类当中的回调方法返回的ModelAndView中包含一个map。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldController</span> <span class="keyword">implements</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequest</span><span class="params">(HttpServletRequest httpServletRequest,</span><br><span class="line">			HttpServletResponse httpServletResponse)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Hello spring mvc!"</span>);</span><br><span class="line">		<span class="comment">//我们不用这个变量了</span></span><br><span class="line">		<span class="comment">//String hello = " this is the data from Controller layer，传递数据";</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//我们要用一个映射</span></span><br><span class="line">		Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">		map.put(<span class="string">"map1"</span>, <span class="string">"数据1"</span>);</span><br><span class="line">		map.put(<span class="string">"map2"</span>, <span class="string">"数据2"</span>);</span><br><span class="line">		map.put(<span class="string">"map3"</span>, <span class="string">"数据3"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"/welcome"</span>, <span class="string">"map"</span>, map);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后将我们的jsp文件更改为<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	欢迎使用SpringMVC框架。</span><br><span class="line">	<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>传递数据<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--使用EL表达式去取出map中的键值对--&gt;</span></span><br><span class="line">	 $&#123;map.map1&#125;<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">	 $&#123;map.map2&#125;<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">	 $&#123;map.map3&#125;<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>在EL表达式中，变量map就是设置的键值对的键名map，取出的数据用”.”取出，比如map中的map1，就写作${map.map1}</p>
+<p>保存后运行Tomcat，打开地址<code>http://localhost:8080/SpringMVC1/test1/helloworld</code>，我们可以看到结果：</p>
+<hr>
+<p>欢迎使用SpringMVC框架。<br><br></p>
+<p></p><h1>传递数据</h1><br><!--使用EL表达式去取出map中的键值对--><br> 数据1<br><br> 数据2<br><br> 数据3<br><p></p>
+<hr>
+<p><strong>三、传递一个Map给页面(用JSTL标签提取数据)</strong></p>
+<p>在上面第二小节的基础上，我们修改JSP文件如下：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=utf-8"</span></span><br><span class="line">	pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;!-- 引入JSTL标签库。记住有一个前提，一定要导入于JSTL标签库相关的jar --&gt;</span><br><span class="line">&lt;%<span class="meta">@taglib</span> prefix=<span class="string">"c"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/core"</span> %&gt;</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">	...</span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	欢迎使用SpringMVC框架。</span><br><span class="line">	<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>传递数据<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--使用EL表达式去取出map中的键值对--&gt;</span></span><br><span class="line">	 $&#123;map.map1&#125;<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">	 $&#123;map.map2&#125;<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">	 $&#123;map.map3&#125;<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">	 </span><br><span class="line">	<span class="comment">&lt;!-- 对比EL表达式方式，下面使用JSTL标签库取出map中的键值对 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">c:forEach</span> <span class="attr">items</span>=<span class="string">"$&#123;map&#125;"</span> <span class="attr">var</span>=<span class="string">"d"</span>&gt;</span></span><br><span class="line">		$&#123;d.key&#125; --&gt; $&#123;d.value&#125; <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">c:forEach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+<p>使用JSTL标签库循环取出map中各个键值对的键名和值。</p>
+<p>对这个标签进行简短的说明：<br>在这里<c:foreach>的这个JSTL标签的作用是，从map中取出各个项目，然后通过for开始循环取出，每次使用一个键值对时都用变量“d”来表示，取出键名，就通过d.key属性，取出值，就使用d.value属性。</c:foreach></p>
+<p>运行结果如下：</p>
+<hr>
+<p>欢迎使用SpringMVC框架。<br><br></p>
+<p></p><h1>传递数据</h1><br><!--使用EL表达式去取出map中的键值对--><br> 数据1<br><br> 数据2<br><br> 数据3<br><br><!-- 对比EL表达式方式，下面使用JSTL标签库取出map中的键值对 --><br>map3 –&gt; 数据3 <br><br>map2 –&gt; 数据2 <br><br>map1 –&gt; 数据1 <br><p></p>
+<hr>
+</div>
+
+            
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block prev">
+    
+      <a href="/2015/04/03/SpringMVC学习笔记 之3 控制器内写多个方法/" title="SpringMVC学习笔记 之3 控制器内写多个方法" id="post-prev" class="post-nav-link">
+        <i class="icon icon-chevron-left"></i>
+        <span class="article-nav-title">上一篇</span>
+      </a>
+    
+  </div>
+  <div class="flex-col waves-block next">
+    
+      <a href="/2015/04/03/SpringMVC学习笔记 之4 静态文件的访问/" title="SpringMVC学习笔记 之4 静态文件的访问" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
+
+</nav>
+
+
+
+            
+
+
+
+
+        </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<div class="global-share" id="global-share" data-title="SpringMVC学习笔记 之2 控制器为界面传递数据" data-pic="/img/logo.jpg" data-summary="技术随行，心动随笔" data-url="http://yoursite.com/2015/04/03/SpringMVC学习笔记 之2 控制器为界面传递数据/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
