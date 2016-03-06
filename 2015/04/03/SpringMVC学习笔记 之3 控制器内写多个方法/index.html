@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>SpringMVC学习笔记 之3 控制器内写多个方法 | 孤星独吟 | 一樽长水天下泪，万里孤行独作吟</title>
+  <title>SpringMVC学习笔记 之3 控制器内写多个方法 | 梁工春日的忧郁 | 孤星独吟</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="SpringMVC学习">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringMVC学习笔记 之3 控制器内写多个方法">
 <meta property="og:url" content="http://yoursite.com/2015/04/03/SpringMVC学习笔记 之3 控制器内写多个方法/index.html">
-<meta property="og:site_name" content="孤星独吟">
+<meta property="og:site_name" content="梁工春日的忧郁">
 <meta property="og:description" content="SpringMVC学习笔记 之3 控制器内写多个响应请求现在介绍一下如何在一个controller之内相应多种请求。
 首先，我们先要知道为什么要这么做。在一个大型项目中，针对某一个特定的类型数据模型可能会有多种操作，比如CRUD等。如果我们把他们一个一个分开来写的话，会出现大量Controller的子类，而这些子类会和其他的数据模型的控制器混合在一起，我们在组织和规划url地址和流程的时候就会有非">
 <meta property="og:updated_time" content="2016-03-03T14:43:24.988Z">
@@ -21,7 +21,7 @@
 <meta name="twitter:description" content="SpringMVC学习笔记 之3 控制器内写多个响应请求现在介绍一下如何在一个controller之内相应多种请求。
 首先，我们先要知道为什么要这么做。在一个大型项目中，针对某一个特定的类型数据模型可能会有多种操作，比如CRUD等。如果我们把他们一个一个分开来写的话，会出现大量Controller的子类，而这些子类会和其他的数据模型的控制器混合在一起，我们在组织和规划url地址和流程的时候就会有非">
   
-    <link rel="alternative" href="/atom.xml" title="孤星独吟" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="梁工春日的忧郁" type="application/atom+xml">
   
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/style.css">
@@ -74,7 +74,7 @@
 
   <footer class="footer">
   <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
-  <p>孤星独吟 &copy; 2016</p>
+  <p>梁工春日的忧郁 &copy; 2016</p>
   <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
   <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
   <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
@@ -195,18 +195,13 @@
 <nav class="post-nav flex-row">
   <div class="flex-col waves-block prev">
     
-      <a href="/2015/04/03/SpringMVC学习笔记 之1 SpringMVC环境搭建和一个展示Demo/" title="SpringMVC学习笔记 之1 SpringMVC环境搭建和一个Demo" id="post-prev" class="post-nav-link">
+      <a href="/2015/04/03/SpringMVC学习笔记 之2 控制器为界面传递数据/" title="SpringMVC学习笔记 之2 控制器为界面传递数据" id="post-prev" class="post-nav-link">
         <i class="icon icon-chevron-left"></i>
         <span class="article-nav-title">上一篇</span>
       </a>
     
   </div>
   <div class="flex-col waves-block next">
-    
-      <a href="/2015/04/03/SpringMVC学习笔记 之2 控制器为界面传递数据/" title="SpringMVC学习笔记 之2 控制器为界面传递数据" id="post-next" class="post-nav-link">
-        <span class="article-nav-title">下一篇</span>
-        <i class="icon icon-chevron-right"></i>
-      </a>
     
   </div>
 
