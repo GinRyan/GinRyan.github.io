@@ -6,7 +6,7 @@
   <title>Android Kotlin函数式编程(II) | 梁工春日的忧郁 | 孤星独吟</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="Kotlin,Android">
+  <meta name="keywords" content="Android,Kotlin">
   <meta name="description" content="#Android函数式编程(II)#
 前言最近Kotlin 1.0正式版的发布，让Kotlin在众多开发者眼前一亮，越来越多的人开始着眼新的语言进行学习，然而网上的文章多数是介绍Kotlin这门新语言的语法以及一些技术性细节，然而很少有讨论Kotlin这门新语言带来的一些方便的函数式语言特性。翻译这篇文章的目的是，把Kotlin提供的内置的一些函数式特性详细的展现出来，以便于我们用到这门语言的一些">
 <meta property="og:type" content="article">
@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="梁工春日的忧郁">
 <meta property="og:description" content="#Android函数式编程(II)#
 前言最近Kotlin 1.0正式版的发布，让Kotlin在众多开发者眼前一亮，越来越多的人开始着眼新的语言进行学习，然而网上的文章多数是介绍Kotlin这门新语言的语法以及一些技术性细节，然而很少有讨论Kotlin这门新语言带来的一些方便的函数式语言特性。翻译这篇文章的目的是，把Kotlin提供的内置的一些函数式特性详细的展现出来，以便于我们用到这门语言的一些">
-<meta property="og:updated_time" content="2016-03-15T14:41:50.805Z">
+<meta property="og:updated_time" content="2016-03-15T14:56:47.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Kotlin函数式编程(II)">
 <meta name="twitter:description" content="#Android函数式编程(II)#
@@ -164,22 +164,22 @@
         <div class="post-main">
 
             <div class="post-content" itemprop="postContent"><p>#<strong>Android函数式编程(II)</strong>#</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近Kotlin 1.0正式版的发布，让Kotlin在众多开发者眼前一亮，越来越多的人开始着眼新的语言进行学习，然而网上的文章多数是介绍<br>Kotlin这门新语言的语法以及一些技术性细节，然而很少有讨论Kotlin这门新语言带来的一些方便的函数式语言特性。<br>翻译这篇文章的目的是，把Kotlin提供的内置的一些函数式特性详细的展现出来，以便于我们用到这门语言的一些场景时可以适时的用上这些<br>特性，帮助增强我们的代码。尽管Kotlin要大范围的使用，还有一段距离，但是这并不能阻挡我们学习新语言的新特性的脚步。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近Kotlin 1.0正式版的发布，让Kotlin在众多开发者眼前一亮，越来越多的人开始着眼新的语言进行<br>学习，然而网上的文章多数是介绍Kotlin这门新语言的语法以及一些技术性细节，然而很少有讨论<br>Kotlin这门新语言带来的一些方便的函数式语言特性。翻译这篇文章的目的是，把Kotlin提供的内置的<br>一些函数式特性详细的展现出来，以便于我们用到这门语言的一些场景时可以适的用上这些特性，帮助增<br>强我们的代码。尽管Kotlin要大范围的使用，还有一段距离，但是这并不能阻挡我们学习新语言的新特<br>性的脚步。</p>
 <p>原文来自：<a href="http://antonioleiva.com/collection-operations-kotlin/" target="_blank" rel="external">http://antonioleiva.com/collection-operations-kotlin/</a></p>
-<p>Lambda表达式是一种在简化代码方面十分强有力的工具，而且有时候会做到过做不到的事情。<br>我们在<a href="http://antonioleiva.com/functional-programming-android-kotlin-lambdas/" target="_blank" rel="external">系列第一部分</a>(Kotlin lambda<br>表达式：释放函数蕴含的洪荒之力)中讨论了这些特性。</p>
-<p>在上一部分结尾的时候的我们说，lambda表达式是用于实现函数式编程特性的基石，比如像我们今天要讨论的特性：<strong>集合操作</strong>。<br>Kotlin 提供了一些十分出色的操作方法，这些方法原本在那些不支持lambda表达式中是无法用到（或者实现非常啰嗦）的。<br>本文并不是特别在Android平台上实现的特性，但是这些是可以多方面地增强Android应用的开发。现在我们就来讨论下Kotlin提供<br>对不同类型集合的那些操作。</p>
+<p>Lambda表达式是一种在简化代码方面十分强有力的工具，而且有时候会做到过做不到的事情。我们在<br><a href="http://antonioleiva.com/functional-programming-android-kotlin-lambdas/" target="_blank" rel="external">系列第一部分</a><br>(Kotlin lambda表达式：释放函数蕴含的洪荒之力)中讨论了这些特性。</p>
+<p>在上一部分结尾的时候的我们说，lambda表达式是用于实现函数式编程特性的基石，比如像我们今天要<br>讨论的特性：<strong>集合操作</strong>。Kotlin 提供了一些十分出色的操作方法，这些方法原本在那些不支持<br>lambda表达式中是无法用到（或者实现非常啰嗦）的。本文并不是特别在Android平台上实现的特性，<br>但是这些是可以多方面地增强Android应用的开发。现在我们就来讨论下Kotlin提供对不同类型集合的<br>那些操作。</p>
 <h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a><strong>集合</strong></h2><p>尽管我们可以仅仅使用Java提供的集合，但Kotlin也提供了一系列你一定想要的一些很好用的本地接口：</p>
 <ul>
 <li><strong>Iterable</strong>：(不可变)可遍历对象。可以作为一个父类，任何类继承这个接口可以获得对一个元素序列的遍历操作。</li>
 <li><strong>MutableIterable</strong>： 可变可遍历对象。遍历时支持移除遍历条目的可遍历对象。</li>
-<li><strong>Collection</strong>: (不可变)集合这个类代表一个通用的元素集合。我们可以使用一些提供的函数返回集合的大小，判断是否<br>为空集，包含有一个元素还是多个元素。这个类型的集合都仅仅只能去请求读取数据，而不能操作数据，因为这种<br>集合是不可变的。</li>
-<li><strong>MutableCollection</strong>：可变集合。支持增加删除和添加操作的集合Collection。提供了一些额外可以操作数据的方法，例如<br>add, remove, clear等等。</li>
-<li><strong>List</strong>：列表：这可能是用的最多的的集合了。他代表一种有序的元素列表。因为它有序，我们可以通过位置索引来使用get函数<br>请求特定位置上的元素。</li>
+<li><strong>Collection</strong>: (不可变)集合这个类代表一个通用的元素集合。我们可以使用一些提供的函数返回集合的大小，判断是否为空集，包含有一个元素还是多个元素。这个类型的集合都仅仅只能去请求读取数据，而不能操作数据，因为这种集合是不可变的。</li>
+<li><strong>MutableCollection</strong>：可变集合。支持增加删除和添加操作的集合Collection。提供了一些额外可以操作数据的方法，例如add, remove, clear等等。</li>
+<li><strong>List</strong>：列表：这可能是用的最多的的集合了。他代表一种有序的元素列表。因为它有序，我们可以通过位置索引来使用get函数请求特定位置上的元素。</li>
 <li><strong>MutableList</strong>：可变列表：一个支持添加和移除元素的List列表。</li>
 <li><strong>Map</strong>：键值对存储集合（映射）。一个映射中的键名应该是各自唯一的，不重复，也就是说在映射当中不会存在两个相同的键名。</li>
 <li><strong>MutableMap</strong>：一个支持添加和移除元素的Map。</li>
 </ul>
-<h2 id="集合操作"><a href="#集合操作" class="headerlink" title="集合操作"></a><strong>集合操作</strong></h2><p>接下来我们将会使用一些函数式操作来对不同的集合进行不同的操作。我会展示一些定义和示例。这对于了解这些可选的操作很有益，因为<br>这是一种很易于了解这些函数使用场景的方式。</p>
+<h2 id="集合操作"><a href="#集合操作" class="headerlink" title="集合操作"></a><strong>集合操作</strong></h2><p>接下来我们将会使用一些函数式操作来对不同的集合进行不同的操作。我会展示一些定义和示例。这对于了解这些可选的操作很有益，因为这是一种很易于了解这些函数使用场景的方式。</p>
 <h2 id="18-1-聚合操作"><a href="#18-1-聚合操作" class="headerlink" title="18.1 聚合操作"></a>18.1 <strong>聚合操作</strong></h2><p><strong>any 任一函数</strong></p>
 <p>如果至少有一个元素符合给定的谓词判断会返回true。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">val</span> list</span> = listOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line">assertTrue(list.any &#123; it % <span class="number">2</span> == <span class="number">0</span> &#125;)</span><br><span class="line">assertFalse(list.any &#123; it &gt; <span class="number">10</span> &#125;)</span><br></pre></td></tr></table></figure></p>
 <p><strong>all 保全函数</strong></p>
@@ -187,9 +187,13 @@
 <p><strong>count 计数函数</strong></p>
 <p>返回符合给定的谓词判断的元素数量<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">3</span>, list.count &#123; it % <span class="number">2</span> == <span class="number">0</span> &#125;)</span><br></pre></td></tr></table></figure></p>
 <p><strong>fold 左折叠函数</strong> </p>
-<p>以一个初始值开始“积聚”操作，从集合中第一个元素到最后一个元素逐个应用该操作<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">25</span>, list.fold(<span class="number">4</span>) &#123; total, next -&gt; total + next &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>以一个初始值开始“积聚”操作，从集合中第一个元素到最后一个元素逐个应用该操作.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">25</span>, list.fold(<span class="number">4</span>) &#123; total, next -&gt; total + next &#125;)</span><br></pre></td></tr></table></figure>
 <p><strong>foldRight 右折叠函数</strong></p>
-<p>功能同fold函数，但是顺序为从最后一个到第一个元素。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    assertEquals(<span class="number">25</span>, list.foldRight(<span class="number">4</span>) &#123; total, next -&gt; total + next &#125;)</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">**forEach 逐一函数**</span><br><span class="line"></span><br><span class="line">为每一个元素执行给定的操作</span><br><span class="line">```kotlin</span><br><span class="line">    list forEach &#123; println(it) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>功能同fold函数，但是顺序为从最后一个到第一个元素。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">25</span>, list.foldRight(<span class="number">4</span>) &#123; total, next -&gt; total + next &#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>forEach 逐一函数</strong></p>
+<p>为每一个元素执行给定的操作<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list forEach &#123; println(it) &#125;</span><br></pre></td></tr></table></figure></p>
 <p><strong>forEachIndexed 索引化逐一函数</strong></p>
 <p>功能同forEach，不过我们可以连同索引值一同读出。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">list forEachIndexed &#123; index, value </span><br><span class="line">        -&gt; println(<span class="string">"position $index contains a $value"</span>) &#125;</span><br></pre></td></tr></table></figure></p>
 <p><strong>max 最大值函数</strong></p>
