@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="梁工春日的忧郁">
 <meta property="og:description" content="#Android函数式编程(II)#
 前言最近Kotlin 1.0正式版的发布，让Kotlin在众多开发者眼前一亮，越来越多的人开始着眼新的语言进行学习，然而网上的文章多数是介绍Kotlin这门新语言的语法以及一些技术性细节，却发现鲜有讨论Kotlin这门新语言带来的一些方便的函数式语言特性。翻译这篇文章的目的是，把Kotlin提供的内置的一些函数式特性详细的展现出来，以便于我们用到这门语言的一些">
-<meta property="og:updated_time" content="2016-03-16T14:03:25.496Z">
+<meta property="og:updated_time" content="2016-03-16T14:07:18.163Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Kotlin函数式编程(II)">
 <meta name="twitter:description" content="#Android函数式编程(II)#
@@ -282,7 +282,8 @@
 <p><strong>lastIndexOf 取尾索引函数</strong></p>
 <p>Returns last index of element, or -1 if the collection does not contain element.<br>返回给定元素在集合中的最后一个索引，如果集合中不存在该元素，返回-1。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">val</span> listRepeated</span> = listOf(<span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line">assertEquals(<span class="number">5</span>, listRepeated.lastIndexOf(<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">译者注：indexOfLast请一定要和lastIndexOf区分清楚，单词很相像，但它们不一样，前者通过一个匿名函数体设定过滤元素的条件，再取出符合条件的最后一个元素，后者是通过元素取出该元素在集合当中（或有重复项）最后一个该元素的位置索引。</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">*</span><span class="keyword">*</span>译者注<span class="keyword">*</span><span class="keyword">*</span>：indexOfLast请一定要和lastIndexOf区分清楚，单词很相像，但它们不一样，前者通过一个匿名函数体设定过滤元素的条件，再取出符合条件的最后一个元素，后者是通过元素取出该元素在集合当中（或有重复项）最后一个该元素的位置索引。</span><br></pre></td></tr></table></figure>
 <p><strong>lastOrNull 条件取尾函数</strong></p>
 <p>Returns the last element matching the given predicate, or null if no such element was found.</p>
 <p>返回符合给定的谓词条件的最末尾元素，如果不存在符合条件的元素会返回null。</p>
