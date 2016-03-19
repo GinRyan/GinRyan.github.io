@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="梁工春日的忧郁">
 <meta property="og:description" content="#Android函数式编程(II)#
 前言最近Kotlin 1.0正式版的发布，让Kotlin在众多开发者眼前一亮，越来越多的人开始着眼新的语言进行学习，然而网上的文章多数是介绍Kotlin这门新语言的语法以及一些技术性细节，却发现鲜有讨论Kotlin这门新语言带来的一些方便的函数式语言特性。翻译这篇文章的目的是，把Kotlin提供的内置的一些函数式特性详细的展现出来，以便于我们用到这门语言的一些">
-<meta property="og:updated_time" content="2016-03-16T14:09:19.795Z">
+<meta property="og:updated_time" content="2016-03-19T16:31:44.322Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Kotlin函数式编程(II)">
 <meta name="twitter:description" content="#Android函数式编程(II)#
@@ -116,7 +116,9 @@
         <aside class="post-widget" id="post-widget">
 
           
-          <div class="post-share" id="post-share" data-title="Android Kotlin函数式编程(II)" data-pic="/img/logo.jpg" data-summary="技术随行，心动随笔" data-url="http://yoursite.com/2016/03/15/Android函数式编程(II)/index.html">
+          <div class="post-share" id="post-share" data-title="Android Kotlin函数式编程(II)" data-pic="/img/logo.jpg" data-summary="&lt;p&gt;#&lt;strong&gt;Android函数式编程(II)&lt;/strong&gt;#&lt;/p&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;最近Kotlin 1.0正式版的发布，让Kotlin在众多开发者眼前一亮，越来越多的人开始着眼新的语言进行&lt;br&gt;学习，然而网上的文章多数是介绍Kotlin这门新语言的语法以及一些技术性细节，却发现鲜有讨论&lt;br&gt;Kotlin这门新语言带来的一些方便的函数式语言特性。翻译这篇文章的目的是，把Kotlin提供的内置的&lt;br&gt;一些函数式特性详细的展现出来，以便于我们用到这门语言的一些场景时可以适的用上这些特性，帮助增&lt;br&gt;强我们的代码。尽管Kotlin要大范围的使用，还有一段距离，但是这并不能阻挡我们学习新语言的新特&lt;br&gt;性的脚步。&lt;/p&gt;
+&lt;p&gt;原文来自：&lt;a href=&quot;http://antonioleiva.com/collection-operations-kotlin/&quot;&gt;http://antonioleiva.com/collection-operations-kotlin/&lt;/a&gt;&lt;br&gt;" data-url="http://yoursite.com/2016/03/15/Android函数式编程(II)/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>
@@ -165,8 +167,7 @@
 
             <div class="post-content" itemprop="postContent"><p>#<strong>Android函数式编程(II)</strong>#</p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近Kotlin 1.0正式版的发布，让Kotlin在众多开发者眼前一亮，越来越多的人开始着眼新的语言进行<br>学习，然而网上的文章多数是介绍Kotlin这门新语言的语法以及一些技术性细节，却发现鲜有讨论<br>Kotlin这门新语言带来的一些方便的函数式语言特性。翻译这篇文章的目的是，把Kotlin提供的内置的<br>一些函数式特性详细的展现出来，以便于我们用到这门语言的一些场景时可以适的用上这些特性，帮助增<br>强我们的代码。尽管Kotlin要大范围的使用，还有一段距离，但是这并不能阻挡我们学习新语言的新特<br>性的脚步。</p>
-<p>原文来自：<a href="http://antonioleiva.com/collection-operations-kotlin/" target="_blank" rel="external">http://antonioleiva.com/collection-operations-kotlin/</a></p>
-<p>Lambda表达式是一种在简化代码方面十分强有力的工具，而且有时候会做到过做不到的事情。我们在<br><a href="http://antonioleiva.com/functional-programming-android-kotlin-lambdas/" target="_blank" rel="external">系列第一部分</a><br>(Kotlin lambda表达式：释放函数蕴含的洪荒之力)中讨论了这些特性。</p>
+<p>原文来自：<a href="http://antonioleiva.com/collection-operations-kotlin/" target="_blank" rel="external">http://antonioleiva.com/collection-operations-kotlin/</a><br><a id="more"></a><br>Lambda表达式是一种在简化代码方面十分强有力的工具，而且有时候会做到过做不到的事情。我们在<br><a href="http://antonioleiva.com/functional-programming-android-kotlin-lambdas/" target="_blank" rel="external">系列第一部分</a><br>(Kotlin lambda表达式：释放函数蕴含的洪荒之力)中讨论了这些特性。</p>
 <p>在上一部分结尾的时候的我们说，lambda表达式是用于实现函数式编程特性的基石，比如像我们今天要<br>讨论的特性：<strong>集合操作</strong>。Kotlin 提供了一些十分出色的操作方法，这些方法原本在那些不支持<br>lambda表达式中是无法用到（或者实现非常啰嗦）的。本文并不是特别在Android平台上实现的特性，<br>但是这些是可以多方面地增强Android应用的开发。现在我们就来讨论下Kotlin提供对不同类型集合的<br>那些操作。</p>
 <h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a><strong>集合</strong></h2><p>尽管我们可以仅仅使用Java提供的集合，但Kotlin也提供了一系列你一定想要的一些很好用的本地接口：</p>
 <ul>
@@ -337,7 +338,9 @@
   </main>
 <div class="mask" id="mask"></div>
 <a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-<div class="global-share" id="global-share" data-title="Android Kotlin函数式编程(II)" data-pic="/img/logo.jpg" data-summary="技术随行，心动随笔" data-url="http://yoursite.com/2016/03/15/Android函数式编程(II)/index.html">
+<div class="global-share" id="global-share" data-title="Android Kotlin函数式编程(II)" data-pic="/img/logo.jpg" data-summary="&lt;p&gt;#&lt;strong&gt;Android函数式编程(II)&lt;/strong&gt;#&lt;/p&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;最近Kotlin 1.0正式版的发布，让Kotlin在众多开发者眼前一亮，越来越多的人开始着眼新的语言进行&lt;br&gt;学习，然而网上的文章多数是介绍Kotlin这门新语言的语法以及一些技术性细节，却发现鲜有讨论&lt;br&gt;Kotlin这门新语言带来的一些方便的函数式语言特性。翻译这篇文章的目的是，把Kotlin提供的内置的&lt;br&gt;一些函数式特性详细的展现出来，以便于我们用到这门语言的一些场景时可以适的用上这些特性，帮助增&lt;br&gt;强我们的代码。尽管Kotlin要大范围的使用，还有一段距离，但是这并不能阻挡我们学习新语言的新特&lt;br&gt;性的脚步。&lt;/p&gt;
+&lt;p&gt;原文来自：&lt;a href=&quot;http://antonioleiva.com/collection-operations-kotlin/&quot;&gt;http://antonioleiva.com/collection-operations-kotlin/&lt;/a&gt;&lt;br&gt;" data-url="http://yoursite.com/2016/03/15/Android函数式编程(II)/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>
