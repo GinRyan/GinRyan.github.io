@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android Kotlin函数式编程(I)：释放函数式编程的洪荒之力 | 梁工春日的忧郁 | 孤星独吟</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Android,Kotlin">
+  <meta name="description" content="#Android函数式编程(I)：释放函数式编程的洪荒之力#
+原文来自：系列第一部分:释放函数范式的洪荒之力
+当我们在合理地使用函数式编程特性的时候，他可以成为我们的强悍的助力，尽管Java 8包含了一些函数式工具，你也能想象得到Android开发者不会很快地用上（甚至不支持）。所以有很多(JVM平台上)可以替换的语言开始尝试解决这个问题。1译者注：前几天Google破天荒的提前在Google I">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Kotlin函数式编程(I)：释放函数式编程的洪荒之力">
+<meta property="og:url" content="http://yoursite.com/2016/03/19/Android函数式编程(I)/index.html">
+<meta property="og:site_name" content="梁工春日的忧郁">
+<meta property="og:description" content="#Android函数式编程(I)：释放函数式编程的洪荒之力#
+原文来自：系列第一部分:释放函数范式的洪荒之力
+当我们在合理地使用函数式编程特性的时候，他可以成为我们的强悍的助力，尽管Java 8包含了一些函数式工具，你也能想象得到Android开发者不会很快地用上（甚至不支持）。所以有很多(JVM平台上)可以替换的语言开始尝试解决这个问题。1译者注：前几天Google破天荒的提前在Google I">
+<meta property="og:updated_time" content="2016-03-19T14:45:29.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Kotlin函数式编程(I)：释放函数式编程的洪荒之力">
+<meta name="twitter:description" content="#Android函数式编程(I)：释放函数式编程的洪荒之力#
+原文来自：系列第一部分:释放函数范式的洪荒之力
+当我们在合理地使用函数式编程特性的时候，他可以成为我们的强悍的助力，尽管Java 8包含了一些函数式工具，你也能想象得到Android开发者不会很快地用上（甚至不支持）。所以有很多(JVM平台上)可以替换的语言开始尝试解决这个问题。1译者注：前几天Google破天荒的提前在Google I">
+  
+    <link rel="alternative" href="/atom.xml" title="梁工春日的忧郁" type="application/atom+xml">
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="./" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">Xelloss</h5>
+        <a href="mailto:undefined" title="gino3@qq.com" class="mail">gino3@qq.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>Home
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>Archives
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>Tags
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="https://github.com/GinRyan" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>Github
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>梁工春日的忧郁 &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Android Kotlin函数式编程(I)：释放函数式编程的洪荒之力</div>
+        <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">Android Kotlin函数式编程(I)：释放函数式编程的洪荒之力</h1>
+    <h5 class="subtitle">2016-03-19</h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      
+  <article id="post-Android函数式编程(I)" class="article article-type-post" itemscope itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kotlin/">Kotlin</a></li></ul>
+</div>
+      </div>
+      <div class="post-body">
+
+        <aside class="post-widget" id="post-widget">
+
+          
+          <div class="post-share" id="post-share" data-title="Android Kotlin函数式编程(I)：释放函数式编程的洪荒之力" data-pic="/img/logo.jpg" data-summary="技术随行，心动随笔" data-url="http://yoursite.com/2016/03/19/Android函数式编程(I)/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#现代语言的函数式编程"><span class="post-toc-text">现代语言的函数式编程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在Android开发中使用Lambda表达式"><span class="post-toc-text">在Android开发中使用Lambda表达式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#高级用法：扩展语言"><span class="post-toc-text">高级用法：扩展语言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结论"><span class="post-toc-text">结论</span></a></li></ol>
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" itemprop="postContent"><p>#<strong>Android函数式编程(I)：释放函数式编程的洪荒之力</strong>#</p>
+<p>原文来自：<a href="http://antonioleiva.com/functional-programming-android-kotlin-lambdas/" target="_blank" rel="external">系列第一部分:释放函数范式的洪荒之力</a></p>
+<p>当我们在合理地使用函数式编程特性的时候，他可以成为我们的强悍的助力，尽管Java 8包含了一些函数式工具，你也能想象得到Android开发者不会很快地用上（甚至不支持）。所以有很多(JVM平台上)可以替换的语言开始尝试解决这个问题。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">译者注：前几天Google破天荒的提前在Google IO发布会之前发布了<span class="keyword">Android </span>N预览版，并且发布了<span class="keyword">Jack编译器，宣布支持OpenJSD提供的Java </span><span class="number">8</span>特性的编译并且向下兼容至<span class="keyword">Android </span><span class="number">2</span>.<span class="number">3</span>，译者暂时还没有在<span class="keyword">Android上尝试Java </span><span class="number">8</span>和全新的<span class="keyword">Jack编译器。相信Google不我欺。</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="现代语言的函数式编程"><a href="#现代语言的函数式编程" class="headerlink" title="现代语言的函数式编程"></a><strong>现代语言的函数式编程</strong></h2><p><strong>函数式编程语言依赖于函数和不变性</strong>以达到对函数的调用总是返回同类结果。通常情况下，许多现代编程语言做了完美的折中，例如Kotlin和Scala，<strong>将过程式和函数式结合起来</strong>，用以在单一语言中提供这两种强有力的思维理念。其他的语言要不更加偏向于函数式编程，有的直接或者十分贴合过程式语言。</p>
+<h2 id="在Android开发中使用Lambda表达式"><a href="#在Android开发中使用Lambda表达式" class="headerlink" title="在Android开发中使用Lambda表达式"></a><strong>在Android开发中使用Lambda表达式</strong></h2><p>一个lambda表达式是一种定义匿名函数的简单方式。lambda表达式非常有用，可以省掉我们在实现一个抽象类或者接口中必须书写的特定的模版代码。在Kotlin中，<strong>我们可以用用一个函数作为另一个函数的参数</strong>。比如，一个函数需要一个回调，我们可以如下简化定义：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">runAsync</span><span class="params">(callback: <span class="type">(</span>)</span> -&gt; <span class="keyword">Unit</span>)&#123;</span></span><br><span class="line">    ...</span><br><span class="line">    callback()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而且使用时也非常直白。在一些变换之后，对这个函数的调用可以简化成如下：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runAsync &#123; toast(<span class="string">"Finished"</span>) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>Kotlin中还有个更酷的特性，它允许我们我们写单函数接口的好像他们是一个lambda表达式，如此来极大地简化我们的代码。我们可以很容易地看到一个例子。想象一下我们想要在View中写个典型的setOnClickListener()。<br>在Java中的接口定义如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后，我们需要写一个匿名类来实现这个接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">view.setOnClickListener(<span class="keyword">new</span> OnClickListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">        Toast.makeText(v.getContext(), <span class="string">"Click"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这部分代码可以在Kotlin中变换成(使用了<strong><a href="https://github.com/JetBrains/anko" target="_blank" rel="external">Anko</a></strong> toast函数)：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">view.setOnClickListener(<span class="keyword">object</span> : OnClickListener &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onClick</span><span class="params">(v: <span class="type">View</span>)</span> &#123;</span></span><br><span class="line">        toast(<span class="string">"Click"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>正如我之前提到的，Kotlin允许一些经由Java库的优化，还有任何接收一个单函数接口的实现都可以用函数在替代。如果我们要顶一一个函数setOnClickListener()，那么我们可以用如下代码：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">setOnClickListener</span><span class="params">(listener: <span class="type">(View</span>)</span> -&gt; <span class="keyword">Unit</span>)</span></span><br></pre></td></tr></table></figure></p>
+<p>一个lambda表达式由限定在箭头的左侧的该函数的参数(由小括号括起来)，以及箭头右侧的返回类型。在这个情况下，我们可以获得View参数值并且返回Unit类型(无返回)(译者注：同Java的void)。因此，考虑到这一点，我们可以再将前面的代码简化一点点：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.setOnClickListener(&#123; view -&gt; toast(<span class="string">"Click"</span>)&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>真是个不错的变化！当我们定义一个函数的时候，我们一定要用括号括起来，然后箭头左边指定函数的参数值，然后右边是要执行的代码。如果左边的参数值不用的话，我们可以甚至连左边的部分也省略掉：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.setOnClickListener(&#123; toast(<span class="string">"Click"</span>) &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>如果作为参数的函数是最后一个参数，那么我们还可以把它移到括号外：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.setOnClickListener() &#123; toast(<span class="string">"Click"</span>) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后，如果函数是唯一的参数，我们可以省掉小括号：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.setOnClickListener &#123; toast(<span class="string">"Click"</span>) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这可比Java缩减了5倍的源代码，也更易于理解代码做了什么。这非常让人印象深刻。Anko给我们提供了包括用扩展方法的方法简化的版本。之前也展示过的方法：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.onClick &#123; toast(<span class="string">"Click"</span>) &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="高级用法：扩展语言"><a href="#高级用法：扩展语言" class="headerlink" title="高级用法：扩展语言"></a><strong>高级用法：扩展语言</strong></h2><p>多亏了这些变化，我们可以创造我们自己的构建者和代码块。Kotlin提供的标准库有一些有趣的功能,如：with。有个更简单的实现：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">with</span><span class="params">(t: <span class="type">T, body: T.(</span>)</span> -&gt; <span class="keyword">Unit</span>) &#123; t.<span class="title">body</span><span class="params">()</span> &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这个函数给类型T一个对象，并且一个方法将用于扩展方法。实现只要获得对象并且执行这个函数就可以了。作为该函数的第二个参数是另一种函数，它是可以被挪出括号的，因此我们可以创建一个代码块，我们可以用this就可以直接使用这个对象的公共属性和函数了：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">with(forecast) &#123;</span><br><span class="line">    Picasso.with(itemView.ctx).load(iconUrl).into(iconView)</span><br><span class="line">    dateView.text = date</span><br><span class="line">    descriptionView.text = description</span><br><span class="line">    maxTemperatureView.text = <span class="string">"$&#123;high.toString()&#125;º"</span></span><br><span class="line">    minTemperatureView.text = <span class="string">"$&#123;low.toString()&#125;º"</span></span><br><span class="line">    itemView.onClick &#123; itemClick(forecast) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a><strong>结论</strong></h2><p>lambda表达式的力量只是被我们的思维局限了。想要获得它蕴藏的巨大力量，需要我们勤加练习函数式编程，它定会不负如来不负卿。</p>
+<p><strong>译者后记</strong><br><figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">antonioleiva.com提供的两篇关于函数式编程的文章都翻译完了。我是先翻译了II后翻译了I，翻译当中难免会有一些拗口的地方和不符合国人阅读的习惯因此有些词句在上下文的基础上进行了一定程度的引申。至于Kotlin语言本身，前一阵子因为工作比较忙的原因，一直没有拿出时间去勤加练习这门后起之秀。国内已经有一些社区再做Kotlin的中文<span class="meta">doc</span>项目了，而我向来独来独往，不善于召集支援者，想为个上百页的文档翻译真的是心有余而力不足。不过在下也有贡献之心，也偶然发现了国外写《Kotlin <span class="keyword">for</span> Android Developers》这本书的大神的博客，所以这次拿出一点时间来，翻译一下这两篇可以对Kotlin当中函数式编程特性的补漏的文章，是我个人的一份阅读笔记，也算是我回馈开源社区的一点力量和一份心意。</span><br></pre></td></tr></table></figure></p>
+</div>
+
+            
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block prev">
+    
+  </div>
+  <div class="flex-col waves-block next">
+    
+      <a href="/2016/03/15/Android函数式编程(II)/" title="Android Kotlin函数式编程(II)" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
+
+</nav>
+
+
+
+            
+
+
+
+
+        </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<div class="global-share" id="global-share" data-title="Android Kotlin函数式编程(I)：释放函数式编程的洪荒之力" data-pic="/img/logo.jpg" data-summary="技术随行，心动随笔" data-url="http://yoursite.com/2016/03/19/Android函数式编程(I)/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

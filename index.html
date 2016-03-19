@@ -103,6 +103,62 @@
   <ul class="post-list">
   
     <li class="post-list-item">
+  <article id="post-Android函数式编程(I)" class="article article-type-post" itemscope itemprop="blogPost">
+    
+      
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/03/19/Android函数式编程(I)/">Android Kotlin函数式编程(I)：释放函数式编程的洪荒之力</a>
+    </h3>
+  
+
+
+
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kotlin/">Kotlin</a></li></ul>
+</div>
+        <time datetime="2016-03-19T14:00:00.000Z" itemprop="datePublished" class="post-tiem">
+  2016-03-19
+</time>
+      </div>
+      <div class="post-content" itemprop="postContent" >
+        
+          <p>#<strong>Android函数式编程(I)：释放函数式编程的洪荒之力</strong>#</p>
+<p>原文来自：<a href="http://antonioleiva.com/functional-programming-android-kotlin-lambdas/" target="_blank" rel="external">系列第一部分:释放函数范式的洪荒之力</a></p>
+<p>当我们在合理地使用函数式编程特性的时候，他可以成为我们的强悍的助力，尽管Java 8包含了一些函数式工具，你也能想象得到Android开发者不会很快地用上（甚至不支持）。所以有很多(JVM平台上)可以替换的语言开始尝试解决这个问题。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">译者注：前几天Google破天荒的提前在Google IO发布会之前发布了<span class="keyword">Android </span>N预览版，并且发布了<span class="keyword">Jack编译器，宣布支持OpenJSD提供的Java </span><span class="number">8</span>特性的编译并且向下兼容至<span class="keyword">Android </span><span class="number">2</span>.<span class="number">3</span>，译者暂时还没有在<span class="keyword">Android上尝试Java </span><span class="number">8</span>和全新的<span class="keyword">Jack编译器。相信Google不我欺。</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="现代语言的函数式编程"><a href="#现代语言的函数式编程" class="headerlink" title="现代语言的函数式编程"></a><strong>现代语言的函数式编程</strong></h2><p><strong>函数式编程语言依赖于函数和不变性</strong>以达到对函数的调用总是返回同类结果。通常情况下，许多现代编程语言做了完美的折中，例如Kotlin和Scala，<strong>将过程式和函数式结合起来</strong>，用以在单一语言中提供这两种强有力的思维理念。其他的语言要不更加偏向于函数式编程，有的直接或者十分贴合过程式语言。</p>
+<h2 id="在Android开发中使用Lambda表达式"><a href="#在Android开发中使用Lambda表达式" class="headerlink" title="在Android开发中使用Lambda表达式"></a><strong>在Android开发中使用Lambda表达式</strong></h2><p>一个lambda表达式是一种定义匿名函数的简单方式。lambda表达式非常有用，可以省掉我们在实现一个抽象类或者接口中必须书写的特定的模版代码。在Kotlin中，<strong>我们可以用用一个函数作为另一个函数的参数</strong>。比如，一个函数需要一个回调，我们可以如下简化定义：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">runAsync</span><span class="params">(callback: <span class="type">(</span>)</span> -&gt; <span class="keyword">Unit</span>)&#123;</span></span><br><span class="line">    ...</span><br><span class="line">    callback()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而且使用时也非常直白。在一些变换之后，对这个函数的调用可以简化成如下：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runAsync &#123; toast(<span class="string">"Finished"</span>) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>Kotlin中还有个更酷的特性，它允许我们我们写单函数接口的好像他们是一个lambda表达式，如此来极大地简化我们的代码。我们可以很容易地看到一个例子。想象一下我们想要在View中写个典型的setOnClickListener()。<br>在Java中的接口定义如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后，我们需要写一个匿名类来实现这个接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">view.setOnClickListener(<span class="keyword">new</span> OnClickListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">        Toast.makeText(v.getContext(), <span class="string">"Click"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这部分代码可以在Kotlin中变换成(使用了<strong><a href="https://github.com/JetBrains/anko" target="_blank" rel="external">Anko</a></strong> toast函数)：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">view.setOnClickListener(<span class="keyword">object</span> : OnClickListener &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onClick</span><span class="params">(v: <span class="type">View</span>)</span> &#123;</span></span><br><span class="line">        toast(<span class="string">"Click"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>正如我之前提到的，Kotlin允许一些经由Java库的优化，还有任何接收一个单函数接口的实现都可以用函数在替代。如果我们要顶一一个函数setOnClickListener()，那么我们可以用如下代码：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">setOnClickListener</span><span class="params">(listener: <span class="type">(View</span>)</span> -&gt; <span class="keyword">Unit</span>)</span></span><br></pre></td></tr></table></figure></p>
+<p>一个lambda表达式由限定在箭头的左侧的该函数的参数(由小括号括起来)，以及箭头右侧的返回类型。在这个情况下，我们可以获得View参数值并且返回Unit类型(无返回)(译者注：同Java的void)。因此，考虑到这一点，我们可以再将前面的代码简化一点点：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.setOnClickListener(&#123; view -&gt; toast(<span class="string">"Click"</span>)&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>真是个不错的变化！当我们定义一个函数的时候，我们一定要用括号括起来，然后箭头左边指定函数的参数值，然后右边是要执行的代码。如果左边的参数值不用的话，我们可以甚至连左边的部分也省略掉：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.setOnClickListener(&#123; toast(<span class="string">"Click"</span>) &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>如果作为参数的函数是最后一个参数，那么我们还可以把它移到括号外：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.setOnClickListener() &#123; toast(<span class="string">"Click"</span>) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后，如果函数是唯一的参数，我们可以省掉小括号：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.setOnClickListener &#123; toast(<span class="string">"Click"</span>) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这可比Java缩减了5倍的源代码，也更易于理解代码做了什么。这非常让人印象深刻。Anko给我们提供了包括用扩展方法的方法简化的版本。之前也展示过的方法：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.onClick &#123; toast(<span class="string">"Click"</span>) &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="高级用法：扩展语言"><a href="#高级用法：扩展语言" class="headerlink" title="高级用法：扩展语言"></a><strong>高级用法：扩展语言</strong></h2><p>多亏了这些变化，我们可以创造我们自己的构建者和代码块。Kotlin提供的标准库有一些有趣的功能,如：with。有个更简单的实现：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">with</span><span class="params">(t: <span class="type">T, body: T.(</span>)</span> -&gt; <span class="keyword">Unit</span>) &#123; t.<span class="title">body</span><span class="params">()</span> &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这个函数给类型T一个对象，并且一个方法将用于扩展方法。实现只要获得对象并且执行这个函数就可以了。作为该函数的第二个参数是另一种函数，它是可以被挪出括号的，因此我们可以创建一个代码块，我们可以用this就可以直接使用这个对象的公共属性和函数了：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">with(forecast) &#123;</span><br><span class="line">    Picasso.with(itemView.ctx).load(iconUrl).into(iconView)</span><br><span class="line">    dateView.text = date</span><br><span class="line">    descriptionView.text = description</span><br><span class="line">    maxTemperatureView.text = <span class="string">"$&#123;high.toString()&#125;º"</span></span><br><span class="line">    minTemperatureView.text = <span class="string">"$&#123;low.toString()&#125;º"</span></span><br><span class="line">    itemView.onClick &#123; itemClick(forecast) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a><strong>结论</strong></h2><p>lambda表达式的力量只是被我们的思维局限了。想要获得它蕴藏的巨大力量，需要我们勤加练习函数式编程，它定会不负如来不负卿。</p>
+<p><strong>译者后记</strong><br><figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">antonioleiva.com提供的两篇关于函数式编程的文章都翻译完了。我是先翻译了II后翻译了I，翻译当中难免会有一些拗口的地方和不符合国人阅读的习惯因此有些词句在上下文的基础上进行了一定程度的引申。至于Kotlin语言本身，前一阵子因为工作比较忙的原因，一直没有拿出时间去勤加练习这门后起之秀。国内已经有一些社区再做Kotlin的中文<span class="meta">doc</span>项目了，而我向来独来独往，不善于召集支援者，想为个上百页的文档翻译真的是心有余而力不足。不过在下也有贡献之心，也偶然发现了国外写《Kotlin <span class="keyword">for</span> Android Developers》这本书的大神的博客，所以这次拿出一点时间来，翻译一下这两篇可以对Kotlin当中函数式编程特性的补漏的文章，是我个人的一份阅读笔记，也算是我回馈开源社区的一点力量和一份心意。</span><br></pre></td></tr></table></figure></p>
+
+        
+      </div>
+      <div class="post-footer clearfix">
+        <a href="/2016/03/19/Android函数式编程(I)/" class="post-more waves-button-light">MORE</a>
+      </div>
+    
+
+  </article>
+
+
+</li>
+  
+    <li class="post-list-item">
   <article id="post-Android函数式编程(II)" class="article article-type-post" itemscope itemprop="blogPost">
     
       
@@ -355,72 +411,6 @@
 </li>
   
     <li class="post-list-item">
-  <article id="post-SpringMVC学习笔记 之1 SpringMVC环境搭建和一个展示Demo" class="article article-type-post" itemscope itemprop="blogPost">
-    
-      
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2015/04/03/SpringMVC学习笔记 之1 SpringMVC环境搭建和一个展示Demo/">SpringMVC学习笔记 之1 SpringMVC环境搭建和一个Demo</a>
-    </h3>
-  
-
-
-
-      <div class="post-meat flex-row">
-        <div class="flex-col">
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC学习/">SpringMVC学习</a></li></ul>
-</div>
-        <time datetime="2015-04-03T12:33:30.000Z" itemprop="datePublished" class="post-tiem">
-  2015-04-03
-</time>
-      </div>
-      <div class="post-content" itemprop="postContent" >
-        
-          <h1 id="SpringMVC学习笔记-之1-SpringMVC环境搭建和一个Demo"><a href="#SpringMVC学习笔记-之1-SpringMVC环境搭建和一个Demo" class="headerlink" title="SpringMVC学习笔记 之1 SpringMVC环境搭建和一个Demo"></a>SpringMVC学习笔记 之1 SpringMVC环境搭建和一个Demo</h1><p>首先我们需要Eclipse创建一个动态网站项目<code>SpringMVC1</code></p>
-<p>然后导入SpringMVC框架包(可能是Maven自动下载的，也可以是自己手动下载以后导入的)</p>
-<p>我们需要配置<code>DispatcherServlet</code>入口。作为SpringMVC的分发入口。<br>修改<code>WEB-INF/web.xml</code>，添加以下节点：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">   <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>在/WEB-INF目录下新建一个xml文件叫<code>springMVC-servlet.xml</code>，<br>新增以下配置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span></span><br><span class="line">	<span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span><br><span class="line">	<span class="attr">xmlns:jdbc</span>=<span class="string">"http://www.springframework.org/schema/jdbc"</span> <span class="attr">xmlns:jee</span>=<span class="string">"http://www.springframework.org/schema/jee"</span></span><br><span class="line">	<span class="attr">xmlns:lang</span>=<span class="string">"http://www.springframework.org/schema/lang"</span> <span class="attr">xmlns:mvc</span>=<span class="string">"http://www.springframework.org/schema/mvc"</span></span><br><span class="line">	<span class="attr">xmlns:oxm</span>=<span class="string">"http://www.springframework.org/schema/oxm"</span> <span class="attr">xmlns:p</span>=<span class="string">"http://www.springframework.org/schema/p"</span></span><br><span class="line">	<span class="attr">xmlns:task</span>=<span class="string">"http://www.springframework.org/schema/task"</span> <span class="attr">xmlns:tx</span>=<span class="string">"http://www.springframework.org/schema/tx"</span></span><br><span class="line">	<span class="attr">xmlns:util</span>=<span class="string">"http://www.springframework.org/schema/util"</span></span><br><span class="line">	<span class="attr">xmlns:webflow-config</span>=<span class="string">"http://www.springframework.org/schema/webflow-config"</span></span><br><span class="line">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd</span><br><span class="line">		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd</span><br><span class="line">		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd</span><br><span class="line">		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd</span><br><span class="line">		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd</span><br><span class="line">		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd</span><br><span class="line">		http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd</span><br><span class="line">		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd</span><br><span class="line">		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd</span><br><span class="line">		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd</span><br><span class="line">		http://www.springframework.org/schema/webflow-config </span><br><span class="line">		http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd"</span></span><br><span class="line">	<span class="attr">default-autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--使用了所有可用的命名空间，以保证以后可能用到的所有的特性--&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 视图解释类 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"viewResolver"</span></span><br><span class="line">		<span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prefix"</span> <span class="attr">value</span>=<span class="string">"/WEB-INF/jsp/"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suffix"</span> <span class="attr">value</span>=<span class="string">".jsp"</span> /&gt;</span><span class="comment">&lt;!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"viewClass"</span> <span class="attr">value</span>=<span class="string">"org.springframework.web.servlet.view.JstlView"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>这样就配置好了SpringMVC的解析器入口</p>
-<p>接下来，我们可以开始创建Controller的实现，来处理一个请求。<br>Controller必须要实现一个接口，这个接口是<code>org.springframework.web.servlet.mvc.Controller</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldController</span> <span class="keyword">implements</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequest</span><span class="params">(HttpServletRequest httpServletRequest,</span><br><span class="line">			HttpServletResponse httpServletResponse)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Hello spring mvc!"</span>);</span><br><span class="line">		<span class="comment">//这里我们举例返回一个名叫/welcome的视图</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"/welcome"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>然后，我们需要创建一个jsp页面welcome.jsp，由于之前在springMVC-servlet.xml的配置中，<code>&lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;</code> 这一行的配置决定了视图页面都会从WEB-INF/jsp/目录下去查找，那么我们就要在WEB-INF/jsp/目录下创建welcome.jsp。</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=utf-8&quot;
-pageEncoding=&quot;UTF-8&quot;%&gt;
-&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
-        &lt;title&gt;Welcome&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        欢迎使用SpringMVC框架。
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>创建了控制器和页面以后，我们就需要在springMVC-servlet.xml文件中添加一个bean。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"/test1/helloworld"</span> <span class="attr">class</span>=<span class="string">"com.tgb.web.controller.HelloWorldController"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>最后我们就可以通过Eclipse来启动Tomcat容器来运行这个Demo应用了。</p>
-<pre><code>需要注意的是，配置文件springMVC-servlet.xml的文件名称可不是随便起的，而是遵循一定的命名规则。SpringMVC中约定了，
-在web.xml中添加的servlet节点中，servlet-name的值加上“-”(横线)加上servlet，加上扩展名xml，就是对应于这个节点中
-视图解析器的配置文件名。比如，上例中使用了springMVC作为servlet的名称，那么配置文件就要相应的使用springMVC-servlet.xml
-</code></pre><p>启动Tomcat完毕后，我们可以访问<code>http://localhost:8080/SpringMVC1/test1/helloworld</code> 去访问页面了。<br>为什么是这个地址？我们来解释一下，SpringMVC的项目的目录名称是SpringMVC1，因此在Tomcat下作为一个单独的虚拟目录。<br>我们定义这个Controller的id的时候，在bean的节点中定义的id是<code>/test1/helloworld</code> 因此，SpringMVC在解析地址的时候<br>会将这个目录映射到这个<code>com.tgb.web.controller.HelloWorldController</code>控制器上，这控制器中的回调方法此时会被调用，<br>最终会返回一个<code>new ModelAndView(&quot;/welcome&quot;)</code>，视图的名字为<code>/welcome</code>，返回的则是<code>/welcome.jsp</code>文件的页面。</p>
-<p>此时我们创建的welcome.jsp页面，就通过<code>/test1/helloworld</code>地址访问到展现我们的面前。</p>
-<p>题外话：<br>我们可能不止一次的定义页面配置文件，也就是springMVC-servlet.xml，我们可能会创建springMVC1-servlet.xml springMVC2-servlet.xml等等，或者改变文件路径和默认文件名。这该怎么做呢？</p>
-<p>我们可以修改web.xml文件中的servlet节点，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath*:config/springMVC-servlet.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>新增加了的init-param指明参数名为contextConfigLocation的属性值是<code>classpath*:config/springMVC-servlet.xml</code> 这个值所指定的文件路径就是在类路径下的config包下面<code>springMVC-servlet.xml</code>文件，甚至这个文件名的名称也可以重新命名，不遵守我们上面所说的那个文件名的预定了。</p>
-
-        
-      </div>
-      <div class="post-footer clearfix">
-        <a href="/2015/04/03/SpringMVC学习笔记 之1 SpringMVC环境搭建和一个展示Demo/" class="post-more waves-button-light">MORE</a>
-      </div>
-    
-
-  </article>
-
-
-</li>
-  
-    <li class="post-list-item">
   <article id="post-SpringMVC学习笔记 之4 静态文件的访问" class="article article-type-post" itemscope itemprop="blogPost">
     
       
@@ -428,7 +418,7 @@ pageEncoding=&quot;UTF-8&quot;%&gt;
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2015/04/03/SpringMVC学习笔记 之4 静态文件的访问/">SpringMVC学习笔记 之4 静态文件的访问</a>
+      <a class="post-title-link" href="/2015/04/05/SpringMVC学习笔记 之4 静态文件的访问/">SpringMVC学习笔记 之4 静态文件的访问</a>
     </h3>
   
 
@@ -438,8 +428,8 @@ pageEncoding=&quot;UTF-8&quot;%&gt;
         <div class="flex-col">
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC学习/">SpringMVC学习</a></li></ul>
 </div>
-        <time datetime="2015-04-03T12:33:30.000Z" itemprop="datePublished" class="post-tiem">
-  2015-04-03
+        <time datetime="2015-04-05T13:30:30.000Z" itemprop="datePublished" class="post-tiem">
+  2015-04-05
 </time>
       </div>
       <div class="post-content" itemprop="postContent" >
@@ -451,7 +441,70 @@ pageEncoding=&quot;UTF-8&quot;%&gt;
         
       </div>
       <div class="post-footer clearfix">
-        <a href="/2015/04/03/SpringMVC学习笔记 之4 静态文件的访问/" class="post-more waves-button-light">MORE</a>
+        <a href="/2015/04/05/SpringMVC学习笔记 之4 静态文件的访问/" class="post-more waves-button-light">MORE</a>
+      </div>
+    
+
+  </article>
+
+
+</li>
+  
+    <li class="post-list-item">
+  <article id="post-SpringMVC学习笔记 之3 控制器内写多个方法" class="article article-type-post" itemscope itemprop="blogPost">
+    
+      
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2015/04/04/SpringMVC学习笔记 之3 控制器内写多个方法/">SpringMVC学习笔记 之3 控制器内写多个方法</a>
+    </h3>
+  
+
+
+
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC学习/">SpringMVC学习</a></li></ul>
+</div>
+        <time datetime="2015-04-04T12:33:30.000Z" itemprop="datePublished" class="post-tiem">
+  2015-04-04
+</time>
+      </div>
+      <div class="post-content" itemprop="postContent" >
+        
+          <h1 id="SpringMVC学习笔记-之3-控制器内写多个响应请求"><a href="#SpringMVC学习笔记-之3-控制器内写多个响应请求" class="headerlink" title="SpringMVC学习笔记 之3 控制器内写多个响应请求"></a>SpringMVC学习笔记 之3 控制器内写多个响应请求</h1><p>现在介绍一下如何在一个controller之内相应多种请求。</p>
+<p>首先，我们先要知道为什么要这么做。<br>在一个大型项目中，针对某一个特定的类型数据模型可能会有多种操作，比如CRUD等。如果我们把他们一个一个分开来写的话，会出现大量Controller的子类，而这些子类会和其他的数据模型的控制器混合在一起，我们在组织和规划url地址和流程的时候就会有非常多的麻烦。SpringMVC给了我们一个横向的解决方案，去帮助我们编写能够处理多种相应请求的控制器。也就是说，一个Controller里面，可以通过不同的方法去处理同一类(或不同种类)的业务，帮助我们有条理的梳理这些页面。</p>
+<p>在这里，我们需要在<code>springMVC-servlet.xml</code>这个配置文件中，新增加一个bean。<br>如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 参数方法解析器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"paramMethodResolver"</span></span><br><span class="line">	<span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"paramName"</span> <span class="attr">value</span>=<span class="string">"action"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这个bean当中的类名是ParameterMethodNameResolver，看名字就能明白，它是参数方法解析器。其中有一个属性叫做<code>paramName</code>，他是这个类中的一个变量。当我们指定这个变量值为<code>action</code>以后，我们在这个对应的请求上就会多出一个<code>action</code>参数，来匹配相应的方法名去执行相应的动作。</p>
+<p>接下来，我们要在上一节的项目当中，创建一个新的Controller。</p>
+<p>我们姑且将之命名为MultiController，并且在这个类当中添加两个方法add和update作为举例，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.tgb.web.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.multiaction.MultiActionController;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiController</span> <span class="keyword">extends</span> <span class="title">MultiActionController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ModelAndView <span class="title">add</span><span class="params">(HttpServletRequest request,</span><br><span class="line">			HttpServletResponse response)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">" go --- add "</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"/multi"</span>, <span class="string">"method"</span>, <span class="string">"来自 add"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ModelAndView <span class="title">update</span><span class="params">(HttpServletRequest request,</span><br><span class="line">			HttpServletResponse response)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">" go --- update"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"/multi"</span>, <span class="string">"method"</span>, <span class="string">"来自 update"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如代码所示，有几个关键的点需要说明一下。<br>1、多方法控制器需要继承一个类<code>org.springframework.web.servlet.mvc.multiaction.MultiActionController</code>，从名称上看出来的，这个类也一定是为了让控制器能够处理多种动作而服务的。<br>2、多方法控制器内的方法名随意，但是参数和返回值是已经指定好的，参数有两个：<br><code>HttpServletRequest request,HttpServletResponse response</code> 用于获取请求和定制相应信息。我们暂且用不着。<br>3、返回值是ModelAndView，返回值中的视图名我们用了同一个视图，我们为了区分是来源于哪一个控制器中的方法，所以加上了一个模型名”method”，以便于我们在页面中取出这个值。</p>
+<p>回到springMVC-servlet.xml文件中，我们需要增加一个bean，用于注册这个控制器，如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 多方法解析的控制器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"/test1/multi"</span> <span class="attr">class</span>=<span class="string">"com.tgb.web.controller.MultiController"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"methodNameResolver"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"paramMethodResolver"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>同时，需要添加一个变量的引用，引用之前加入的bean，也就是将id为<code>paramMethodResolver</code>的参数方法解析器引用到<code>methodNameResolver</code>属性中。</p>
+<p>最后，我们创建用于显示这个控制器处理请求的JSP页面multi.jsp，并如下编辑：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	...</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;p&gt;多方法控制器&lt;/p&gt;</span><br><span class="line">	本次方法是 $&#123;method&#125;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">	...</span><br></pre></td></tr></table></figure></p>
+<p>好了，接下来我们运行Tomcat打开本例页面：</p>
+<h2 id="请求http-localhost-8080-SpringMVC1-test1-multi-action-add-效果："><a href="#请求http-localhost-8080-SpringMVC1-test1-multi-action-add-效果：" class="headerlink" title="请求http://localhost:8080/SpringMVC1/test1/multi?action=add 效果："></a>请求<a href="http://localhost:8080/SpringMVC1/test1/multi?action=add" target="_blank" rel="external">http://localhost:8080/SpringMVC1/test1/multi?action=add</a> 效果：</h2><p></p><p>多方法控制器</p><br>本次方法是 来自 add<p></p>
+<hr>
+<h2 id="请求http-localhost-8080-SpringMVC1-test1-multi-action-update-效果："><a href="#请求http-localhost-8080-SpringMVC1-test1-multi-action-update-效果：" class="headerlink" title="请求http://localhost:8080/SpringMVC1/test1/multi?action=update 效果："></a>请求<a href="http://localhost:8080/SpringMVC1/test1/multi?action=update" target="_blank" rel="external">http://localhost:8080/SpringMVC1/test1/multi?action=update</a> 效果：</h2><p></p><p>多方法控制器</p><br>本次方法是 来自 update<p></p>
+<hr>
+<p>我们来看一下这url地址：</p>
+<pre><code>1、SpringMVC1依然是我们示例项目目录的地址;
+
+2、/test1/multi是我们在注册MultiController为一个bean的时候的bean的名称，
+也就是请求映射的地址；
+
+3、参数action，使我们注册参数方法解析器类为一个bean的时候，定义的参数名属性的值，
+因此用于映射到不同方法上的参数名为action；
+
+4、参数值update，当参数action的值为add或update时，参数方法解析器会去找到相应名
+称的方法签名，并执行这个方法。比如，参数值为add就调用add方法，参数值为update方法。
+</code></pre>
+        
+      </div>
+      <div class="post-footer clearfix">
+        <a href="/2015/04/04/SpringMVC学习笔记 之3 控制器内写多个方法/" class="post-more waves-button-light">MORE</a>
       </div>
     
 
@@ -528,14 +581,14 @@ pageEncoding=&quot;UTF-8&quot;%&gt;
 </li>
   
     <li class="post-list-item">
-  <article id="post-SpringMVC学习笔记 之3 控制器内写多个方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <article id="post-SpringMVC学习笔记 之1 SpringMVC环境搭建和一个展示Demo" class="article article-type-post" itemscope itemprop="blogPost">
     
       
 
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2015/04/03/SpringMVC学习笔记 之3 控制器内写多个方法/">SpringMVC学习笔记 之3 控制器内写多个方法</a>
+      <a class="post-title-link" href="/2015/04/02/SpringMVC学习笔记 之1 SpringMVC环境搭建和一个展示Demo/">SpringMVC学习笔记 之1 SpringMVC环境搭建和一个Demo</a>
     </h3>
   
 
@@ -545,43 +598,46 @@ pageEncoding=&quot;UTF-8&quot;%&gt;
         <div class="flex-col">
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC学习/">SpringMVC学习</a></li></ul>
 </div>
-        <time datetime="2015-04-03T12:33:30.000Z" itemprop="datePublished" class="post-tiem">
-  2015-04-03
+        <time datetime="2015-04-02T12:33:30.000Z" itemprop="datePublished" class="post-tiem">
+  2015-04-02
 </time>
       </div>
       <div class="post-content" itemprop="postContent" >
         
-          <h1 id="SpringMVC学习笔记-之3-控制器内写多个响应请求"><a href="#SpringMVC学习笔记-之3-控制器内写多个响应请求" class="headerlink" title="SpringMVC学习笔记 之3 控制器内写多个响应请求"></a>SpringMVC学习笔记 之3 控制器内写多个响应请求</h1><p>现在介绍一下如何在一个controller之内相应多种请求。</p>
-<p>首先，我们先要知道为什么要这么做。<br>在一个大型项目中，针对某一个特定的类型数据模型可能会有多种操作，比如CRUD等。如果我们把他们一个一个分开来写的话，会出现大量Controller的子类，而这些子类会和其他的数据模型的控制器混合在一起，我们在组织和规划url地址和流程的时候就会有非常多的麻烦。SpringMVC给了我们一个横向的解决方案，去帮助我们编写能够处理多种相应请求的控制器。也就是说，一个Controller里面，可以通过不同的方法去处理同一类(或不同种类)的业务，帮助我们有条理的梳理这些页面。</p>
-<p>在这里，我们需要在<code>springMVC-servlet.xml</code>这个配置文件中，新增加一个bean。<br>如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 参数方法解析器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"paramMethodResolver"</span></span><br><span class="line">	<span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"paramName"</span> <span class="attr">value</span>=<span class="string">"action"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>这个bean当中的类名是ParameterMethodNameResolver，看名字就能明白，它是参数方法解析器。其中有一个属性叫做<code>paramName</code>，他是这个类中的一个变量。当我们指定这个变量值为<code>action</code>以后，我们在这个对应的请求上就会多出一个<code>action</code>参数，来匹配相应的方法名去执行相应的动作。</p>
-<p>接下来，我们要在上一节的项目当中，创建一个新的Controller。</p>
-<p>我们姑且将之命名为MultiController，并且在这个类当中添加两个方法add和update作为举例，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.tgb.web.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.multiaction.MultiActionController;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiController</span> <span class="keyword">extends</span> <span class="title">MultiActionController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ModelAndView <span class="title">add</span><span class="params">(HttpServletRequest request,</span><br><span class="line">			HttpServletResponse response)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">" go --- add "</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"/multi"</span>, <span class="string">"method"</span>, <span class="string">"来自 add"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ModelAndView <span class="title">update</span><span class="params">(HttpServletRequest request,</span><br><span class="line">			HttpServletResponse response)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">" go --- update"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"/multi"</span>, <span class="string">"method"</span>, <span class="string">"来自 update"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如代码所示，有几个关键的点需要说明一下。<br>1、多方法控制器需要继承一个类<code>org.springframework.web.servlet.mvc.multiaction.MultiActionController</code>，从名称上看出来的，这个类也一定是为了让控制器能够处理多种动作而服务的。<br>2、多方法控制器内的方法名随意，但是参数和返回值是已经指定好的，参数有两个：<br><code>HttpServletRequest request,HttpServletResponse response</code> 用于获取请求和定制相应信息。我们暂且用不着。<br>3、返回值是ModelAndView，返回值中的视图名我们用了同一个视图，我们为了区分是来源于哪一个控制器中的方法，所以加上了一个模型名”method”，以便于我们在页面中取出这个值。</p>
-<p>回到springMVC-servlet.xml文件中，我们需要增加一个bean，用于注册这个控制器，如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 多方法解析的控制器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"/test1/multi"</span> <span class="attr">class</span>=<span class="string">"com.tgb.web.controller.MultiController"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"methodNameResolver"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"paramMethodResolver"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>同时，需要添加一个变量的引用，引用之前加入的bean，也就是将id为<code>paramMethodResolver</code>的参数方法解析器引用到<code>methodNameResolver</code>属性中。</p>
-<p>最后，我们创建用于显示这个控制器处理请求的JSP页面multi.jsp，并如下编辑：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	...</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;p&gt;多方法控制器&lt;/p&gt;</span><br><span class="line">	本次方法是 $&#123;method&#125;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">	...</span><br></pre></td></tr></table></figure></p>
-<p>好了，接下来我们运行Tomcat打开本例页面：</p>
-<h2 id="请求http-localhost-8080-SpringMVC1-test1-multi-action-add-效果："><a href="#请求http-localhost-8080-SpringMVC1-test1-multi-action-add-效果：" class="headerlink" title="请求http://localhost:8080/SpringMVC1/test1/multi?action=add 效果："></a>请求<a href="http://localhost:8080/SpringMVC1/test1/multi?action=add" target="_blank" rel="external">http://localhost:8080/SpringMVC1/test1/multi?action=add</a> 效果：</h2><p></p><p>多方法控制器</p><br>本次方法是 来自 add<p></p>
-<hr>
-<h2 id="请求http-localhost-8080-SpringMVC1-test1-multi-action-update-效果："><a href="#请求http-localhost-8080-SpringMVC1-test1-multi-action-update-效果：" class="headerlink" title="请求http://localhost:8080/SpringMVC1/test1/multi?action=update 效果："></a>请求<a href="http://localhost:8080/SpringMVC1/test1/multi?action=update" target="_blank" rel="external">http://localhost:8080/SpringMVC1/test1/multi?action=update</a> 效果：</h2><p></p><p>多方法控制器</p><br>本次方法是 来自 update<p></p>
-<hr>
-<p>我们来看一下这url地址：</p>
-<pre><code>1、SpringMVC1依然是我们示例项目目录的地址;
+          <h1 id="SpringMVC学习笔记-之1-SpringMVC环境搭建和一个Demo"><a href="#SpringMVC学习笔记-之1-SpringMVC环境搭建和一个Demo" class="headerlink" title="SpringMVC学习笔记 之1 SpringMVC环境搭建和一个Demo"></a>SpringMVC学习笔记 之1 SpringMVC环境搭建和一个Demo</h1><p>首先我们需要Eclipse创建一个动态网站项目<code>SpringMVC1</code></p>
+<p>然后导入SpringMVC框架包(可能是Maven自动下载的，也可以是自己手动下载以后导入的)</p>
+<p>我们需要配置<code>DispatcherServlet</code>入口。作为SpringMVC的分发入口。<br>修改<code>WEB-INF/web.xml</code>，添加以下节点：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">   <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在/WEB-INF目录下新建一个xml文件叫<code>springMVC-servlet.xml</code>，<br>新增以下配置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span></span><br><span class="line">	<span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span><br><span class="line">	<span class="attr">xmlns:jdbc</span>=<span class="string">"http://www.springframework.org/schema/jdbc"</span> <span class="attr">xmlns:jee</span>=<span class="string">"http://www.springframework.org/schema/jee"</span></span><br><span class="line">	<span class="attr">xmlns:lang</span>=<span class="string">"http://www.springframework.org/schema/lang"</span> <span class="attr">xmlns:mvc</span>=<span class="string">"http://www.springframework.org/schema/mvc"</span></span><br><span class="line">	<span class="attr">xmlns:oxm</span>=<span class="string">"http://www.springframework.org/schema/oxm"</span> <span class="attr">xmlns:p</span>=<span class="string">"http://www.springframework.org/schema/p"</span></span><br><span class="line">	<span class="attr">xmlns:task</span>=<span class="string">"http://www.springframework.org/schema/task"</span> <span class="attr">xmlns:tx</span>=<span class="string">"http://www.springframework.org/schema/tx"</span></span><br><span class="line">	<span class="attr">xmlns:util</span>=<span class="string">"http://www.springframework.org/schema/util"</span></span><br><span class="line">	<span class="attr">xmlns:webflow-config</span>=<span class="string">"http://www.springframework.org/schema/webflow-config"</span></span><br><span class="line">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd</span><br><span class="line">		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd</span><br><span class="line">		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd</span><br><span class="line">		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd</span><br><span class="line">		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd</span><br><span class="line">		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd</span><br><span class="line">		http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd</span><br><span class="line">		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd</span><br><span class="line">		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd</span><br><span class="line">		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd</span><br><span class="line">		http://www.springframework.org/schema/webflow-config </span><br><span class="line">		http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd"</span></span><br><span class="line">	<span class="attr">default-autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--使用了所有可用的命名空间，以保证以后可能用到的所有的特性--&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 视图解释类 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"viewResolver"</span></span><br><span class="line">		<span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prefix"</span> <span class="attr">value</span>=<span class="string">"/WEB-INF/jsp/"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suffix"</span> <span class="attr">value</span>=<span class="string">".jsp"</span> /&gt;</span><span class="comment">&lt;!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"viewClass"</span> <span class="attr">value</span>=<span class="string">"org.springframework.web.servlet.view.JstlView"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这样就配置好了SpringMVC的解析器入口</p>
+<p>接下来，我们可以开始创建Controller的实现，来处理一个请求。<br>Controller必须要实现一个接口，这个接口是<code>org.springframework.web.servlet.mvc.Controller</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldController</span> <span class="keyword">implements</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequest</span><span class="params">(HttpServletRequest httpServletRequest,</span><br><span class="line">			HttpServletResponse httpServletResponse)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Hello spring mvc!"</span>);</span><br><span class="line">		<span class="comment">//这里我们举例返回一个名叫/welcome的视图</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"/welcome"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后，我们需要创建一个jsp页面welcome.jsp，由于之前在springMVC-servlet.xml的配置中，<code>&lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;</code> 这一行的配置决定了视图页面都会从WEB-INF/jsp/目录下去查找，那么我们就要在WEB-INF/jsp/目录下创建welcome.jsp。</p>
+<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=utf-8&quot;
+pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+        &lt;title&gt;Welcome&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        欢迎使用SpringMVC框架。
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>创建了控制器和页面以后，我们就需要在springMVC-servlet.xml文件中添加一个bean。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"/test1/helloworld"</span> <span class="attr">class</span>=<span class="string">"com.tgb.web.controller.HelloWorldController"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>最后我们就可以通过Eclipse来启动Tomcat容器来运行这个Demo应用了。</p>
+<pre><code>需要注意的是，配置文件springMVC-servlet.xml的文件名称可不是随便起的，而是遵循一定的命名规则。SpringMVC中约定了，
+在web.xml中添加的servlet节点中，servlet-name的值加上“-”(横线)加上servlet，加上扩展名xml，就是对应于这个节点中
+视图解析器的配置文件名。比如，上例中使用了springMVC作为servlet的名称，那么配置文件就要相应的使用springMVC-servlet.xml
+</code></pre><p>启动Tomcat完毕后，我们可以访问<code>http://localhost:8080/SpringMVC1/test1/helloworld</code> 去访问页面了。<br>为什么是这个地址？我们来解释一下，SpringMVC的项目的目录名称是SpringMVC1，因此在Tomcat下作为一个单独的虚拟目录。<br>我们定义这个Controller的id的时候，在bean的节点中定义的id是<code>/test1/helloworld</code> 因此，SpringMVC在解析地址的时候<br>会将这个目录映射到这个<code>com.tgb.web.controller.HelloWorldController</code>控制器上，这控制器中的回调方法此时会被调用，<br>最终会返回一个<code>new ModelAndView(&quot;/welcome&quot;)</code>，视图的名字为<code>/welcome</code>，返回的则是<code>/welcome.jsp</code>文件的页面。</p>
+<p>此时我们创建的welcome.jsp页面，就通过<code>/test1/helloworld</code>地址访问到展现我们的面前。</p>
+<p>题外话：<br>我们可能不止一次的定义页面配置文件，也就是springMVC-servlet.xml，我们可能会创建springMVC1-servlet.xml springMVC2-servlet.xml等等，或者改变文件路径和默认文件名。这该怎么做呢？</p>
+<p>我们可以修改web.xml文件中的servlet节点，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath*:config/springMVC-servlet.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>新增加了的init-param指明参数名为contextConfigLocation的属性值是<code>classpath*:config/springMVC-servlet.xml</code> 这个值所指定的文件路径就是在类路径下的config包下面<code>springMVC-servlet.xml</code>文件，甚至这个文件名的名称也可以重新命名，不遵守我们上面所说的那个文件名的预定了。</p>
 
-2、/test1/multi是我们在注册MultiController为一个bean的时候的bean的名称，
-也就是请求映射的地址；
-
-3、参数action，使我们注册参数方法解析器类为一个bean的时候，定义的参数名属性的值，
-因此用于映射到不同方法上的参数名为action；
-
-4、参数值update，当参数action的值为add或update时，参数方法解析器会去找到相应名
-称的方法签名，并执行这个方法。比如，参数值为add就调用add方法，参数值为update方法。
-</code></pre>
         
       </div>
       <div class="post-footer clearfix">
-        <a href="/2015/04/03/SpringMVC学习笔记 之3 控制器内写多个方法/" class="post-more waves-button-light">MORE</a>
+        <a href="/2015/04/02/SpringMVC学习笔记 之1 SpringMVC环境搭建和一个展示Demo/" class="post-more waves-button-light">MORE</a>
       </div>
     
 
