@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Spring学习5~7节 自动装配，Bean的关系 | 梁工春日的忧郁 | 孤星独吟</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Java,J2EE,Spring">
+  <meta name="description" content="Spring5，自动装配何为自动装配？在Spring中的配置文件里，配置的bean，可以通过id名称或者类型对bean进行自动装配（其实就是容器帮我们赋值）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring学习5~7节 自动装配，Bean的关系">
+<meta property="og:url" content="http://yoursite.com/2016/03/24/Spring学习5~7/index.html">
+<meta property="og:site_name" content="梁工春日的忧郁">
+<meta property="og:description" content="Spring5，自动装配何为自动装配？在Spring中的配置文件里，配置的bean，可以通过id名称或者类型对bean进行自动装配（其实就是容器帮我们赋值）。">
+<meta property="og:updated_time" content="2016-04-23T03:44:33.755Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring学习5~7节 自动装配，Bean的关系">
+<meta name="twitter:description" content="Spring5，自动装配何为自动装配？在Spring中的配置文件里，配置的bean，可以通过id名称或者类型对bean进行自动装配（其实就是容器帮我们赋值）。">
+  
+    <link rel="alternative" href="/atom.xml" title="梁工春日的忧郁" type="application/atom+xml">
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="./" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">Xelloss</h5>
+        <a href="mailto:undefined" title="gino3@qq.com" class="mail">gino3@qq.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>Home
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>Archives
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>Tags
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="https://github.com/GinRyan" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>Github
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>梁工春日的忧郁 &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Spring学习5~7节 自动装配，Bean的关系</div>
+        <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">Spring学习5~7节 自动装配，Bean的关系</h1>
+    <h5 class="subtitle">2016-03-24</h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      
+  <article id="post-Spring学习5~7" class="article article-type-post" itemscope itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/J2EE/">J2EE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+</div>
+      </div>
+      <div class="post-body">
+
+        <aside class="post-widget" id="post-widget">
+
+          
+          <div class="post-share" id="post-share" data-title="Spring学习5~7节 自动装配，Bean的关系" data-pic="/img/logo.jpg" data-summary="&lt;hr&gt;
+&lt;h2 id=&quot;Spring5，自动装配&quot;&gt;&lt;a href=&quot;#Spring5，自动装配&quot; class=&quot;headerlink&quot; title=&quot;Spring5，自动装配&quot;&gt;&lt;/a&gt;Spring5，自动装配&lt;/h2&gt;&lt;p&gt;何为自动装配？&lt;br&gt;在Spring中的配置文件里，配置的bean，可以通过id名称或者类型对bean进行自动装配（其实就是容器帮我们赋值）。&lt;br&gt;" data-url="http://yoursite.com/2016/03/24/Spring学习5~7/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Spring5，自动装配"><span class="post-toc-text">Spring5，自动装配</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Bean的关系"><span class="post-toc-text">Bean的关系</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1、继承"><span class="post-toc-text">1、继承</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2、依赖"><span class="post-toc-text">2、依赖</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Bean的作用域"><span class="post-toc-text">Bean的作用域</span></a></li></ol>
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" itemprop="postContent"><hr>
+<h2 id="Spring5，自动装配"><a href="#Spring5，自动装配" class="headerlink" title="Spring5，自动装配"></a>Spring5，自动装配</h2><p>何为自动装配？<br>在Spring中的配置文件里，配置的bean，可以通过id名称或者类型对bean进行自动装配（其实就是容器帮我们赋值）。<br><a id="more"></a><br>看一个例子：</p>
+<pre><code>Person.java
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.ginryan.raku.autowire;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoPerson</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> Address address;</span><br><span class="line">	<span class="keyword">private</span> Car car;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Address <span class="title">getAddress</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> address;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAddress</span><span class="params">(Address address)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.address = address;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Car <span class="title">getCar</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> car;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCar</span><span class="params">(Car car)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.car = car;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"AutoPerson [name="</span> + name + <span class="string">", address="</span> + address + <span class="string">", car="</span> + car + <span class="string">"]"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关键就在我们的配置文件上：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment">&lt;!-- byName需要让id名称和类中setter的属性名和类型相同 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"address"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.autowire.Address"</span></span><br><span class="line">	<span class="attr">p:city</span>=<span class="string">"Qingdao"</span> <span class="attr">p:street</span>=<span class="string">"Taidong"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"car"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.autowire.Car"</span> <span class="attr">p:brand</span>=<span class="string">"Audi"</span></span><br><span class="line">	<span class="attr">p:price</span>=<span class="string">"300000"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 可以使用autowire属性指定自动装配的方式，</span><br><span class="line">byName根据Bean的名字和setter属性名自动装配 ，若有匹配的则进行自动装配</span><br><span class="line">byType根据bean的类型和当前bean的类型进行自动装配.但是限制这个类型只有一个bean。</span><br><span class="line">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.autowire.AutoPerson"</span></span><br><span class="line">	<span class="attr">p:name</span>=<span class="string">"Sakata"</span> <span class="attr">autowire</span>=<span class="string">"byType"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>可以使用autowire属性指定自动装配的方式，</p>
+<ul>
+<li>byName根据Bean的名字和setter属性名自动装配 ，若有匹配的则进行自动装配</li>
+<li>byType根据bean的类型和当前bean的类型进行自动装配.但是限制这个类型只有一个bean。<br>但是使用了autowire属性那么bean的所有的属性都会自动装配，不能自己手动装配单个属性。<br>可以看出来autowire属性在这方面不够灵活。另外，autowire属性在xml当中不需要明确的指明<br>bean的属性，所以也不够明晰。</li>
+</ul>
+<p>测试一下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.ginryan.raku.autowire;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoWireMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans-autowire.xml"</span>);</span><br><span class="line">		AutoPerson person = (AutoPerson) ctx.getBean(<span class="string">"person"</span>);</span><br><span class="line">		System.out.println(person);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到输出：</p>
+<pre><code>AutoPerson [name=Sakata, address=Address [city=Qingdao, stree=Taidong], car=Car [brand=Audi, price=300000.0]]
+</code></pre><h2 id="Bean的关系"><a href="#Bean的关系" class="headerlink" title="Bean的关系"></a><strong>Bean的关系</strong></h2><h2 id="1、继承"><a href="#1、继承" class="headerlink" title="1、继承"></a>1、继承</h2><p>我们依旧使用前面的例子作为范例。<br>在编写配置文件时，我们可能遇到一些对象拥有很多类似或者相同的属性，并且初始化时会有雷同的值。那么我们可以写一个类似模版的bean。这就是抽象bean。抽象bean可以没有特定的class，需要有一个abstract=”true”的属性值标记bean为抽象bean。如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这个Bean是个抽象Bean,容器不会初始化抽象Bean，所以不可以被getBean获取，class属性可以不配置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"absAddress"</span> <span class="attr">p:city</span>=<span class="string">"Qingdao"</span> <span class="attr">abstract</span>=<span class="string">"true"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>我们在写另外的bean的时候，需要有类似特性的抽象Bean的时候，我们可以将它作为父bean，用parent属性引用进来。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这个Bean继承了上面的抽象Bean的配置。 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"addressHome"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.autowire.Address"</span></span><br><span class="line">		<span class="attr">p:street</span>=<span class="string">"ZhongShanRoad"</span> <span class="attr">parent</span>=<span class="string">"absAddress"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后测试代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.ginryan.raku.autowire.Address;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 创建Spring的IoC容器对象</span></span><br><span class="line">		ApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans-relationship.xml"</span>);</span><br><span class="line">		Address address = (Address) ctx.getBean(<span class="string">"addressHome"</span>);</span><br><span class="line">		System.out.println(address);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试的输出结果为：</p>
+<pre><code>Address [city=Qingdao, stree=ZhongShanRoad]
+</code></pre><h2 id="2、依赖"><a href="#2、依赖" class="headerlink" title="2、依赖"></a>2、依赖</h2><p>依赖比较简单，一个bean的存在需要依赖另一个bean的存在时，就是依赖关系。<br>可以使用depends-on这个属性用来定义一个bean的前置依赖bean，depends-on指定的bean就会在这个Bean之前创建好。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--这个就是需要被依赖的bean--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"car"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.autowire.Car"</span> <span class="attr">p:brand</span>=<span class="string">"Audi"</span></span><br><span class="line">	<span class="attr">p:price</span>=<span class="string">"320000"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 要求配置person时，需要有一个car关联，也就是说person依赖car这个bean，那么car会在person之前创建好 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.autowire.AutoPerson"</span></span><br><span class="line">	<span class="attr">p:car-ref</span>=<span class="string">"car"</span> <span class="attr">p:name</span>=<span class="string">"Tomson"</span> <span class="attr">p:address-ref</span>=<span class="string">"addressHome"</span> <span class="attr">depends-on</span>=<span class="string">"car"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h2><p>bean被容易创建时默认都是单例对象。<br>然而Spring配置文件中，对每一个Bean的实例化都是由scope的属性来控制的，scope默认属性是singleton。<br>singleton：在容器初始时创建Bean的实例，在这个容器的生命周期中，他是一个单例。<br>prototype: 原型的创建模式，在容器初始时不创建这个Bean的实例，每次的请求获取都创建一个新的实例。</p>
+</div>
+
+            
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block prev">
+    
+      <a href="/2016/03/27/Spring学习8~9/" title="Spring学习8-9节 属性文件 SpEL" id="post-prev" class="post-nav-link">
+        <i class="icon icon-chevron-left"></i>
+        <span class="article-nav-title">上一篇</span>
+      </a>
+    
+  </div>
+  <div class="flex-col waves-block next">
+    
+      <a href="/2016/03/20/Spring学习1~4/" title="Spring学习1~3节 认识Spring，理解Spring的IoC依赖注入" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
+
+</nav>
+
+
+
+            
+
+
+
+
+        </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<div class="global-share" id="global-share" data-title="Spring学习5~7节 自动装配，Bean的关系" data-pic="/img/logo.jpg" data-summary="&lt;hr&gt;
+&lt;h2 id=&quot;Spring5，自动装配&quot;&gt;&lt;a href=&quot;#Spring5，自动装配&quot; class=&quot;headerlink&quot; title=&quot;Spring5，自动装配&quot;&gt;&lt;/a&gt;Spring5，自动装配&lt;/h2&gt;&lt;p&gt;何为自动装配？&lt;br&gt;在Spring中的配置文件里，配置的bean，可以通过id名称或者类型对bean进行自动装配（其实就是容器帮我们赋值）。&lt;br&gt;" data-url="http://yoursite.com/2016/03/24/Spring学习5~7/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

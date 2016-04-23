@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Spring学习1~3节 认识Spring，理解Spring的IoC依赖注入 | 梁工春日的忧郁 | 孤星独吟</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Java,J2EE,Spring">
+  <meta name="description" content="1、Spring学习1~3节
+
+认识Spring，理解Spring的IoC依赖注入Spring 是一个轻量级简化Java开发的企业级应用的框架。它有如下特性：1、轻量级非侵入性。不依赖任何Spring的API2、依赖注入(DI、IoC)3、面向切面编程(AOP)4、容器：它会包含并且管理所有应用对象的生命周期5、框架：通过如上特性将其他的组件组合为有规模的应用6、一站式：可以全线整合任何开源的企">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring学习1~3节 认识Spring，理解Spring的IoC依赖注入">
+<meta property="og:url" content="http://yoursite.com/2016/03/20/Spring学习1~4/index.html">
+<meta property="og:site_name" content="梁工春日的忧郁">
+<meta property="og:description" content="1、Spring学习1~3节
+
+认识Spring，理解Spring的IoC依赖注入Spring 是一个轻量级简化Java开发的企业级应用的框架。它有如下特性：1、轻量级非侵入性。不依赖任何Spring的API2、依赖注入(DI、IoC)3、面向切面编程(AOP)4、容器：它会包含并且管理所有应用对象的生命周期5、框架：通过如上特性将其他的组件组合为有规模的应用6、一站式：可以全线整合任何开源的企">
+<meta property="og:updated_time" content="2016-04-23T03:44:00.404Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring学习1~3节 认识Spring，理解Spring的IoC依赖注入">
+<meta name="twitter:description" content="1、Spring学习1~3节
+
+认识Spring，理解Spring的IoC依赖注入Spring 是一个轻量级简化Java开发的企业级应用的框架。它有如下特性：1、轻量级非侵入性。不依赖任何Spring的API2、依赖注入(DI、IoC)3、面向切面编程(AOP)4、容器：它会包含并且管理所有应用对象的生命周期5、框架：通过如上特性将其他的组件组合为有规模的应用6、一站式：可以全线整合任何开源的企">
+  
+    <link rel="alternative" href="/atom.xml" title="梁工春日的忧郁" type="application/atom+xml">
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="./" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">Xelloss</h5>
+        <a href="mailto:undefined" title="gino3@qq.com" class="mail">gino3@qq.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>Home
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>Archives
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>Tags
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="https://github.com/GinRyan" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>Github
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>梁工春日的忧郁 &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Spring学习1~3节 认识Spring，理解Spring的IoC依赖注入</div>
+        <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">Spring学习1~3节 认识Spring，理解Spring的IoC依赖注入</h1>
+    <h5 class="subtitle">2016-03-20</h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      
+  <article id="post-Spring学习1~4" class="article article-type-post" itemscope itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/J2EE/">J2EE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+</div>
+      </div>
+      <div class="post-body">
+
+        <aside class="post-widget" id="post-widget">
+
+          
+          <div class="post-share" id="post-share" data-title="Spring学习1~3节 认识Spring，理解Spring的IoC依赖注入" data-pic="/img/logo.jpg" data-summary="&lt;hr&gt;
+&lt;p&gt;1、Spring学习1~3节&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;认识Spring，理解Spring的IoC依赖注入&quot;&gt;&lt;a href=&quot;#认识Spring，理解Spring的IoC依赖注入&quot; class=&quot;headerlink&quot; title=&quot;认识Spring，理解Spring的IoC依赖注入&quot;&gt;&lt;/a&gt;认识Spring，理解Spring的IoC依赖注入&lt;/h2&gt;&lt;p&gt;Spring 是一个轻量级简化Java开发的企业级应用的框架。&lt;br&gt;它有如下特性：&lt;br&gt;1、轻量级非侵入性。不依赖任何Spring的API&lt;br&gt;2、依赖注入(DI、IoC)&lt;br&gt;3、面向切面编程(AOP)&lt;br&gt;4、容器：它会包含并且管理所有应用对象的生命周期&lt;br&gt;5、框架：通过如上特性将其他的组件组合为有规模的应用&lt;br&gt;6、一站式：可以全线整合任何开源的企业应用框架和第三方库&lt;br&gt;" data-url="http://yoursite.com/2016/03/20/Spring学习1~4/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#认识Spring，理解Spring的IoC依赖注入"><span class="post-toc-text">认识Spring，理解Spring的IoC依赖注入</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Spring架构和模块"><span class="post-toc-text">Spring架构和模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Hello-World"><span class="post-toc-text">Hello World</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#举个简单的栗子"><span class="post-toc-text">举个简单的栗子</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Bean的配置方式"><span class="post-toc-text">Bean的配置方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Spring容器"><span class="post-toc-text">Spring容器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#依赖注入方式"><span class="post-toc-text">依赖注入方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#包含引用类型的字段的情况"><span class="post-toc-text">包含引用类型的字段的情况</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#级联属性"><span class="post-toc-text">级联属性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#集合属性"><span class="post-toc-text">集合属性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Properties成员的配置"><span class="post-toc-text">Properties成员的配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用util命名空间定义可重用的集合"><span class="post-toc-text">使用util命名空间定义可重用的集合</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用p命名空间简化bean的属性复制"><span class="post-toc-text">使用p命名空间简化bean的属性复制</span></a></li></ol>
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" itemprop="postContent"><hr>
+<p>1、Spring学习1~3节</p>
+<hr>
+<h2 id="认识Spring，理解Spring的IoC依赖注入"><a href="#认识Spring，理解Spring的IoC依赖注入" class="headerlink" title="认识Spring，理解Spring的IoC依赖注入"></a>认识Spring，理解Spring的IoC依赖注入</h2><p>Spring 是一个轻量级简化Java开发的企业级应用的框架。<br>它有如下特性：<br>1、轻量级非侵入性。不依赖任何Spring的API<br>2、依赖注入(DI、IoC)<br>3、面向切面编程(AOP)<br>4、容器：它会包含并且管理所有应用对象的生命周期<br>5、框架：通过如上特性将其他的组件组合为有规模的应用<br>6、一站式：可以全线整合任何开源的企业应用框架和第三方库<br><a id="more"></a></p>
+<h2 id="Spring架构和模块"><a href="#Spring架构和模块" class="headerlink" title="Spring架构和模块"></a>Spring架构和模块</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">Data Access</th>
+<th style="text-align:center">Web</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">JDBC</td>
+<td style="text-align:center">Servlet</td>
+</tr>
+<tr>
+<td style="text-align:center">ORM</td>
+<td style="text-align:center">Web</td>
+</tr>
+<tr>
+<td style="text-align:center">OXM</td>
+<td style="text-align:center">Portlet</td>
+</tr>
+<tr>
+<td style="text-align:center">JMS</td>
+<td style="text-align:center">WebSocket</td>
+</tr>
+<tr>
+<td style="text-align:center">Transactions</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">AOP</td>
+<td style="text-align:center">Aspects</td>
+<td>Messaging</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><p>可运行的Spring最小的程序依赖需要Spring-beans，Spring-context，Spring-core，Spring-expression以及Logger这些个包。</p>
+<h2 id="举个简单的栗子"><a href="#举个简单的栗子" class="headerlink" title="举个简单的栗子"></a>举个简单的栗子</h2><p>我们在不使用Spring的时候，我们如何去实例化一个Java类呢？我们如何去为对象中的字段赋值呢？如下简单例子：</p>
+<pre><code>HelloWorld.java
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一个简单的业务对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Hello! "</span> + name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>Main.java
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试这个业务对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		HelloWorld he = <span class="keyword">new</span> HelloWorld();</span><br><span class="line">		he.setName(<span class="string">"Spring!"</span>);</span><br><span class="line">		he.hello();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然而当我们使用Spring的IoC特性时，代码如下更改：<br>新增一个xml配置文件：</p>
+<pre><code>applicationContext.xml
+</code></pre><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--上面是配置文件所需要的命名空间，主要是beans的命名空间来源--&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 配置一个bean，id一定为唯一的。--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"helloWorld"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.HelloWorld"</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- Setter的名字 如果是setName2，那么就是name2 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"Spring"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Spring规定一个需要被Spring容器实例化的一个类要用bean标签来描述。其中id是这个bean的名称，class是完整的类名。如下所示</p>
+<pre><code>&lt;bean id=&quot;helloWorld&quot; class=&quot;org.ginryan.raku.HelloWorld&quot;&gt;
+</code></pre><p>一个bean实际上就是Spring代替手写的代码维护了这个实例，而不是开发者手写的new这个对象，new关键字新建出来的对象是由开发者<br>在代码中维护使用的，而使用bean标签的，就是Spring自行维护的实例，只需要在使用时通过id取出bean对应的类的实例即可。</p>
+<p>HelloWorld.java 类原封不动</p>
+<pre><code>Main.java 测试类如下修改
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 第一步：创建Spring的IoC容器对象，该xml文件中所有配制好的bean都会存在这个ApplicationContext对象中，这个</span></span><br><span class="line">        <span class="comment">// 对象“翻译”了bean配置文件并存储了所有配置文件中配置的bean对象。</span></span><br><span class="line">		ApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</span><br><span class="line">		<span class="comment">// 第二步：从IoC容器中获取id为Bean的helloWorld的实例</span></span><br><span class="line">		HelloWorld helloWorld = (HelloWorld) ctx.getBean(<span class="string">"helloWorld"</span>);</span><br><span class="line">		helloWorld.hello();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然而，这个过程，其实就是IoC/DI的核心过程。可以从这个小例子理解何为IoC/DI。<br>小提示：可以看一下工厂模式和享元模式。</p>
+<h2 id="Bean的配置方式"><a href="#Bean的配置方式" class="headerlink" title="Bean的配置方式"></a>Bean的配置方式</h2><p>配置形式：基于XML文件的方式;基于注解的方式。<br>Bean的配置方式：通过全类名（反射）方式、通过工厂方法、FactoryBean方式。<br>为对象进行依赖注入：属性注入;构造器注入</p>
+<p>在上一节中实际上已经配置了一个无参构造器的bean</p>
+<h2 id="Spring容器"><a href="#Spring容器" class="headerlink" title="Spring容器"></a>Spring容器</h2><p>再上一个例子当中，ApplicationContext虽然是一个接口，但是ClassPathXmlApplicationContext这个实现代表它属于这一类Bean容器，指定xml文件并且实例化以后，它才是作为一个存有各种预先写好的配置的实例的容器。<br>Spring提供了两种IoC容器的实现。</p>
+<ul>
+<li>BeanFactory： IoC的最基本的实现。</li>
+<li>ApplicationContext：是BeanFactory的子接口，提供了更多高级特性。</li>
+<li>BeanFactory是Spring框架的基本核心设施,是Spring的核心；ApplicationContext面向了使用Spring的开发者，我们所有情况下都使用该方式配置。<br>ApplicationContext还有两种主要的实现类：</li>
+<li>ClassPathXmlApplicationContext：上面的例子已经使用了这个实现，是基于类路径去加载配置文件</li>
+<li>FileSystemXmlApplicationContext: 从文件系统中加载配置文件</li>
+</ul>
+<p><strong>说明：</strong>ApplicationContext在实例化上下文时就实例化所有<strong>单例</strong>的Bean。(Bean也可以有非单例)</p>
+<ul>
+<li>WebApplicationContext 是专门为Web应用准备的，它允许从相对于Web根目录路径中完成初始化工作。</li>
+</ul>
+<pre><code>实际上，通过getBean时，如果这个类的Bean在配置文件中唯一，可以通过getBean(HelloWorld.class)通过这个类本身去获取实例。如果不唯一，则不可以通过这种方式。
+</code></pre><p>因此上面小例子代码可以改为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</span><br><span class="line">HelloWorld helloWorld = ctx.getBean(HelloWorld.class);</span><br><span class="line">helloWorld.hello();</span><br></pre></td></tr></table></figure></p>
+<h2 id="依赖注入方式"><a href="#依赖注入方式" class="headerlink" title="依赖注入方式"></a>依赖注入方式</h2><p>1、属性注入<br>2、构造方法注入<br>3、工厂方法注入（不推荐）</p>
+<p>我们一开始用的小例子，用的便是属性注入方式。也是最常用的方式。<br>因此不再举例。我们现在看一下如何用构造方法进行注入。<br>构造方法注入方式比较繁琐，可以看一下我们的例子：<br>首先，我们定义一个新的业务对象：</p>
+<pre><code>Car.java
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.ginryan.raku;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String brand;<span class="comment">//汽车品牌</span></span><br><span class="line">	<span class="keyword">private</span> String corp;<span class="comment">//公司</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">double</span> price;<span class="comment">//价格</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> speed;<span class="comment">//时速</span></span><br><span class="line">	<span class="comment">//我们打算使用构造函数进行注入</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Car</span><span class="params">(String brand, String corp, <span class="keyword">int</span> speed)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.brand = brand;</span><br><span class="line">		<span class="keyword">this</span>.corp = corp;</span><br><span class="line">		<span class="keyword">this</span>.speed = speed;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Car</span><span class="params">(String brand, String corp, <span class="keyword">double</span> price)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.brand = brand;</span><br><span class="line">		<span class="keyword">this</span>.corp = corp;</span><br><span class="line">		<span class="keyword">this</span>.price = price;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Car [brand="</span> + brand + <span class="string">", corp="</span> + corp + <span class="string">", price="</span> + price + <span class="string">", speed="</span> + speed + <span class="string">"]"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们打算使用构造函数进行注入，因此需要配置一下applicationContext.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 通过构造方法来配置bean属性 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"car"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.Car"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"Audi"</span> <span class="attr">index</span>=<span class="string">"0"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"Shanghai"</span> <span class="attr">index</span>=<span class="string">"1"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"300000"</span> <span class="attr">index</span>=<span class="string">"2"</span> <span class="attr">type</span>=<span class="string">"double"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 使用构造器可以指定参数位置和参数类型，区分重载的构造器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"car2"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.Car"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"BMW"</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">type</span>=<span class="string">"java.lang.String"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"Shanghai"</span> <span class="attr">index</span>=<span class="string">"1"</span> <span class="attr">type</span>=<span class="string">"java.lang.String"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"240"</span> <span class="attr">index</span>=<span class="string">"2"</span> <span class="attr">type</span>=<span class="string">"int"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>我们需要注意上面两个Bean，这两个bean用的是同一个类，但是这个类有两种构造函数，那么这两个bean就通过这两种构造函数<br>来进行实例化。因为是构造函数，我们需要用constructor-arg标签按顺序定义注入值。然而这样并不稳妥，我们需要用index<br>来指定值的顺序，以对应构造函数的参数表顺序。那么问题又来了，当我们重载的构造函数参数数量相同时，我们需要指明当前参<br>数位置的类型。最终，我们一个构造函数的参数需要写如下节点：</p>
+<pre><code>&lt;constructor-arg value=&quot;240&quot; index=&quot;2&quot; type=&quot;int&quot;&gt;&lt;/constructor-arg&gt;
+</code></pre><p>value指明注入值，index指明参数位置，type指明参数类型。<br>然而，上面这个构造参数的节点也可以将值写在value子节点中：</p>
+<pre><code>&lt;constructor-arg index=&quot;2&quot; type=&quot;int&quot;&gt;
+    &lt;value&gt;240&lt;/value&gt;
+&lt;/constructor-arg&gt;
+</code></pre><h2 id="包含引用类型的字段的情况"><a href="#包含引用类型的字段的情况" class="headerlink" title="包含引用类型的字段的情况"></a>包含引用类型的字段的情况</h2><p>依然是上面的例子：<br>我们增加一个业务对象叫Person，它有姓名name，年龄age和爱车car这三个属性。<br>那么我们可以有：</p>
+<pre><code>Person.java
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.ginryan.raku;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">	<span class="keyword">private</span> Car car;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Car <span class="title">getCar</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> car;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCar</span><span class="params">(Car car)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.car = car;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Person [name="</span> + name + <span class="string">", age="</span> + age + <span class="string">", car="</span> + car + <span class="string">"]"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置文件当中增加节点：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 包含引用类型成员时的情况，用ref来引用对应的bean， 而value只能是基本类型和String类型 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.Person"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"Tom"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"age"</span> <span class="attr">value</span>=<span class="string">"24"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"car"</span> <span class="attr">ref</span>=<span class="string">"car2"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>然后在我们的测试程序当中修改为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.ginryan.raku;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 创建Spring的IoC容器对象</span></span><br><span class="line">		ApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</span><br><span class="line">		Person person = (Person) ctx.getBean(<span class="string">"person"</span>);</span><br><span class="line">		System.out.println(person);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试输出就可以得到预先定义的bean。<br>由上实例我们可以看到，bean当中如果有引用类型的属性时，就出现了bean相互引用的情况，那么这种情况就要用</p>
+<pre><code>&lt;property name=&quot;car&quot; ref=&quot;car2&quot;&gt;&lt;/property&gt;
+</code></pre><p>property元素的ref属性或者它的子元素ref来引用另一个bean的id。<br>另外，bean也可以定义在property元素内，可以直接为某个bean 中的元素ref使用，不能被外部的bean引用，这是一种内部bean。<br>在上例中，如果我想单独为Person里的car定义一个唯一且不能被其他bean所引用的bean，那么我们可以定义为内部Bean，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"car"</span> <span class="attr">ref</span>=<span class="string">"car2"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.Car"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"ChangAn"</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">type</span>=<span class="string">"java.lang.String"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"Beijing"</span> <span class="attr">index</span>=<span class="string">"1"</span> <span class="attr">type</span>=<span class="string">"java.lang.String"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"180"</span> <span class="attr">index</span>=<span class="string">"2"</span> <span class="attr">type</span>=<span class="string">"int"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>另外，也可以为属性赋值为null，标签为null标签，意义不大。</p>
+<h2 id="级联属性"><a href="#级联属性" class="headerlink" title="级联属性"></a>级联属性</h2><p>级联属性可以通过“.”去使用setter方法为特定的方法传参数。我们可以在Person例子当中的配置节点中如下修改:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 包含引用类型成员时的情况，用ref来引用对应的bean， 而value只能是基本类型和String类型 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.Person"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"Tom"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"age"</span> <span class="attr">value</span>=<span class="string">"24"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"car"</span> <span class="attr">ref</span>=<span class="string">"car2"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--通过级联属性为属性的setter方法传参--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"car.speed"</span> <span class="attr">value</span>=<span class="string">"192"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>注意，car这个属性如果没有引用一个初始化的Bean，那么属性值为null，此时Spring会报错。</p>
+<h2 id="集合属性"><a href="#集合属性" class="headerlink" title="集合属性"></a>集合属性</h2><p>当我们遇到一个类当中需要有一个集合构成的成员时，我们可以用list节点来完成。<br>首先我们新建一个子包，再编写一个新的Person.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.ginryan.raku.collections;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.ginryan.raku.Car;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">	<span class="keyword">private</span> List&lt;Car&gt; car;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Car&gt; <span class="title">getCar</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> car;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCar</span><span class="params">(List&lt;Car&gt; car)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.car = car;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Person [name="</span> + name + <span class="string">", age="</span> + age + <span class="string">", car="</span> + car + <span class="string">"]"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<pre><code>我们如何去对List&lt;Car&gt;类型注入呢？我们可以在Bean节点中使用list为集合属性赋值。
+</code></pre><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"person3"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.collections.Person"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"Mike"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"age"</span> <span class="attr">value</span>=<span class="string">"27"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"car"</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!--通过list包含多个对bean的引用ref来赋值--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"car"</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"car2"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们用list包裹起来ref节点，ref节点的bean属性可以将已经有的bean引用进来。如此一来就达到了为属性赋值的目的。<br>注：引用bean的id的位置也可以定义内部bean。set的方式和list一样。</p>
+<p><strong>使用Map的成员</strong><br>如果在业务对象当中有Map类型的成员，我们可以在配置文件当中使用map节点以及entry子节点来配置Map类型的成员。<br>我们将上例中的Person改为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">	<span class="keyword">private</span> List&lt;Car&gt; car;</span><br><span class="line">	<span class="keyword">private</span> Map&lt;String ,Car&gt; carMap;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Map&lt;String, Car&gt; <span class="title">getCarMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> carMap;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCarMap</span><span class="params">(Map&lt;String, Car&gt; carMap)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.carMap = carMap;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Car&gt; <span class="title">getCar</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> car;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCar</span><span class="params">(List&lt;Car&gt; car)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.car = car;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Person [name="</span> + name + <span class="string">", age="</span> + age + <span class="string">", car="</span> + car + <span class="string">", carMap="</span> + carMap + <span class="string">"]"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们将如何配置这个有Map类型成员的Bean呢？如下配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"person3"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.collections.Person"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"Mike"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"age"</span> <span class="attr">value</span>=<span class="string">"27"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"car"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 使用list节点和ref节点来配置List类型的成员 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"car"</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"car2"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"carMap"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 使用map节点和entry子节点来配置 Map类型的成员--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">map</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"c1"</span> <span class="attr">value-ref</span>=<span class="string">"car"</span>&gt;</span><span class="tag">&lt;/<span class="name">entry</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"c2"</span> <span class="attr">value-ref</span>=<span class="string">"car2"</span>&gt;</span><span class="tag">&lt;/<span class="name">entry</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>我们通过map和entry子节点来配置了key属性和value属性，他们对应在对象当中map的键值。<br>当然，如果你的key或者value使用的是引用类型，自然就用key-ref和value-ref。</p>
+<h2 id="Properties成员的配置"><a href="#Properties成员的配置" class="headerlink" title="Properties成员的配置"></a>Properties成员的配置</h2><p>有时需要配置数据库连接的数据源，我们需要使用Properties，那么我们需要用props元素来配置节点。<br>首先我们需要有一个模拟数据源的类，这个类当中有一个Properties类型的成员，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.ginryan.raku.collections;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataSource</span> </span>&#123;</span><br><span class="line">	Properties properties;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Properties <span class="title">getProperties</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> properties;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setProperties</span><span class="params">(Properties properties)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.properties = properties;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"DataSource [properties="</span> + properties + <span class="string">"]"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>配置文件中如此配置属性：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 配置Properties属性值 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.collections.DataSource"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"properties"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">props</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!--使用prop子节点可以配置Properties的所有键值--&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"user"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"password"</span>&gt;</span>123456<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"jdbcUrl"</span>&gt;</span>jddbc:mysql:///local<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"driverClass"</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">props</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>我们可以用以下简单的代码测试一下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CollMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</span><br><span class="line">		DataSource dataSource = (DataSource) ctx.getBean(<span class="string">"dataSource"</span>);</span><br><span class="line">		System.out.println(dataSource);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用util命名空间定义可重用的集合"><a href="#使用util命名空间定义可重用的集合" class="headerlink" title="使用util命名空间定义可重用的集合"></a>使用util命名空间定义可重用的集合</h2><pre><code>我们需要为配置文件增加utils命名空间。我们依然使用List&lt;Car&gt;的属性的Person。我们只需要在配置文件中
+增加一个新的Bean来演示这个例子。
+</code></pre><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 使用utils，直接定义独立的list --&gt;</span></span><br><span class="line">	...</span><br><span class="line">	<span class="tag">&lt;<span class="name">util:list</span> <span class="attr">id</span>=<span class="string">"cars"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"car"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"car2"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">util:list</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"person4"</span> <span class="attr">class</span>=<span class="string">"org.ginryan.raku.collections.Person"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"Alex"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"age"</span> <span class="attr">value</span>=<span class="string">"26"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!--把utils的cars引用进来--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"car"</span> <span class="attr">ref</span>=<span class="string">"cars"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+<h2 id="使用p命名空间简化bean的属性复制"><a href="#使用p命名空间简化bean的属性复制" class="headerlink" title="使用p命名空间简化bean的属性复制"></a>使用p命名空间简化bean的属性复制</h2><p>我们依然使用上面那个集合Person的例子<br>p标签可以很简单的为对象中的成员赋值：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment">&lt;!-- 使用p命名空间可以直接指定成员变量的名字简化赋值 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"person5"</span></span><br><span class="line">	<span class="attr">class</span>=<span class="string">"org.ginryan.raku.collections.Person"</span></span><br><span class="line">	<span class="attr">p:age</span>=<span class="string">"27"</span></span><br><span class="line">	<span class="attr">p:car-ref</span>=<span class="string">"cars"</span></span><br><span class="line">	<span class="attr">p:name</span>=<span class="string">"BillGates"</span>/&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+</div>
+
+            
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block prev">
+    
+      <a href="/2016/03/24/Spring学习5~7/" title="Spring学习5~7节 自动装配，Bean的关系" id="post-prev" class="post-nav-link">
+        <i class="icon icon-chevron-left"></i>
+        <span class="article-nav-title">上一篇</span>
+      </a>
+    
+  </div>
+  <div class="flex-col waves-block next">
+    
+      <a href="/2016/03/19/Android函数式编程(I)/" title="Android Kotlin函数式编程(I)：释放函数式编程的洪荒之力" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
+
+</nav>
+
+
+
+            
+
+
+
+
+        </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<div class="global-share" id="global-share" data-title="Spring学习1~3节 认识Spring，理解Spring的IoC依赖注入" data-pic="/img/logo.jpg" data-summary="&lt;hr&gt;
+&lt;p&gt;1、Spring学习1~3节&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;认识Spring，理解Spring的IoC依赖注入&quot;&gt;&lt;a href=&quot;#认识Spring，理解Spring的IoC依赖注入&quot; class=&quot;headerlink&quot; title=&quot;认识Spring，理解Spring的IoC依赖注入&quot;&gt;&lt;/a&gt;认识Spring，理解Spring的IoC依赖注入&lt;/h2&gt;&lt;p&gt;Spring 是一个轻量级简化Java开发的企业级应用的框架。&lt;br&gt;它有如下特性：&lt;br&gt;1、轻量级非侵入性。不依赖任何Spring的API&lt;br&gt;2、依赖注入(DI、IoC)&lt;br&gt;3、面向切面编程(AOP)&lt;br&gt;4、容器：它会包含并且管理所有应用对象的生命周期&lt;br&gt;5、框架：通过如上特性将其他的组件组合为有规模的应用&lt;br&gt;6、一站式：可以全线整合任何开源的企业应用框架和第三方库&lt;br&gt;" data-url="http://yoursite.com/2016/03/20/Spring学习1~4/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
