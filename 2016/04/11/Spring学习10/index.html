@@ -13,7 +13,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/04/11/Spring学习10/index.html">
 <meta property="og:site_name" content="梁工春日的忧郁">
 <meta property="og:description" content="Spring学习10Bean的生命周期bean是有生命周期的，跟Servlet类似，bean可以配置init-method和destroy-method，就是容器启动时调用的初始化方法和容器关闭时的销毁方法。">
-<meta property="og:updated_time" content="2016-04-23T03:44:56.593Z">
+<meta property="og:updated_time" content="2016-04-23T04:00:40.961Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring学习10节 Bean的生命周期">
 <meta name="twitter:description" content="Spring学习10Bean的生命周期bean是有生命周期的，跟Servlet类似，bean可以配置init-method和destroy-method，就是容器启动时调用的初始化方法和容器关闭时的销毁方法。">
@@ -154,7 +154,7 @@
 
           
           <nav class="post-toc-wrap" id="post-toc">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Spring学习10"><span class="post-toc-text">Spring学习10</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Bean的生命周期"><span class="post-toc-text">Bean的生命周期</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建Bean后置处理器"><span class="post-toc-text">创建Bean后置处理器</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Spring学习10"><span class="post-toc-text">Spring学习10</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Bean的生命周期"><span class="post-toc-text">Bean的生命周期</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Bean后置处理器"><span class="post-toc-text">Bean后置处理器</span></a></li></ol>
           </nav>
           
         </aside>
@@ -171,7 +171,7 @@ setBrand...:Audi
 init...
 Car [brand=Audi]
 destroy...
-</code></pre><h2 id="创建Bean后置处理器"><a href="#创建Bean后置处理器" class="headerlink" title="创建Bean后置处理器"></a>创建Bean后置处理器</h2><p>使用本文上面的的例子，<br>我们有时候对于初始化的时候需要<strong>为当前配置文件中的所有的Bean</strong>再控制一些细节，比如计算等等、替换实例等等。那么我们可以使用bean的后置处理器在做这个工作。<br>而后置处理器在IoC容器中也是一个bean，但是这个Bean稍有特殊，它需要实现一个接口BeanPostProcessor，并且需要我们实现它的两个“拦截”方法：    </p>
+</code></pre><h2 id="Bean后置处理器"><a href="#Bean后置处理器" class="headerlink" title="Bean后置处理器"></a>Bean后置处理器</h2><p>使用本文上面的的例子，<br>我们有时候对于初始化的时候需要<strong>为当前配置文件中的所有的Bean</strong>再控制一些细节，比如计算等等、替换实例等等。那么我们可以使用bean的后置处理器在做这个工作。<br>而后置处理器在IoC容器中也是一个bean，但是这个Bean稍有特殊，它需要实现一个接口BeanPostProcessor，并且需要我们实现它的两个“拦截”方法：    </p>
 <pre><code>public Object postProcessBeforeInitialization(Object bean, String beanName)
 
 public Object postProcessAfterInitialization(Object bean, String beanName)

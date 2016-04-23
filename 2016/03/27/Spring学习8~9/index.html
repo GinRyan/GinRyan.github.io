@@ -7,16 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="Java,J2EE,Spring">
-  <meta name="description" content="Spring笔记8-9外部属性文件有时候我们的需要将项目放到不同的环境上，所以bean的配置文件会有一些特定的属性需要修改为不同的值。因此我们需要引入外部属性文件读取外部的属性。假如我们需要一个数据库连接池对象，我们使用了c3p0连接池和mysql的数据库驱动，以此为例。">
+  <meta name="description" content="属性文件有时候我们的需要将项目放到不同的环境上，所以bean的配置文件会有一些特定的属性需要修改为不同的值。因此我们需要引入外部属性文件读取外部的属性。假如我们需要一个数据库连接池对象，我们使用了c3p0连接池和mysql的数据库驱动，以此为例。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring学习8-9节 属性文件 SpEL">
 <meta property="og:url" content="http://yoursite.com/2016/03/27/Spring学习8~9/index.html">
 <meta property="og:site_name" content="梁工春日的忧郁">
-<meta property="og:description" content="Spring笔记8-9外部属性文件有时候我们的需要将项目放到不同的环境上，所以bean的配置文件会有一些特定的属性需要修改为不同的值。因此我们需要引入外部属性文件读取外部的属性。假如我们需要一个数据库连接池对象，我们使用了c3p0连接池和mysql的数据库驱动，以此为例。">
-<meta property="og:updated_time" content="2016-04-23T03:44:42.861Z">
+<meta property="og:description" content="属性文件有时候我们的需要将项目放到不同的环境上，所以bean的配置文件会有一些特定的属性需要修改为不同的值。因此我们需要引入外部属性文件读取外部的属性。假如我们需要一个数据库连接池对象，我们使用了c3p0连接池和mysql的数据库驱动，以此为例。">
+<meta property="og:updated_time" content="2016-04-23T04:00:15.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring学习8-9节 属性文件 SpEL">
-<meta name="twitter:description" content="Spring笔记8-9外部属性文件有时候我们的需要将项目放到不同的环境上，所以bean的配置文件会有一些特定的属性需要修改为不同的值。因此我们需要引入外部属性文件读取外部的属性。假如我们需要一个数据库连接池对象，我们使用了c3p0连接池和mysql的数据库驱动，以此为例。">
+<meta name="twitter:description" content="属性文件有时候我们的需要将项目放到不同的环境上，所以bean的配置文件会有一些特定的属性需要修改为不同的值。因此我们需要引入外部属性文件读取外部的属性。假如我们需要一个数据库连接池对象，我们使用了c3p0连接池和mysql的数据库驱动，以此为例。">
   
     <link rel="alternative" href="/atom.xml" title="梁工春日的忧郁" type="application/atom+xml">
   
@@ -113,8 +113,7 @@
         <aside class="post-widget" id="post-widget">
 
           
-          <div class="post-share" id="post-share" data-title="Spring学习8-9节 属性文件 SpEL" data-pic="/img/logo.jpg" data-summary="&lt;hr&gt;
-&lt;h2 id=&quot;Spring笔记8-9&quot;&gt;&lt;a href=&quot;#Spring笔记8-9&quot; class=&quot;headerlink&quot; title=&quot;Spring笔记8-9&quot;&gt;&lt;/a&gt;Spring笔记8-9&lt;/h2&gt;&lt;h2 id=&quot;外部属性文件&quot;&gt;&lt;a href=&quot;#外部属性文件&quot; class=&quot;headerlink&quot; title=&quot;外部属性文件&quot;&gt;&lt;/a&gt;外部属性文件&lt;/h2&gt;&lt;p&gt;有时候我们的需要将项目放到不同的环境上，所以bean的配置文件会有一些特定的属性需要修改为不同的值。因此我们需要引入外部属性文件读取外部的属性。假如我们需要一个数据库连接池对象，我们使用了c3p0连接池和mysql的数据库驱动，以此为例。&lt;br&gt;" data-url="http://yoursite.com/2016/03/27/Spring学习8~9/index.html">
+          <div class="post-share" id="post-share" data-title="Spring学习8-9节 属性文件 SpEL" data-pic="/img/logo.jpg" data-summary="&lt;h2 id=&quot;属性文件&quot;&gt;&lt;a href=&quot;#属性文件&quot; class=&quot;headerlink&quot; title=&quot;属性文件&quot;&gt;&lt;/a&gt;属性文件&lt;/h2&gt;&lt;p&gt;有时候我们的需要将项目放到不同的环境上，所以bean的配置文件会有一些特定的属性需要修改为不同的值。因此我们需要引入外部属性文件读取外部的属性。假如我们需要一个数据库连接池对象，我们使用了c3p0连接池和mysql的数据库驱动，以此为例。&lt;br&gt;" data-url="http://yoursite.com/2016/03/27/Spring学习8~9/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>
@@ -154,22 +153,21 @@
 
           
           <nav class="post-toc-wrap" id="post-toc">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Spring笔记8-9"><span class="post-toc-text">Spring笔记8-9</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#外部属性文件"><span class="post-toc-text">外部属性文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SpEL-——-Spring-表达式语言"><span class="post-toc-text">SpEL —— Spring 表达式语言</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#属性文件"><span class="post-toc-text">属性文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SpEL"><span class="post-toc-text">SpEL</span></a></li></ol>
           </nav>
           
         </aside>
 
         <div class="post-main">
 
-            <div class="post-content" itemprop="postContent"><hr>
-<h2 id="Spring笔记8-9"><a href="#Spring笔记8-9" class="headerlink" title="Spring笔记8-9"></a>Spring笔记8-9</h2><h2 id="外部属性文件"><a href="#外部属性文件" class="headerlink" title="外部属性文件"></a>外部属性文件</h2><p>有时候我们的需要将项目放到不同的环境上，所以bean的配置文件会有一些特定的属性需要修改为不同的值。因此我们需要引入外部属性文件读取外部的属性。假如我们需要一个数据库连接池对象，我们使用了c3p0连接池和mysql的数据库驱动，以此为例。<br><a id="more"></a><br>原本我们需要在配置文件中需要配置数据库连接需要的一切信息，例如用户名密码和驱动类路径。如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span></span><br><span class="line">		<span class="attr">p:user</span>=<span class="string">"root"</span></span><br><span class="line">        <span class="attr">p:password</span>=<span class="string">"1234"</span></span><br><span class="line">        <span class="attr">p:driverClass</span>=<span class="string">"com.mysql.jdbc.Driver"</span></span><br><span class="line">        <span class="attr">p:jdbcUrl</span>=<span class="string">"jdbc:mysql:///test"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+            <div class="post-content" itemprop="postContent"><h2 id="属性文件"><a href="#属性文件" class="headerlink" title="属性文件"></a>属性文件</h2><p>有时候我们的需要将项目放到不同的环境上，所以bean的配置文件会有一些特定的属性需要修改为不同的值。因此我们需要引入外部属性文件读取外部的属性。假如我们需要一个数据库连接池对象，我们使用了c3p0连接池和mysql的数据库驱动，以此为例。<br><a id="more"></a><br>原本我们需要在配置文件中需要配置数据库连接需要的一切信息，例如用户名密码和驱动类路径。如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span></span><br><span class="line">		<span class="attr">p:user</span>=<span class="string">"root"</span></span><br><span class="line">        <span class="attr">p:password</span>=<span class="string">"1234"</span></span><br><span class="line">        <span class="attr">p:driverClass</span>=<span class="string">"com.mysql.jdbc.Driver"</span></span><br><span class="line">        <span class="attr">p:jdbcUrl</span>=<span class="string">"jdbc:mysql:///test"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>但是我们一旦要上传到生产环境，这些值又要变了。要保持对配置文件的最少修改的原则，还要能够灵活变化这些值，我们就需要使用外部属性文件了。<br>如下例：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 使用context命名空间的property-placeholder节点来导入属性文件，location用来指定属性文件路径。 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:property-placeholder</span> <span class="attr">location</span>=<span class="string">"classpath:db.properties"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!--通过使用通用变量名$&#123;&#125;符号取值的方式取出属性值--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span></span><br><span class="line">	<span class="attr">p:user</span>=<span class="string">"$&#123;user&#125;"</span></span><br><span class="line">       <span class="attr">p:password</span>=<span class="string">"$&#123;password&#125;"</span></span><br><span class="line">       <span class="attr">p:driverClass</span>=<span class="string">"$&#123;driverClass&#125;"</span></span><br><span class="line">	<span class="attr">p:jdbcUrl</span>=<span class="string">"$&#123;jdbcUrl&#125;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>我们的属性文件db.properties内容为：</p>
 <pre><code>user=root
 password=1234
 driverClass=com.mysql.jdbc.Driver
 jdbcUrl=jdbc:mysql:///test
-</code></pre><h2 id="SpEL-——-Spring-表达式语言"><a href="#SpEL-——-Spring-表达式语言" class="headerlink" title="SpEL —— Spring 表达式语言"></a>SpEL —— Spring 表达式语言</h2><p>这个词可以记作Spring Expression Language. 它是一个<strong>支持运行时查询和操作对象图的强大的表达式语言</strong>，语法类似于<strong> EL</strong>:它使用<strong> #{…}</strong>为定界符，而在这个定界符的大括号当中都被认为是SpEL，SpEL为Bean属性进行动态赋值提供了便利。</p>
+</code></pre><h2 id="SpEL"><a href="#SpEL" class="headerlink" title="SpEL"></a>SpEL</h2><p>这个词可以记作Spring Expression Language. 它是一个<strong>支持运行时查询和操作对象图的强大的表达式语言</strong>，语法类似于<strong> EL</strong>:它使用<strong> #{…}</strong>为定界符，而在这个定界符的大括号当中都被认为是SpEL，SpEL为Bean属性进行动态赋值提供了便利。</p>
 <p>通过SpEL可以实现：</p>
 <ul>
 <li>通过Bean的Id对bean进行引用</li>
@@ -240,8 +238,7 @@ SpEL表达式本身内部的语法跟Groovy的语法非常相像。可以对照G
   </main>
 <div class="mask" id="mask"></div>
 <a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-<div class="global-share" id="global-share" data-title="Spring学习8-9节 属性文件 SpEL" data-pic="/img/logo.jpg" data-summary="&lt;hr&gt;
-&lt;h2 id=&quot;Spring笔记8-9&quot;&gt;&lt;a href=&quot;#Spring笔记8-9&quot; class=&quot;headerlink&quot; title=&quot;Spring笔记8-9&quot;&gt;&lt;/a&gt;Spring笔记8-9&lt;/h2&gt;&lt;h2 id=&quot;外部属性文件&quot;&gt;&lt;a href=&quot;#外部属性文件&quot; class=&quot;headerlink&quot; title=&quot;外部属性文件&quot;&gt;&lt;/a&gt;外部属性文件&lt;/h2&gt;&lt;p&gt;有时候我们的需要将项目放到不同的环境上，所以bean的配置文件会有一些特定的属性需要修改为不同的值。因此我们需要引入外部属性文件读取外部的属性。假如我们需要一个数据库连接池对象，我们使用了c3p0连接池和mysql的数据库驱动，以此为例。&lt;br&gt;" data-url="http://yoursite.com/2016/03/27/Spring学习8~9/index.html">
+<div class="global-share" id="global-share" data-title="Spring学习8-9节 属性文件 SpEL" data-pic="/img/logo.jpg" data-summary="&lt;h2 id=&quot;属性文件&quot;&gt;&lt;a href=&quot;#属性文件&quot; class=&quot;headerlink&quot; title=&quot;属性文件&quot;&gt;&lt;/a&gt;属性文件&lt;/h2&gt;&lt;p&gt;有时候我们的需要将项目放到不同的环境上，所以bean的配置文件会有一些特定的属性需要修改为不同的值。因此我们需要引入外部属性文件读取外部的属性。假如我们需要一个数据库连接池对象，我们使用了c3p0连接池和mysql的数据库驱动，以此为例。&lt;br&gt;" data-url="http://yoursite.com/2016/03/27/Spring学习8~9/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>

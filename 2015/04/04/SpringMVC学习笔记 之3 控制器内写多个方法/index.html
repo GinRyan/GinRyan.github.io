@@ -7,19 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="SpringMVC学习">
-  <meta name="description" content="SpringMVC学习笔记 之3 控制器内写多个响应请求现在介绍一下如何在一个controller之内相应多种请求。
-首先，我们先要知道为什么要这么做。在一个大型项目中，针对某一个特定的类型数据模型可能会有多种操作，比如CRUD等。如果我们把他们一个一个分开来写的话，会出现大量Controller的子类，而这些子类会和其他的数据模型的控制器混合在一起，我们在组织和规划url地址和流程的时候就会有非">
+  <meta name="description" content="现在介绍一下如何在一个controller之内相应多种请求。
+首先，我们先要知道为什么要这么做。在一个大型项目中，针对某一个特定的类型数据模型可能会有多种操作，比如CRUD等。如果我们把他们一个一个分开来写的话，会出现大量Controller的子类，而这些子类会和其他的数据模型的控制器混合在一起，我们在组织和规划url地址和流程的时候就会有非常多的麻烦。SpringMVC给了我们一个横向的解决方案">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringMVC学习笔记 之3 控制器内写多个方法">
 <meta property="og:url" content="http://yoursite.com/2015/04/04/SpringMVC学习笔记 之3 控制器内写多个方法/index.html">
 <meta property="og:site_name" content="梁工春日的忧郁">
-<meta property="og:description" content="SpringMVC学习笔记 之3 控制器内写多个响应请求现在介绍一下如何在一个controller之内相应多种请求。
-首先，我们先要知道为什么要这么做。在一个大型项目中，针对某一个特定的类型数据模型可能会有多种操作，比如CRUD等。如果我们把他们一个一个分开来写的话，会出现大量Controller的子类，而这些子类会和其他的数据模型的控制器混合在一起，我们在组织和规划url地址和流程的时候就会有非">
-<meta property="og:updated_time" content="2016-03-19T16:31:08.095Z">
+<meta property="og:description" content="现在介绍一下如何在一个controller之内相应多种请求。
+首先，我们先要知道为什么要这么做。在一个大型项目中，针对某一个特定的类型数据模型可能会有多种操作，比如CRUD等。如果我们把他们一个一个分开来写的话，会出现大量Controller的子类，而这些子类会和其他的数据模型的控制器混合在一起，我们在组织和规划url地址和流程的时候就会有非常多的麻烦。SpringMVC给了我们一个横向的解决方案">
+<meta property="og:updated_time" content="2016-04-23T04:03:20.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC学习笔记 之3 控制器内写多个方法">
-<meta name="twitter:description" content="SpringMVC学习笔记 之3 控制器内写多个响应请求现在介绍一下如何在一个controller之内相应多种请求。
-首先，我们先要知道为什么要这么做。在一个大型项目中，针对某一个特定的类型数据模型可能会有多种操作，比如CRUD等。如果我们把他们一个一个分开来写的话，会出现大量Controller的子类，而这些子类会和其他的数据模型的控制器混合在一起，我们在组织和规划url地址和流程的时候就会有非">
+<meta name="twitter:description" content="现在介绍一下如何在一个controller之内相应多种请求。
+首先，我们先要知道为什么要这么做。在一个大型项目中，针对某一个特定的类型数据模型可能会有多种操作，比如CRUD等。如果我们把他们一个一个分开来写的话，会出现大量Controller的子类，而这些子类会和其他的数据模型的控制器混合在一起，我们在组织和规划url地址和流程的时候就会有非常多的麻烦。SpringMVC给了我们一个横向的解决方案">
   
     <link rel="alternative" href="/atom.xml" title="梁工春日的忧郁" type="application/atom+xml">
   
@@ -116,7 +116,7 @@
         <aside class="post-widget" id="post-widget">
 
           
-          <div class="post-share" id="post-share" data-title="SpringMVC学习笔记 之3 控制器内写多个方法" data-pic="/img/logo.jpg" data-summary="&lt;h1 id=&quot;SpringMVC学习笔记-之3-控制器内写多个响应请求&quot;&gt;&lt;a href=&quot;#SpringMVC学习笔记-之3-控制器内写多个响应请求&quot; class=&quot;headerlink&quot; title=&quot;SpringMVC学习笔记 之3 控制器内写多个响应请求&quot;&gt;&lt;/a&gt;SpringMVC学习笔记 之3 控制器内写多个响应请求&lt;/h1&gt;&lt;p&gt;现在介绍一下如何在一个controller之内相应多种请求。&lt;/p&gt;
+          <div class="post-share" id="post-share" data-title="SpringMVC学习笔记 之3 控制器内写多个方法" data-pic="/img/logo.jpg" data-summary="&lt;p&gt;现在介绍一下如何在一个controller之内相应多种请求。&lt;/p&gt;
 &lt;p&gt;首先，我们先要知道为什么要这么做。&lt;br&gt;在一个大型项目中，针对某一个特定的类型数据模型可能会有多种操作，比如CRUD等。如果我们把他们一个一个分开来写的话，会出现大量Controller的子类，而这些子类会和其他的数据模型的控制器混合在一起，我们在组织和规划url地址和流程的时候就会有非常多的麻烦。SpringMVC给了我们一个横向的解决方案，去帮助我们编写能够处理多种相应请求的控制器。也就是说，一个Controller里面，可以通过不同的方法去处理同一类(或不同种类)的业务，帮助我们有条理的梳理这些页面。&lt;br&gt;" data-url="http://yoursite.com/2015/04/04/SpringMVC学习笔记 之3 控制器内写多个方法/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
@@ -157,14 +157,14 @@
 
           
           <nav class="post-toc-wrap" id="post-toc">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SpringMVC学习笔记-之3-控制器内写多个响应请求"><span class="post-toc-text">SpringMVC学习笔记 之3 控制器内写多个响应请求</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#请求http-localhost-8080-SpringMVC1-test1-multi-action-add-效果："><span class="post-toc-text">请求http://localhost:8080/SpringMVC1/test1/multi?action=add 效果：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#请求http-localhost-8080-SpringMVC1-test1-multi-action-update-效果："><span class="post-toc-text">请求http://localhost:8080/SpringMVC1/test1/multi?action=update 效果：</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#请求http-localhost-8080-SpringMVC1-test1-multi-action-add-效果："><span class="post-toc-text">请求http://localhost:8080/SpringMVC1/test1/multi?action=add 效果：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#请求http-localhost-8080-SpringMVC1-test1-multi-action-update-效果："><span class="post-toc-text">请求http://localhost:8080/SpringMVC1/test1/multi?action=update 效果：</span></a></li></ol>
           </nav>
           
         </aside>
 
         <div class="post-main">
 
-            <div class="post-content" itemprop="postContent"><h1 id="SpringMVC学习笔记-之3-控制器内写多个响应请求"><a href="#SpringMVC学习笔记-之3-控制器内写多个响应请求" class="headerlink" title="SpringMVC学习笔记 之3 控制器内写多个响应请求"></a>SpringMVC学习笔记 之3 控制器内写多个响应请求</h1><p>现在介绍一下如何在一个controller之内相应多种请求。</p>
+            <div class="post-content" itemprop="postContent"><p>现在介绍一下如何在一个controller之内相应多种请求。</p>
 <p>首先，我们先要知道为什么要这么做。<br>在一个大型项目中，针对某一个特定的类型数据模型可能会有多种操作，比如CRUD等。如果我们把他们一个一个分开来写的话，会出现大量Controller的子类，而这些子类会和其他的数据模型的控制器混合在一起，我们在组织和规划url地址和流程的时候就会有非常多的麻烦。SpringMVC给了我们一个横向的解决方案，去帮助我们编写能够处理多种相应请求的控制器。也就是说，一个Controller里面，可以通过不同的方法去处理同一类(或不同种类)的业务，帮助我们有条理的梳理这些页面。<br><a id="more"></a><br>在这里，我们需要在<code>springMVC-servlet.xml</code>这个配置文件中，新增加一个bean。<br>如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 参数方法解析器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"paramMethodResolver"</span></span><br><span class="line">	<span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"paramName"</span> <span class="attr">value</span>=<span class="string">"action"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>这个bean当中的类名是ParameterMethodNameResolver，看名字就能明白，它是参数方法解析器。其中有一个属性叫做<code>paramName</code>，他是这个类中的一个变量。当我们指定这个变量值为<code>action</code>以后，我们在这个对应的请求上就会多出一个<code>action</code>参数，来匹配相应的方法名去执行相应的动作。</p>
 <p>接下来，我们要在上一节的项目当中，创建一个新的Controller。</p>
@@ -233,7 +233,7 @@
   </main>
 <div class="mask" id="mask"></div>
 <a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-<div class="global-share" id="global-share" data-title="SpringMVC学习笔记 之3 控制器内写多个方法" data-pic="/img/logo.jpg" data-summary="&lt;h1 id=&quot;SpringMVC学习笔记-之3-控制器内写多个响应请求&quot;&gt;&lt;a href=&quot;#SpringMVC学习笔记-之3-控制器内写多个响应请求&quot; class=&quot;headerlink&quot; title=&quot;SpringMVC学习笔记 之3 控制器内写多个响应请求&quot;&gt;&lt;/a&gt;SpringMVC学习笔记 之3 控制器内写多个响应请求&lt;/h1&gt;&lt;p&gt;现在介绍一下如何在一个controller之内相应多种请求。&lt;/p&gt;
+<div class="global-share" id="global-share" data-title="SpringMVC学习笔记 之3 控制器内写多个方法" data-pic="/img/logo.jpg" data-summary="&lt;p&gt;现在介绍一下如何在一个controller之内相应多种请求。&lt;/p&gt;
 &lt;p&gt;首先，我们先要知道为什么要这么做。&lt;br&gt;在一个大型项目中，针对某一个特定的类型数据模型可能会有多种操作，比如CRUD等。如果我们把他们一个一个分开来写的话，会出现大量Controller的子类，而这些子类会和其他的数据模型的控制器混合在一起，我们在组织和规划url地址和流程的时候就会有非常多的麻烦。SpringMVC给了我们一个横向的解决方案，去帮助我们编写能够处理多种相应请求的控制器。也就是说，一个Controller里面，可以通过不同的方法去处理同一类(或不同种类)的业务，帮助我们有条理的梳理这些页面。&lt;br&gt;" data-url="http://yoursite.com/2015/04/04/SpringMVC学习笔记 之3 控制器内写多个方法/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
