@@ -13,9 +13,7 @@
 @Component：基本注解，标识了一个受Spring管理的组件
 @Repository: 标识持久层组件
 @Service：标识业务层组件
-@Controller：标识表现层组件
-
-对于扫描到的组件，Spring有默认的命名策略：使用非限定的类">
+@Controller：标识表现层组件">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring学习13节 注解配置">
 <meta property="og:url" content="http://yoursite.com/2016/05/02/Spring学习13/index.html">
@@ -26,10 +24,8 @@
 @Component：基本注解，标识了一个受Spring管理的组件
 @Repository: 标识持久层组件
 @Service：标识业务层组件
-@Controller：标识表现层组件
-
-对于扫描到的组件，Spring有默认的命名策略：使用非限定的类">
-<meta property="og:updated_time" content="2016-05-08T02:40:09.645Z">
+@Controller：标识表现层组件">
+<meta property="og:updated_time" content="2016-05-08T02:42:24.825Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring学习13节 注解配置">
 <meta name="twitter:description" content="注解配置
@@ -38,9 +34,7 @@
 @Component：基本注解，标识了一个受Spring管理的组件
 @Repository: 标识持久层组件
 @Service：标识业务层组件
-@Controller：标识表现层组件
-
-对于扫描到的组件，Spring有默认的命名策略：使用非限定的类">
+@Controller：标识表现层组件">
   
     <link rel="alternative" href="/atom.xml" title="梁工春日的忧郁" type="application/atom+xml">
   
@@ -137,7 +131,13 @@
         <aside class="post-widget" id="post-widget">
 
           
-          <div class="post-share" id="post-share" data-title="Spring学习13节 注解配置" data-pic="/img/logo.jpg" data-summary="技术随行，心动随笔" data-url="http://yoursite.com/2016/05/02/Spring学习13/index.html">
+          <div class="post-share" id="post-share" data-title="Spring学习13节 注解配置" data-pic="/img/logo.jpg" data-summary="&lt;p&gt;注解配置&lt;/p&gt;
+&lt;p&gt;用注解标记的类成为组件(Component)，Spring能够在classpath下自动扫描侦测和实例化具有特定注解的组件。&lt;br&gt; 特定组件包括&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;@Component&lt;/strong&gt;：基本注解，标识了一个受Spring管理的组件&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;@Repository&lt;/strong&gt;: 标识持久层组件&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;@Service&lt;/strong&gt;：标识业务层组件&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;@Controller&lt;/strong&gt;：标识表现层组件&lt;/p&gt;" data-url="http://yoursite.com/2016/05/02/Spring学习13/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>
@@ -190,11 +190,12 @@
 <li><strong>@Component</strong>：基本注解，标识了一个受Spring管理的组件</li>
 <li><strong>@Repository</strong>: 标识持久层组件</li>
 <li><strong>@Service</strong>：标识业务层组件</li>
-<li><strong>@Controller</strong>：标识表现层组件</li>
-</ul>
+<li><p><strong>@Controller</strong>：标识表现层组件</p>
+<a id="more"></a>
 <p>对于扫描到的组件，Spring有默认的命名策略：使用非限定的类名，第一个字母小写。<br>也可以在注解中通过value属性标识组件名称。<br>也就说，如果有一个业务叫UserService，那么默认的组件名就是userService。</p>
-<ul>
-<li>使用了特定注解以后，还需要在Spring配置文件中声明<context:component-scan>节点，并且base-package属性指定扫描的基类包，<br> Spring会扫描这个基类包和子包中的所有类。</context:component-scan></li>
+</li>
+<li><p>使用了特定注解以后，还需要在Spring配置文件中声明<context:component-scan>节点，并且base-package属性指定扫描的基类包，<br> Spring会扫描这个基类包和子包中的所有类。</context:component-scan></p>
+</li>
 <li>如果需要多个包，使用逗号分隔。</li>
 </ul>
 <p>当然，也可以使用AnnotationApplicationContext传入基准包的路径，可以实现无xml配置，值得推荐使用。</p>
@@ -251,7 +252,13 @@ org.ginryan.raku.annotation.repository.UserRepositoryImpl@4fecf98f
   </main>
 <div class="mask" id="mask"></div>
 <a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-<div class="global-share" id="global-share" data-title="Spring学习13节 注解配置" data-pic="/img/logo.jpg" data-summary="技术随行，心动随笔" data-url="http://yoursite.com/2016/05/02/Spring学习13/index.html">
+<div class="global-share" id="global-share" data-title="Spring学习13节 注解配置" data-pic="/img/logo.jpg" data-summary="&lt;p&gt;注解配置&lt;/p&gt;
+&lt;p&gt;用注解标记的类成为组件(Component)，Spring能够在classpath下自动扫描侦测和实例化具有特定注解的组件。&lt;br&gt; 特定组件包括&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;@Component&lt;/strong&gt;：基本注解，标识了一个受Spring管理的组件&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;@Repository&lt;/strong&gt;: 标识持久层组件&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;@Service&lt;/strong&gt;：标识业务层组件&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;@Controller&lt;/strong&gt;：标识表现层组件&lt;/p&gt;" data-url="http://yoursite.com/2016/05/02/Spring学习13/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>
