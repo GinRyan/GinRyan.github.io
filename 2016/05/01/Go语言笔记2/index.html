@@ -8,18 +8,21 @@
   
   <meta name="keywords" content="Go">
   <meta name="description" content="#Go语言笔记2
-上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。这一节包含认识Go语言的变量与常量系统，类型系统的内容。">
+上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。这一节包含认识Go语言的变量与常量系统，类型系统的内容。
+Go语言编程一书中说道，学习完顺序编程这一章以后会觉得Go语言是“更好的C语言”">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go笔记2-Go语法">
 <meta property="og:url" content="http://yoursite.com/2016/05/01/Go语言笔记2/index.html">
 <meta property="og:site_name" content="梁工春日的忧郁">
 <meta property="og:description" content="#Go语言笔记2
-上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。这一节包含认识Go语言的变量与常量系统，类型系统的内容。">
-<meta property="og:updated_time" content="2016-05-01T15:12:46.955Z">
+上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。这一节包含认识Go语言的变量与常量系统，类型系统的内容。
+Go语言编程一书中说道，学习完顺序编程这一章以后会觉得Go语言是“更好的C语言”">
+<meta property="og:updated_time" content="2016-05-10T14:12:22.865Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go笔记2-Go语法">
 <meta name="twitter:description" content="#Go语言笔记2
-上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。这一节包含认识Go语言的变量与常量系统，类型系统的内容。">
+上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。这一节包含认识Go语言的变量与常量系统，类型系统的内容。
+Go语言编程一书中说道，学习完顺序编程这一章以后会觉得Go语言是“更好的C语言”">
   
     <link rel="alternative" href="/atom.xml" title="梁工春日的忧郁" type="application/atom+xml">
   
@@ -117,7 +120,8 @@
 
           
           <div class="post-share" id="post-share" data-title="Go笔记2-Go语法" data-pic="/img/logo.jpg" data-summary="&lt;p&gt;#Go语言笔记2&lt;/p&gt;
-&lt;p&gt;上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。&lt;br&gt;这一节包含认识Go语言的变量与常量系统，类型系统的内容。&lt;br&gt;" data-url="http://yoursite.com/2016/05/01/Go语言笔记2/index.html">
+&lt;p&gt;上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。&lt;br&gt;这一节包含认识Go语言的变量与常量系统，类型系统的内容。&lt;/p&gt;
+&lt;p&gt;Go语言编程一书中说道，学习完顺序编程这一章以后会觉得Go语言是“更好的C语言”&lt;br&gt;" data-url="http://yoursite.com/2016/05/01/Go语言笔记2/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>
@@ -165,7 +169,8 @@
         <div class="post-main">
 
             <div class="post-content" itemprop="postContent"><p>#Go语言笔记2</p>
-<p>上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。<br>这一节包含认识Go语言的变量与常量系统，类型系统的内容。<br><a id="more"></a><br>Go语言编程一书中说道，学习完顺序编程这一章以后会觉得Go语言是“更好的C语言”</p>
+<p>上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。<br>这一节包含认识Go语言的变量与常量系统，类型系统的内容。</p>
+<p>Go语言编程一书中说道，学习完顺序编程这一章以后会觉得Go语言是“更好的C语言”<br><a id="more"></a></p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>关于环境搭建，其实我在这里并不想以多图的方式介绍，因为对于计算机专业的同学们同志们来说，使用图片的方式会将原本灵活的过程写死，当IDE环境和编译器都升级以后，那么这份“教程”也就过期了，因此我将均以文本的方式叙述。</p>
 <p>我们可以考虑使用的IDE环境其实有很多，都可以配合Go语言官方的编辑器进行对代码的编辑。首先，我们可以确定的是<br>，一门编程语言，无论是编译型、翻译型，都需要编译器，翻译型语言除了编译器还需要额外的运行时库环境，解释型语<br>言也许不需要编译器，但是需要一个运行时环境(如JavaScript)。然而Go语言是编译型，而且是本地化编译，不需要<br>额外的运行时库，所以我们首先要做的是下载编译器工具包。笔者在编写这份笔记时的版本是1.6.2版，因此需要下载<br>1.6.2版的SDK包进行安装,并且将二进制执行目录写到系统PATH变量中。<br>Go的开发工具包的下载页面地址是：<a href="https://golang.org/dl/" target="_blank" rel="external">https://golang.org/dl/</a><br>由于一些众所周知的原因，各位下载时可能会遇到困难，可以到国内的Go语言社区去下载Go的工具包。<br>比如这里：<a href="http://www.golangtc.com/download" target="_blank" rel="external">http://www.golangtc.com/download</a></p>
 <p>要高效地编写一门语言的项目时必定少不了程序员的瑞士军刀：IDE。<br>Go语言其实是有一个开源的LiteIDE，可以用在学习Go时使用。<br>下载地址为：<a href="https://sourceforge.net/projects/liteide/" target="_blank" rel="external">https://sourceforge.net/projects/liteide/</a>如果希望使用的可以到这里下载。<br>不过我很推荐国内社区的完善的汉化版本：<a href="http://www.golangtc.com/download/liteide" target="_blank" rel="external">http://www.golangtc.com/download/liteide</a><br>不但有LiteIDE可以用，而且对于Eclipse用户来说，还可以为预装了C++和Java编程支持的Eclipse安装GoClipse插件，让Eclipse成为一个完整的Go语言支持的IDE。不过安装过程比较折腾，尤其是为Eclipse安装插件的过程。笔者在安装时使用的版本是Eclipse Mars2版， Java用户版，安装CDT 8.8插件，然后再安装GoClipse插件。这才安装成功。当然，这个过程中还会有莫名其妙的问题发生，所以学习期还是不要被这些拖住。LiteIDE还是不错的。</p>
@@ -554,7 +559,8 @@ cap(mySlice): 10
 <div class="mask" id="mask"></div>
 <a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 <div class="global-share" id="global-share" data-title="Go笔记2-Go语法" data-pic="/img/logo.jpg" data-summary="&lt;p&gt;#Go语言笔记2&lt;/p&gt;
-&lt;p&gt;上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。&lt;br&gt;这一节包含认识Go语言的变量与常量系统，类型系统的内容。&lt;br&gt;" data-url="http://yoursite.com/2016/05/01/Go语言笔记2/index.html">
+&lt;p&gt;上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。&lt;br&gt;这一节包含认识Go语言的变量与常量系统，类型系统的内容。&lt;/p&gt;
+&lt;p&gt;Go语言编程一书中说道，学习完顺序编程这一章以后会觉得Go语言是“更好的C语言”&lt;br&gt;" data-url="http://yoursite.com/2016/05/01/Go语言笔记2/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>

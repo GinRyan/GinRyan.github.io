@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Go笔记3-Go流程控制和语法 | 梁工春日的忧郁 | 孤星独吟</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Go">
+  <meta name="description" content="流程控制Go语言也不会免俗的加入基本的流程控制语句。这都是我们在其他语言当中都见到过的。当然也有没见到的和似曾相识的。
+
+条件语句 if,else, else if
+选择语句 switch, case和select(这是什么鬼？将在channel中说)
+循环语句 for,range
+跳转语句 goto(喂喂! 这种行将就木的东西怎么冒出来了)
+其他控制关键字：break,continue,fall">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go笔记3-Go流程控制和语法">
+<meta property="og:url" content="http://yoursite.com/2016/05/10/Go语言笔记3流程控制，函数/index.html">
+<meta property="og:site_name" content="梁工春日的忧郁">
+<meta property="og:description" content="流程控制Go语言也不会免俗的加入基本的流程控制语句。这都是我们在其他语言当中都见到过的。当然也有没见到的和似曾相识的。
+
+条件语句 if,else, else if
+选择语句 switch, case和select(这是什么鬼？将在channel中说)
+循环语句 for,range
+跳转语句 goto(喂喂! 这种行将就木的东西怎么冒出来了)
+其他控制关键字：break,continue,fall">
+<meta property="og:updated_time" content="2016-05-10T14:15:43.571Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go笔记3-Go流程控制和语法">
+<meta name="twitter:description" content="流程控制Go语言也不会免俗的加入基本的流程控制语句。这都是我们在其他语言当中都见到过的。当然也有没见到的和似曾相识的。
+
+条件语句 if,else, else if
+选择语句 switch, case和select(这是什么鬼？将在channel中说)
+循环语句 for,range
+跳转语句 goto(喂喂! 这种行将就木的东西怎么冒出来了)
+其他控制关键字：break,continue,fall">
+  
+    <link rel="alternative" href="/atom.xml" title="梁工春日的忧郁" type="application/atom+xml">
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="./" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">Xelloss</h5>
+        <a href="mailto:undefined" title="gino3@qq.com" class="mail">gino3@qq.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>Home
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>Archives
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>Tags
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="https://github.com/GinRyan" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>Github
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>梁工春日的忧郁 &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Go笔记3-Go流程控制和语法</div>
+        <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">Go笔记3-Go流程控制和语法</h1>
+    <h5 class="subtitle">2016-05-10</h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      
+  <article id="post-Go语言笔记3流程控制，函数" class="article article-type-post" itemscope itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li></ul>
+</div>
+      </div>
+      <div class="post-body">
+
+        <aside class="post-widget" id="post-widget">
+
+          
+          <div class="post-share" id="post-share" data-title="Go笔记3-Go流程控制和语法" data-pic="/img/logo.jpg" data-summary="&lt;h2 id=&quot;流程控制&quot;&gt;&lt;a href=&quot;#流程控制&quot; class=&quot;headerlink&quot; title=&quot;流程控制&quot;&gt;&lt;/a&gt;流程控制&lt;/h2&gt;&lt;p&gt;Go语言也不会免俗的加入基本的流程控制语句。这都是我们在其他语言当中都见到过的。当然也有没见到的和似曾相识的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;条件语句&lt;/strong&gt; if,else, else if&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;选择语句&lt;/strong&gt; switch, case和select(这是什么鬼？将在channel中说)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;循环语句&lt;/strong&gt; for,range&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;跳转语句&lt;/strong&gt; goto(喂喂! 这种行将就木的东西怎么冒出来了)&lt;/li&gt;
+&lt;li&gt;其他控制关键字：break,continue,fallthrough" data-url="http://yoursite.com/2016/05/10/Go语言笔记3流程控制，函数/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#流程控制"><span class="post-toc-text">流程控制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#跳转语句"><span class="post-toc-text">跳转语句</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#函数"><span class="post-toc-text">函数</span></a></li></ol>
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" itemprop="postContent"><h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><p>Go语言也不会免俗的加入基本的流程控制语句。这都是我们在其他语言当中都见到过的。当然也有没见到的和似曾相识的。</p>
+<ul>
+<li><strong>条件语句</strong> if,else, else if</li>
+<li><strong>选择语句</strong> switch, case和select(这是什么鬼？将在channel中说)</li>
+<li><strong>循环语句</strong> for,range</li>
+<li><strong>跳转语句</strong> goto(喂喂! 这种行将就木的东西怎么冒出来了)</li>
+<li>其他控制关键字：break,continue,fallthrough<a id="more"></a>
+###条件语句<br>我们可以编写如下条件语句：<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> a &lt; <span class="number">5</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"> 	<span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>短短的几行代码里，我们可以看到语法和C系非常相似。只是少了圆括号。<br>实际上，Go的判断语句与C区别更多：</p>
+<ul>
+<li>不需要圆括号</li>
+<li>花括号对 {}必须存在，无论有几行代码</li>
+<li>左边花括号必须和if或else同一行，不可换另一行</li>
+<li>在if之后，条件语句之前，可以添加变量初始化语句，使用;间隔；</li>
+</ul>
+<p>注：还有一点，Go语言编程一书中是这么写的：</p>
+<ul>
+<li>在有返回值的函数中，不允许将“最终的” return语句包含在if…else…结构中，否则会编译失败,会报告找不到return语句错误。<br>编译失败的案例如下：<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> example(x <span class="keyword">int</span>) <span class="keyword">int</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> x == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">5</span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>但是在我使用Go 1.6.2实际编写用例时，这个问题没有出现。说明这个问题应该是被Go开发团队所修复，不再成为Go语言的一个特性。</p>
+<p>###选择语句<br>选择语句是我们常见的swtich,case等语句。但是它又不同于我们在别的语言里的switch语句。让我们看一个例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">	i := <span class="number">20</span></span><br><span class="line">	whatNum(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> whatNum(n <span class="keyword">int</span>) &#123;</span><br><span class="line">	<span class="keyword">switch</span> n &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">		fmt.Println(<span class="string">"10"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">20</span>:</span><br><span class="line">		<span class="keyword">fallthrough</span></span><br><span class="line">	<span class="keyword">case</span> <span class="number">30</span>:</span><br><span class="line">		fmt.Println(<span class="string">"20 or 30"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">40</span>, <span class="number">50</span>, <span class="number">60</span>:</span><br><span class="line">		fmt.Println(<span class="string">"40,50 or 60"</span>)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Println(<span class="string">"Other"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当i = 10时，执行结果是：10<br>当i = 20或者30时，执行结果是：20 or 30<br>当i = 40,50或者60时，执行结果是：40,50 or 60<br>当i = 其他数值时，执行结果是Other</p>
+<p>而且，switch后面可以省略条件判定变量,因此上面的判定函数还可以<br>如此修改：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> whatNum(n <span class="keyword">int</span>) &#123;</span><br><span class="line">	<span class="keyword">switch</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> n == <span class="number">10</span>:</span><br><span class="line">		fmt.Println(<span class="string">"10"</span>)</span><br><span class="line">	<span class="keyword">case</span> n == <span class="number">20</span>:</span><br><span class="line">		<span class="keyword">fallthrough</span> <span class="comment">//这里的代码执行完毕后会因为这个关键字继续下落到下一个case继续执行。</span></span><br><span class="line">	<span class="keyword">case</span> n == <span class="number">30</span>:</span><br><span class="line">		fmt.Println(<span class="string">"20 or 30"</span>)</span><br><span class="line">	<span class="keyword">case</span> n == <span class="number">40</span> || n == <span class="number">50</span> || n == <span class="number">60</span>:</span><br><span class="line">		fmt.Println(<span class="string">"40,50 or 60"</span>)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Println(<span class="string">"Other"</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所以我们可以看到switch可以不设定switch之后的条件表达式，在此种情况下，<br>整个switch结构与多个if…else…的逻辑作用等同。</p>
+<p>除此以外，</p>
+<ul>
+<li>左花括号还是要和关键字在同一行上</li>
+<li>条件表达式可以不限制为常量或者整数</li>
+<li>一个case可以有多个选项结果，可以保证多个结果落入同一个case中</li>
+<li>与C系语言反其道而行之，在switch中不设立break来阻止语句执行完毕继续下落执行，<br>而是通过一个新的关键字fallthrough指示程序继续下落执行。</li>
+</ul>
+<p>###循环语句<br>与多数语言不同，Go只为循环准备了for关键字结构的语句，而没有提供while或者do-while结构。<br>for的最原始用法和C系语言相近。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i := <span class="number">10</span></span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; n; i++ &#123;</span><br><span class="line">	fmt.Println(<span class="string">"loop via:"</span>, i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或者我们有时需要在逻辑内部要控制退出，而不是for结构本身，那么我们可以直接使用这种方式写一个死循环块：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">i := <span class="number">10</span></span><br><span class="line">sum := <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">	sum += i</span><br><span class="line">	fmt.Println(<span class="string">"sum: "</span>, sum)</span><br><span class="line">	<span class="keyword">if</span> sum &gt; <span class="number">100</span> &#123;</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然，for语句结构中，也支持多重赋值。不过写起来麻烦，可读性差，所以不做演示。<br>总结循环：</p>
+<ul>
+<li>老生常谈，左花括号不能自己开新行，必须跟在关键字行行尾</li>
+<li>Go中for和C类似，允许定义和初始化变量，并且允许多重赋值多个变量。但是不支持以逗号分割的多个赋值语句。</li>
+<li>同样支持continue和break来控制循环，但是break允许中断一个指定的循环。</li>
+</ul>
+<h3 id="跳转语句"><a href="#跳转语句" class="headerlink" title="跳转语句"></a>跳转语句</h3><p>Go语言编程一书中也对Goto这个关键字的存在表示了惊讶。不过好在Go语言中的goto关键<br>字支持的是一个标签的跳转，而非行数的跳转。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> myfunc() &#123;</span><br><span class="line">	i := <span class="number">0</span></span><br><span class="line">HERE:</span><br><span class="line">	fmt.Println(i)</span><br><span class="line">	i++</span><br><span class="line">	<span class="keyword">if</span> i &lt; <span class="number">10</span> &#123;</span><br><span class="line">		<span class="keyword">goto</span> HERE</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>Go中的函数基本组成为：关键字func、函数名、参数表、返回值类型、函数体和返回语句，<br>用一个最全面的函数定义来看一下函数的语法：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> Add(a <span class="keyword">int</span>, b <span class="keyword">int</span>) (ret <span class="keyword">int</span>, err error) &#123;</span><br><span class="line">	<span class="keyword">if</span> a &lt; <span class="number">0</span> || b &lt; <span class="number">0</span> &#123; <span class="comment">// 假设这个函数只支持两个非负数字的加法</span></span><br><span class="line">		err = errors.New(<span class="string">"Should be non-negative numbers!"</span>)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> a + b, <span class="literal">nil</span> <span class="comment">// 支持多重返回值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果有若干个相邻参数类型相同，例如上面这个例子，我们可以省略前面变量的类型声明，<br>如下修改：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">func</span> Add(a, b <span class="keyword">int</span>) (ret <span class="keyword">int</span>, err error) &#123;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>多返回值：返回类型如果是多个不同的类型，如上所示需要用圆括号括起来，用逗号分割，<br>返回时也需要由相同的return顺序。当然，有多个相同类型返回值也可以省略前面的返回的类型声明。</p>
+<p>与其他语言不同的是，返回值列表跟参数列表一样，都是有变量的，除了上述<br>return a+b,nil的写法以外，还可以仅仅为ret和err这两个返回值量进行赋值，<br>然后只写return来结束函数。<br>如下写法和上面示例是等同的：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> Add(a <span class="keyword">int</span>, b <span class="keyword">int</span>) (ret <span class="keyword">int</span>, err error) &#123;</span><br><span class="line">	<span class="keyword">if</span> a &lt; <span class="number">0</span> || b &lt; <span class="number">0</span> &#123; <span class="comment">// 假设这个函数只支持两个非负数字的加法</span></span><br><span class="line">		err = errors.New(<span class="string">"Should be non-negative numbers!"</span>)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	ret = a + b</span><br><span class="line">	err = <span class="literal">nil</span></span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在多个返回值时，返回值量不可省略。但是但返回值是返回值量可以省略，圆括号也可以省略。<br>就可以修改成这样：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> Add(a <span class="keyword">int</span>, b <span class="keyword">int</span>) <span class="keyword">int</span> &#123;</span><br><span class="line"> ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个思维更适用于从其他语言转过来的使用习惯。</p>
+<p>###函数调用<br>函数的调用十分简易，只要事先导入了这个包，通过包名.函数名即可调用这个函数。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"mymath"</span><span class="comment">// 假设Add被放在一个叫mymath的包中</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">c := mymath.Add(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<p>Go语言节省了函数的可见性关键字，通过函数的首字母大小写来决定是否让其他包调用函数。<br>如果你的函数名首字母是小写，那么将不可以被本包以外的代码调用，函数名首字母是大写，<br>是可以被外部代码所调用的。本规则也适用于类型和变量的可见性。</p>
+<p>##不定长度参数<br>要使用不定长参数特性，需要如下定义和使用：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> myArgsFunc(args ...<span class="keyword">int</span>) &#123;</span><br><span class="line">	<span class="keyword">for</span> _, args := <span class="keyword">range</span> args &#123;</span><br><span class="line">		fmt.Println(args)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>省略号 … 作为语法糖，他如果在多类型参数表中，必须放在最后一个参数位置上，然而实际<br>上他是一个数组切片可以通过for 和range关键字来对它进行遍历。</p>
+<pre><code>注：for range的语法是我比较看着不舒服的地方，因为这一块代码没有看出来是哪一
+种特定的语法，抑或是range关键字特定的语法？这是我感觉比较让人吐槽的地方。
+</code></pre><p>然而，如果没有这种语法糖，那么参数args…int就不得不写成args []int，传入时也必须是一个数组切片。</p>
+<p><strong>不定长参数的传递</strong><br>假设有另一个变参函数叫做myfunc3(args …int)，假设这个参数有可能是个尾递归调用函数，<br>那么下面的例子演示了如何向其传递变参：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> myfunc(args ...<span class="keyword">int</span>) &#123;</span><br><span class="line">	<span class="comment">// 按原样传递</span></span><br><span class="line">	myfunc3(args...)</span><br><span class="line">	<span class="comment">// 传递片段，实际上任意的int slice都可以传进去</span></span><br><span class="line">	myfunc3(args[<span class="number">1</span>:]...) <span class="comment">//还记得吗？切片范围[M:N]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>任意类型的不定参数</strong><br>如果你希望传任意类型，可以指定类型为interface{}。用interface{}传递任意数据类型是Go<br>语言的惯例用法。这个就要谈一谈interface的用法了，这个后面再说。<br>Go语言标准库中fmt.Printf()的函数原型：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> Printf(format <span class="keyword">string</span>, args ...<span class="keyword">interface</span>&#123;&#125;) &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以用这么个例子来说明用法：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> MyPrintf(args ...<span class="keyword">interface</span>&#123;&#125;) &#123;</span><br><span class="line">	<span class="keyword">for</span> _, arg := <span class="keyword">range</span> args &#123;</span><br><span class="line">		<span class="keyword">switch</span> arg.(<span class="keyword">type</span>) &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="keyword">int</span>:</span><br><span class="line">			fmt.Println(arg, <span class="string">"is an int value."</span>)</span><br><span class="line">		<span class="keyword">case</span> <span class="keyword">string</span>:</span><br><span class="line">			fmt.Println(arg, <span class="string">"is a string value."</span>)</span><br><span class="line">		<span class="keyword">case</span> <span class="keyword">int64</span>:</span><br><span class="line">			fmt.Println(arg, <span class="string">"is an int64 value."</span>)</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			fmt.Println(arg, <span class="string">"is an unknown type."</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">	<span class="keyword">var</span> v1 <span class="keyword">int</span> = <span class="number">1</span></span><br><span class="line">	<span class="keyword">var</span> v2 <span class="keyword">int64</span> = <span class="number">234</span></span><br><span class="line">	<span class="keyword">var</span> v3 <span class="keyword">string</span> = <span class="string">"hello"</span></span><br><span class="line">	<span class="keyword">var</span> v4 <span class="keyword">float32</span> = <span class="number">1.234</span></span><br><span class="line">	MyPrintf(v1, v2, v3, v4)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行结果为：</p>
+<pre><code>1 is an int value.
+234 is an int64 value.
+hello is a string value.
+1.234 is an unknown type.
+</code></pre><p>##多返回值</p>
+<p>其实前面已经有很多例子已经展示了Go语言当中多返回值的用法和形式等等。<br>Go语言的函数或者成员的方法可以有多个返回值，<br>这个特性能够使我们写出比其他语言更优雅、更简洁的代码，<br>比如File.Read()函数就可以同时返回读取的字节数和错误信息。如果读取文件成功，则返回值中的n为读取的字节<br>数， err为nil，否则err为具体的出错信息:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> (file *File) Read(b []<span class="keyword">byte</span>) (n <span class="keyword">int</span>, err Error)</span><br></pre></td></tr></table></figure></p>
+<p>同样，从上面的方法原型可以看到，我们还可以给返回值命名，就像函数的输入参数一样。<br>返回值被命名之后，它们的值在函数开始的时候被自动初始化为空。在函数中执行不带任何参数<br>的return语句时，会返回对应的返回值变量的值.<br>当然，我们如果对某一个返回值不关心的话，只要用’_’占据那个返回值的位置就可以了，比如：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n, _ := f.Read(buf)</span><br></pre></td></tr></table></figure></p>
+<p>##匿名函数和闭包</p>
+<blockquote>
+<blockquote>
+<p>To be continued.</p>
+</blockquote>
+</blockquote>
+</div>
+
+            
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block prev">
+    
+  </div>
+  <div class="flex-col waves-block next">
+    
+      <a href="/2016/05/04/Spring学习13~15/" title="Spring学习13~15节 注解配置" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
+
+</nav>
+
+
+
+            
+
+
+
+
+        </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<div class="global-share" id="global-share" data-title="Go笔记3-Go流程控制和语法" data-pic="/img/logo.jpg" data-summary="&lt;h2 id=&quot;流程控制&quot;&gt;&lt;a href=&quot;#流程控制&quot; class=&quot;headerlink&quot; title=&quot;流程控制&quot;&gt;&lt;/a&gt;流程控制&lt;/h2&gt;&lt;p&gt;Go语言也不会免俗的加入基本的流程控制语句。这都是我们在其他语言当中都见到过的。当然也有没见到的和似曾相识的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;条件语句&lt;/strong&gt; if,else, else if&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;选择语句&lt;/strong&gt; switch, case和select(这是什么鬼？将在channel中说)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;循环语句&lt;/strong&gt; for,range&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;跳转语句&lt;/strong&gt; goto(喂喂! 这种行将就木的东西怎么冒出来了)&lt;/li&gt;
+&lt;li&gt;其他控制关键字：break,continue,fallthrough" data-url="http://yoursite.com/2016/05/10/Go语言笔记3流程控制，函数/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
