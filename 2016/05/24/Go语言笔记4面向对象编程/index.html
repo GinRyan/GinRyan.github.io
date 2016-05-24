@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Go笔记4-Go面向对象编程 | 梁工春日的忧郁 | 孤星独吟</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Go">
+  <meta name="description" content="面向对象的特性提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，更加简洁。这也可以侧面看出来为什么称Go是”更好的C语">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go笔记4-Go面向对象编程">
+<meta property="og:url" content="http://yoursite.com/2016/05/24/Go语言笔记4面向对象编程/index.html">
+<meta property="og:site_name" content="梁工春日的忧郁">
+<meta property="og:description" content="面向对象的特性提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，更加简洁。这也可以侧面看出来为什么称Go是”更好的C语">
+<meta property="og:updated_time" content="2016-05-24T14:16:57.694Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go笔记4-Go面向对象编程">
+<meta name="twitter:description" content="面向对象的特性提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，更加简洁。这也可以侧面看出来为什么称Go是”更好的C语">
+  
+    <link rel="alternative" href="/atom.xml" title="梁工春日的忧郁" type="application/atom+xml">
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="./" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">Xelloss</h5>
+        <a href="mailto:undefined" title="gino3@qq.com" class="mail">gino3@qq.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>Home
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>Archives
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>Tags
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="https://github.com/GinRyan" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>Github
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>梁工春日的忧郁 &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Go笔记4-Go面向对象编程</div>
+        <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">Go笔记4-Go面向对象编程</h1>
+    <h5 class="subtitle">2016-05-24</h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      
+  <article id="post-Go语言笔记4面向对象编程" class="article article-type-post" itemscope itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li></ul>
+</div>
+      </div>
+      <div class="post-body">
+
+        <aside class="post-widget" id="post-widget">
+
+          
+          <div class="post-share" id="post-share" data-title="Go笔记4-Go面向对象编程" data-pic="/img/logo.jpg" data-summary="&lt;h2 id=&quot;面向对象的特性&quot;&gt;&lt;a href=&quot;#面向对象的特性&quot; class=&quot;headerlink&quot; title=&quot;面向对象的特性&quot;&gt;&lt;/a&gt;面向对象的特性&lt;/h2&gt;&lt;p&gt;提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们&lt;br&gt;也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在&lt;br&gt;语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、&lt;br&gt;构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，&lt;br&gt;更加简洁。这也可以侧面看出来为什么称Go是”更好的C语言”&lt;/p&gt;" data-url="http://yoursite.com/2016/05/24/Go语言笔记4面向对象编程/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#面向对象的特性"><span class="post-toc-text">面向对象的特性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类型系统"><span class="post-toc-text">类型系统</span></a></li></ol>
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" itemprop="postContent"><h2 id="面向对象的特性"><a href="#面向对象的特性" class="headerlink" title="面向对象的特性"></a>面向对象的特性</h2><p>提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们<br>也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在<br>语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、<br>构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，<br>更加简洁。这也可以侧面看出来为什么称Go是”更好的C语言”</p>
+<a id="more"></a>
+<h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><p>Go语言编程一书当中说道：</p>
+<p>一个典型的类型系统通常包含如下基本内容：</p>
+<ul>
+<li>基础类型，如byte、 int、 bool、 float等；</li>
+<li>复合类型，如数组、结构体、指针等；</li>
+<li>可以指向任意对象的类型（Any类型）；</li>
+<li>值语义和引用语义；</li>
+<li>面向对象，即所有具备面向对象特征（比如成员方法）的类型；</li>
+<li>接口</li>
+</ul>
+<p>并且拿了Java作为讲解类型系统的范例，介绍了一下Java的两种类型系统，这里将不再比较赘述。</p>
+<p>然而Go语言当中有一个十分灵巧的特性，任何类型都可以“增加”新方法。多数类型为值类型；实现接口时，是基于实现接口的模型（函数实现），而不是定义的接口所在包或者名称（这一点Java就做的比较死板），实现接口也不是继承方式，而是函数模型实现。任何类型都可以由Any类型引用。Any类型就是空接口，也就是interface{}。</p>
+<p><em>To be continued…</em></p>
+</div>
+
+            
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block prev">
+    
+  </div>
+  <div class="flex-col waves-block next">
+    
+      <a href="/2016/05/21/Spring学习16~18/" title="Spring学习16-18节 AOP" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
+
+</nav>
+
+
+
+            
+
+
+
+
+        </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<div class="global-share" id="global-share" data-title="Go笔记4-Go面向对象编程" data-pic="/img/logo.jpg" data-summary="&lt;h2 id=&quot;面向对象的特性&quot;&gt;&lt;a href=&quot;#面向对象的特性&quot; class=&quot;headerlink&quot; title=&quot;面向对象的特性&quot;&gt;&lt;/a&gt;面向对象的特性&lt;/h2&gt;&lt;p&gt;提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们&lt;br&gt;也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在&lt;br&gt;语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、&lt;br&gt;构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，&lt;br&gt;更加简洁。这也可以侧面看出来为什么称Go是”更好的C语言”&lt;/p&gt;" data-url="http://yoursite.com/2016/05/24/Go语言笔记4面向对象编程/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
