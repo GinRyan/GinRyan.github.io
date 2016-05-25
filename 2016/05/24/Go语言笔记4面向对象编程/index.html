@@ -13,7 +13,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/05/24/Go语言笔记4面向对象编程/index.html">
 <meta property="og:site_name" content="梁工春日的忧郁">
 <meta property="og:description" content="面向对象的特性1提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，更加简洁。这也可以侧面看出来为什么称Go是”更好的C">
-<meta property="og:updated_time" content="2016-05-25T13:57:10.008Z">
+<meta property="og:updated_time" content="2016-05-25T14:00:43.139Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go笔记4-Go面向对象编程1">
 <meta name="twitter:description" content="面向对象的特性1提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，更加简洁。这也可以侧面看出来为什么称Go是”更好的C">
@@ -227,8 +227,8 @@
 <pre><code>这里看到代码汇总有一句跟上面范例当中一样了不？
 对，就是b[1] = 100，
 变量b的类型不是[3]int，而是*[3]int类型
-下面这一句fmt.Println(a, *b)就用了\*b，是作为指针变量去解引用使用数组值。
-那么实际上这里也应当用(\*b)[1]指针指向数组的形式来解析b的引用，但是使用b[1]
+下面这一句fmt.Println(a, *b)就用了*b，是作为指针变量去解引用使用数组值。
+那么实际上这里也应当用(*b)[1]指针指向数组的形式来解析b的引用，但是使用b[1]
 运行也是对的，我也不知道为什么b[1]直接使用也是对的，不知道什么原理。
 难不成是语法糖？
 </code></pre><p>Go除了数组外，还有数组切片，map，channel(goroutine)通信量，和interface，他们看起来像是引用类型，<br>但是他们实际上都是值类型。map和channel本身就是指针，因此他们赋值时复制指针而不是数据内容，因此他们依然<br>是值类型。这一点是跟C、C++、Java、C#是有相同点的，但是依然要小心使用。另外，接口、结构体、指针等话题后<br>面还会更多的提到。</p>
