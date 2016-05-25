@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Go笔记4-Go面向对象编程 | 梁工春日的忧郁 | 孤星独吟</title>
+  <title>Go笔记4-Go面向对象编程1 | 梁工春日的忧郁 | 孤星独吟</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="Go">
-  <meta name="description" content="面向对象的特性提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，更加简洁。这也可以侧面看出来为什么称Go是”更好的C语">
+  <meta name="description" content="面向对象的特性1提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，更加简洁。这也可以侧面看出来为什么称Go是”更好的C">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go笔记4-Go面向对象编程">
+<meta property="og:title" content="Go笔记4-Go面向对象编程1">
 <meta property="og:url" content="http://yoursite.com/2016/05/24/Go语言笔记4面向对象编程/index.html">
 <meta property="og:site_name" content="梁工春日的忧郁">
-<meta property="og:description" content="面向对象的特性提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，更加简洁。这也可以侧面看出来为什么称Go是”更好的C语">
-<meta property="og:updated_time" content="2016-05-25T12:10:47.093Z">
+<meta property="og:description" content="面向对象的特性1提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，更加简洁。这也可以侧面看出来为什么称Go是”更好的C">
+<meta property="og:updated_time" content="2016-05-25T13:57:10.008Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go笔记4-Go面向对象编程">
-<meta name="twitter:description" content="面向对象的特性提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，更加简洁。这也可以侧面看出来为什么称Go是”更好的C语">
+<meta name="twitter:title" content="Go笔记4-Go面向对象编程1">
+<meta name="twitter:description" content="面向对象的特性1提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，更加简洁。这也可以侧面看出来为什么称Go是”更好的C">
   
     <link rel="alternative" href="/atom.xml" title="梁工春日的忧郁" type="application/atom+xml">
   
@@ -86,7 +86,7 @@
         <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Go笔记4-Go面向对象编程</div>
+        <div class="flex-col header-title ellipsis">Go笔记4-Go面向对象编程1</div>
         <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
             <i class="icon icon-lg icon-share-alt"></i>
         </a>
@@ -94,7 +94,7 @@
 </header>
 <header class="content-header">
   <div class="container">
-    <h1 class="author">Go笔记4-Go面向对象编程</h1>
+    <h1 class="author">Go笔记4-Go面向对象编程1</h1>
     <h5 class="subtitle">2016-05-24</h5>
   </div>
 </header>
@@ -113,7 +113,7 @@
         <aside class="post-widget" id="post-widget">
 
           
-          <div class="post-share" id="post-share" data-title="Go笔记4-Go面向对象编程" data-pic="/img/logo.jpg" data-summary="&lt;h2 id=&quot;面向对象的特性&quot;&gt;&lt;a href=&quot;#面向对象的特性&quot; class=&quot;headerlink&quot; title=&quot;面向对象的特性&quot;&gt;&lt;/a&gt;面向对象的特性&lt;/h2&gt;&lt;p&gt;提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们&lt;br&gt;也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在&lt;br&gt;语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、&lt;br&gt;构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，&lt;br&gt;更加简洁。这也可以侧面看出来为什么称Go是”更好的C语言”&lt;/p&gt;" data-url="http://yoursite.com/2016/05/24/Go语言笔记4面向对象编程/index.html">
+          <div class="post-share" id="post-share" data-title="Go笔记4-Go面向对象编程1" data-pic="/img/logo.jpg" data-summary="&lt;h2 id=&quot;面向对象的特性1&quot;&gt;&lt;a href=&quot;#面向对象的特性1&quot; class=&quot;headerlink&quot; title=&quot;面向对象的特性1&quot;&gt;&lt;/a&gt;面向对象的特性1&lt;/h2&gt;&lt;p&gt;提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们&lt;br&gt;也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在&lt;br&gt;语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、&lt;br&gt;构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，&lt;br&gt;更加简洁。这也可以侧面看出来为什么称Go是”更好的C语言”&lt;/p&gt;" data-url="http://yoursite.com/2016/05/24/Go语言笔记4面向对象编程/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>
@@ -153,14 +153,14 @@
 
           
           <nav class="post-toc-wrap" id="post-toc">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#面向对象的特性"><span class="post-toc-text">面向对象的特性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类型系统"><span class="post-toc-text">类型系统</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方法和函数"><span class="post-toc-text">方法和函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方法的简介"><span class="post-toc-text">方法的简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#包"><span class="post-toc-text">包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#访问控制和标识符"><span class="post-toc-text">访问控制和标识符</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#面向对象的特性1"><span class="post-toc-text">面向对象的特性1</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类型系统"><span class="post-toc-text">类型系统</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方法和函数"><span class="post-toc-text">方法和函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方法的简介"><span class="post-toc-text">方法的简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#包"><span class="post-toc-text">包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#访问控制和标识符"><span class="post-toc-text">访问控制和标识符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#值类型和引用类型"><span class="post-toc-text">值类型和引用类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结构体"><span class="post-toc-text">结构体</span></a></li></ol>
           </nav>
           
         </aside>
 
         <div class="post-main">
 
-            <div class="post-content" itemprop="postContent"><h2 id="面向对象的特性"><a href="#面向对象的特性" class="headerlink" title="面向对象的特性"></a>面向对象的特性</h2><p>提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们<br>也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在<br>语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、<br>构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，<br>更加简洁。这也可以侧面看出来为什么称Go是”更好的C语言”</p>
+            <div class="post-content" itemprop="postContent"><h2 id="面向对象的特性1"><a href="#面向对象的特性1" class="headerlink" title="面向对象的特性1"></a>面向对象的特性1</h2><p>提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们<br>也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在<br>语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、<br>构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，<br>更加简洁。这也可以侧面看出来为什么称Go是”更好的C语言”</p>
 <a id="more"></a>
 <h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><p>Go语言编程一书当中说道：</p>
 <p>一个典型的类型系统通常包含如下基本内容：</p>
@@ -211,6 +211,30 @@
 <li>这意味着在其他的包当中，如果你的包有一个函数名或者类型名开头是小写，那么你就相当于</li>
 <li>为这个函数或者类型设定为private，不允许包外使用。</li>
 </ul>
+<h2 id="值类型和引用类型"><a href="#值类型和引用类型" class="headerlink" title="值类型和引用类型"></a>值类型和引用类型</h2><p>Go语言中大多数类型都基于值类型<br>其中包括：</p>
+<ul>
+<li>基本类型：如byte, int, bool, float32, float64和string等。</li>
+<li>复合类型：如数组(array)、结构体(struct)和指针(pointer)等。</li>
+</ul>
+<p>其中数组类型更加特别一些，它的行为与我们所了解的C系语言不一样。C的数组变量的变量名为首位指针，<br>作为数组引用，因此数组变量赋值给其他变量时，实际上传递的是数组(或者某位置上的)的引用。数组还是<br>那个数组，内存位置还是那个位置。而Go不一样，赋值时是将值完全复制。<br>光说不练假把式，写个例子来直观表现一下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">	<span class="comment">//定义一个数组</span></span><br><span class="line">	<span class="keyword">var</span> a = [<span class="number">3</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line">    <span class="comment">//然后赋值</span></span><br><span class="line">	<span class="keyword">var</span> b = a</span><br><span class="line">	<span class="comment">//为其中一个元素重新赋值</span></span><br><span class="line">	b[<span class="number">1</span>] = <span class="number">100</span></span><br><span class="line">    <span class="comment">//结果是影响了一个数组还是两个数组呢？</span></span><br><span class="line">	fmt.Println(a, b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们拿来看一下结果：</p>
+<pre><code>[1 2 3] [1 100 3]
+</code></pre><p>很明显，Go中的数组赋值实际上是完整复制，而不是引用赋值。</p>
+<p>当然，要实现C语言的引用赋值也不是麻烦事。Go当中也有取引用符”&amp;”和指针变量符”*”<br>比如：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">3</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"><span class="comment">//通过取a的引用地址，此时b变量为指针变量，引用a</span></span><br><span class="line"><span class="keyword">var</span> b = &amp;a</span><br><span class="line"></span><br><span class="line">b[<span class="number">1</span>] = <span class="number">100</span></span><br><span class="line"><span class="comment">//打印时，\*b将指针变量引向正确的数据区，打印数组</span></span><br><span class="line">fmt.Println(a, *b)</span><br></pre></td></tr></table></figure></p>
+<p>执行结果为</p>
+<pre><code>[1 100 3] [1 100 3]
+</code></pre><p>注意：</p>
+<pre><code>这里看到代码汇总有一句跟上面范例当中一样了不？
+对，就是b[1] = 100，
+变量b的类型不是[3]int，而是*[3]int类型
+下面这一句fmt.Println(a, *b)就用了\*b，是作为指针变量去解引用使用数组值。
+那么实际上这里也应当用(\*b)[1]指针指向数组的形式来解析b的引用，但是使用b[1]
+运行也是对的，我也不知道为什么b[1]直接使用也是对的，不知道什么原理。
+难不成是语法糖？
+</code></pre><p>Go除了数组外，还有数组切片，map，channel(goroutine)通信量，和interface，他们看起来像是引用类型，<br>但是他们实际上都是值类型。map和channel本身就是指针，因此他们赋值时复制指针而不是数据内容，因此他们依然<br>是值类型。这一点是跟C、C++、Java、C#是有相同点的，但是依然要小心使用。另外，接口、结构体、指针等话题后<br>面还会更多的提到。</p>
+<h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><ul>
+<li>[x]<em>To be continued…</em></li>
+</ul>
 </div>
 
             
@@ -250,7 +274,7 @@
   </main>
 <div class="mask" id="mask"></div>
 <a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-<div class="global-share" id="global-share" data-title="Go笔记4-Go面向对象编程" data-pic="/img/logo.jpg" data-summary="&lt;h2 id=&quot;面向对象的特性&quot;&gt;&lt;a href=&quot;#面向对象的特性&quot; class=&quot;headerlink&quot; title=&quot;面向对象的特性&quot;&gt;&lt;/a&gt;面向对象的特性&lt;/h2&gt;&lt;p&gt;提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们&lt;br&gt;也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在&lt;br&gt;语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、&lt;br&gt;构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，&lt;br&gt;更加简洁。这也可以侧面看出来为什么称Go是”更好的C语言”&lt;/p&gt;" data-url="http://yoursite.com/2016/05/24/Go语言笔记4面向对象编程/index.html">
+<div class="global-share" id="global-share" data-title="Go笔记4-Go面向对象编程1" data-pic="/img/logo.jpg" data-summary="&lt;h2 id=&quot;面向对象的特性1&quot;&gt;&lt;a href=&quot;#面向对象的特性1&quot; class=&quot;headerlink&quot; title=&quot;面向对象的特性1&quot;&gt;&lt;/a&gt;面向对象的特性1&lt;/h2&gt;&lt;p&gt;提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们&lt;br&gt;也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在&lt;br&gt;语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、&lt;br&gt;构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，&lt;br&gt;更加简洁。这也可以侧面看出来为什么称Go是”更好的C语言”&lt;/p&gt;" data-url="http://yoursite.com/2016/05/24/Go语言笔记4面向对象编程/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>
