@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>No title | 梁工春日的忧郁 | 孤星独吟</title>
+  <title>Go笔记1-认识Go语言 | 梁工春日的忧郁 | 孤星独吟</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="">
+  <meta name="keywords" content="Go">
   <meta name="description" content="#认识Go语言
-##前言这两天再看一些关于并发的资料，我原本是Android程序员，但是并发的话题引起了我的兴趣。在Java的开发生态当中，可以用作并发的当属NIO包，cocurrent包了。但是它们学习起来难度曲线较高，然而Scala又进入我的眼中，发现Scala有一个Akka库可以作为高性能的并发库使用。不过Scala语言本身较为复杂，希望在有更多的空隙的时间去了解Scala。另外，就是Go">
+##前言这两天再看一些关于并发的资料，我原本是Android程序员，但是并发的话题引起了我的兴趣。在Java的开发生态当中，可以用作并发的当属NIO包，cocurrent包了。但是它们学习起来难度曲线较高，然而Scala又进入我的眼中，发现Scala有一个Akka库可以作为高性能的并发库使用。不过Scala语言本身较为复杂，希望在有更多的空隙的时间去了解Scala。另外，就是Go语">
 <meta property="og:type" content="article">
-<meta property="og:title" content="No title">
-<meta property="og:url" content="http://yoursite.com/2016/04/30/Go语言笔记1/index.html">
+<meta property="og:title" content="Go笔记1-认识Go语言">
+<meta property="og:url" content="http://yoursite.com/2016/04/28/Go语言笔记1/index.html">
 <meta property="og:site_name" content="梁工春日的忧郁">
 <meta property="og:description" content="#认识Go语言
-##前言这两天再看一些关于并发的资料，我原本是Android程序员，但是并发的话题引起了我的兴趣。在Java的开发生态当中，可以用作并发的当属NIO包，cocurrent包了。但是它们学习起来难度曲线较高，然而Scala又进入我的眼中，发现Scala有一个Akka库可以作为高性能的并发库使用。不过Scala语言本身较为复杂，希望在有更多的空隙的时间去了解Scala。另外，就是Go">
-<meta property="og:updated_time" content="2016-04-30T15:09:34.452Z">
+##前言这两天再看一些关于并发的资料，我原本是Android程序员，但是并发的话题引起了我的兴趣。在Java的开发生态当中，可以用作并发的当属NIO包，cocurrent包了。但是它们学习起来难度曲线较高，然而Scala又进入我的眼中，发现Scala有一个Akka库可以作为高性能的并发库使用。不过Scala语言本身较为复杂，希望在有更多的空隙的时间去了解Scala。另外，就是Go语">
+<meta property="og:updated_time" content="2016-06-07T15:26:58.545Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="No title">
+<meta name="twitter:title" content="Go笔记1-认识Go语言">
 <meta name="twitter:description" content="#认识Go语言
-##前言这两天再看一些关于并发的资料，我原本是Android程序员，但是并发的话题引起了我的兴趣。在Java的开发生态当中，可以用作并发的当属NIO包，cocurrent包了。但是它们学习起来难度曲线较高，然而Scala又进入我的眼中，发现Scala有一个Akka库可以作为高性能的并发库使用。不过Scala语言本身较为复杂，希望在有更多的空隙的时间去了解Scala。另外，就是Go">
+##前言这两天再看一些关于并发的资料，我原本是Android程序员，但是并发的话题引起了我的兴趣。在Java的开发生态当中，可以用作并发的当属NIO包，cocurrent包了。但是它们学习起来难度曲线较高，然而Scala又进入我的眼中，发现Scala有一个Akka库可以作为高性能的并发库使用。不过Scala语言本身较为复杂，希望在有更多的空隙的时间去了解Scala。另外，就是Go语">
   
     <link rel="alternative" href="/atom.xml" title="梁工春日的忧郁" type="application/atom+xml">
   
@@ -89,7 +89,7 @@
         <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">No title</div>
+        <div class="flex-col header-title ellipsis">Go笔记1-认识Go语言</div>
         <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
             <i class="icon icon-lg icon-share-alt"></i>
         </a>
@@ -97,8 +97,8 @@
 </header>
 <header class="content-header">
   <div class="container">
-    <h1 class="author">No title</h1>
-    <h5 class="subtitle">2016-04-30</h5>
+    <h1 class="author">Go笔记1-认识Go语言</h1>
+    <h5 class="subtitle">2016-04-28</h5>
   </div>
 </header>
 
@@ -107,14 +107,17 @@
   <article id="post-Go语言笔记1" class="article article-type-post" itemscope itemprop="blogPost">
     
       <div class="post-meat flex-row">
-        <div class="flex-col"></div>
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li></ul>
+</div>
       </div>
       <div class="post-body">
 
         <aside class="post-widget" id="post-widget">
 
           
-          <div class="post-share" id="post-share" data-title="梁工春日的忧郁" data-pic="/img/logo.jpg" data-summary="技术随行，心动随笔" data-url="http://yoursite.com/2016/04/30/Go语言笔记1/index.html">
+          <div class="post-share" id="post-share" data-title="Go笔记1-认识Go语言" data-pic="/img/logo.jpg" data-summary="&lt;p&gt;#认识Go语言&lt;/p&gt;
+&lt;p&gt;##前言&lt;br&gt;这两天再看一些关于并发的资料，我原本是Android程序员，但是并发的话题引起了我的兴趣。在Java的开发生态当中，可以用作并发的当属NIO包，cocurrent包了。但是它们学习起来难度曲线较高，然而Scala又进入我的眼中，发现Scala有一个Akka库可以作为高性能的并发库使用。不过Scala语言本身较为复杂，希望在有更多的空隙的时间去了解Scala。另外，就是Go语言了。这个语言天生就为并发而生，我认为它最令人激动的就是语法更精炼简洁，go关键字把所有需要并发的事情负责到底，是个很有意思的语言。&lt;br&gt;" data-url="http://yoursite.com/2016/04/28/Go语言笔记1/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>
@@ -161,9 +164,8 @@
 
         <div class="post-main">
 
-            <div class="post-content" itemprop="postContent"><hr>
-<p>#认识Go语言</p>
-<p>##前言<br>这两天再看一些关于并发的资料，我原本是Android程序员，但是并发的话题引起了我的兴趣。在Java的开发生态当中，可以用作并发的当属NIO包，cocurrent包了。但是它们学习起来难度曲线较高，然而Scala又进入我的眼中，发现Scala有一个Akka库可以作为高性能的并发库使用。不过Scala语言本身较为复杂，希望在有更多的空隙的时间去了解Scala。另外，就是Go语言了。这个语言天生就为并发而生，我认为它最令人激动的就是语法更精炼简洁，go关键字把所有需要并发的事情负责到底，是个很有意思的语言。</p>
+            <div class="post-content" itemprop="postContent"><p>#认识Go语言</p>
+<p>##前言<br>这两天再看一些关于并发的资料，我原本是Android程序员，但是并发的话题引起了我的兴趣。在Java的开发生态当中，可以用作并发的当属NIO包，cocurrent包了。但是它们学习起来难度曲线较高，然而Scala又进入我的眼中，发现Scala有一个Akka库可以作为高性能的并发库使用。不过Scala语言本身较为复杂，希望在有更多的空隙的时间去了解Scala。另外，就是Go语言了。这个语言天生就为并发而生，我认为它最令人激动的就是语法更精炼简洁，go关键字把所有需要并发的事情负责到底，是个很有意思的语言。<br><a id="more"></a></p>
 <p>##语言特性<br>它具有以下现代语言的优秀特性，以另一种思维方式定义这个全新的语言</p>
 <ul>
 <li>自动垃圾回收(gc)</li>
@@ -222,7 +224,8 @@
   </main>
 <div class="mask" id="mask"></div>
 <a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-<div class="global-share" id="global-share" data-title="No title" data-pic="/img/logo.jpg" data-summary="技术随行，心动随笔" data-url="http://yoursite.com/2016/04/30/Go语言笔记1/index.html">
+<div class="global-share" id="global-share" data-title="Go笔记1-认识Go语言" data-pic="/img/logo.jpg" data-summary="&lt;p&gt;#认识Go语言&lt;/p&gt;
+&lt;p&gt;##前言&lt;br&gt;这两天再看一些关于并发的资料，我原本是Android程序员，但是并发的话题引起了我的兴趣。在Java的开发生态当中，可以用作并发的当属NIO包，cocurrent包了。但是它们学习起来难度曲线较高，然而Scala又进入我的眼中，发现Scala有一个Akka库可以作为高性能的并发库使用。不过Scala语言本身较为复杂，希望在有更多的空隙的时间去了解Scala。另外，就是Go语言了。这个语言天生就为并发而生，我认为它最令人激动的就是语法更精炼简洁，go关键字把所有需要并发的事情负责到底，是个很有意思的语言。&lt;br&gt;" data-url="http://yoursite.com/2016/04/28/Go语言笔记1/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>
