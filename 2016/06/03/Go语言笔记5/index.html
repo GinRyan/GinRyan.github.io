@@ -13,7 +13,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/06/03/Go语言笔记5/index.html">
 <meta property="og:site_name" content="梁工春日的忧郁">
 <meta property="og:description" content="关于并发和多线程，我反而不想在这里写很多东西。为什么呢？相信了解到Go语言并且愿意看到这里的人，应该是对各种语言的多线程的管理和锁机制应该都是有所感触，甚至对Java这类语言的多线程管理的复杂性和效率问题感到厌烦了。而近些年来越来越被开发者们对消息机制和分布式消息机制更加宠幸，因为多线程的开销太大，锁机制容易出现问题和效能的低下，CPU时间片的等待和浪费，让消息机制显出他的本领。其中最具典型的无非">
-<meta property="og:updated_time" content="2016-06-10T16:05:50.435Z">
+<meta property="og:updated_time" content="2016-06-15T13:53:26.269Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go笔记5-Go并发编程">
 <meta name="twitter:description" content="关于并发和多线程，我反而不想在这里写很多东西。为什么呢？相信了解到Go语言并且愿意看到这里的人，应该是对各种语言的多线程的管理和锁机制应该都是有所感触，甚至对Java这类语言的多线程管理的复杂性和效率问题感到厌烦了。而近些年来越来越被开发者们对消息机制和分布式消息机制更加宠幸，因为多线程的开销太大，锁机制容易出现问题和效能的低下，CPU时间片的等待和浪费，让消息机制显出他的本领。其中最具典型的无非">
@@ -155,7 +155,7 @@
 
           
           <nav class="post-toc-wrap" id="post-toc">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#go关键字"><span class="post-toc-text">go关键字</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#channel机制chan关键字"><span class="post-toc-text">channel机制chan关键字</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#select关键字"><span class="post-toc-text">select关键字</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#channel的缓冲机制"><span class="post-toc-text">channel的缓冲机制</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#go关键字"><span class="post-toc-text">go关键字</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#channel机制chan关键字"><span class="post-toc-text">channel机制chan关键字</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#select关键字"><span class="post-toc-text">select关键字</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#channel的缓冲机制"><span class="post-toc-text">channel的缓冲机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#同步锁"><span class="post-toc-text">同步锁</span></a></li></ol>
           </nav>
           
         </aside>
@@ -206,6 +206,7 @@
 <p>如果你希望约束一个channel为单向数据通道，我们可以定义为单向读取还是单向写入。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ch1 <span class="keyword">chan</span> <span class="keyword">int</span> <span class="comment">// ch1是一个正常的channel，不是单向的</span></span><br><span class="line"><span class="keyword">var</span> ch2 <span class="keyword">chan</span>&lt;- <span class="keyword">float64</span><span class="comment">// ch2是单向channel，只用于写float64数据</span></span><br><span class="line"><span class="keyword">var</span> ch3 &lt;-<span class="keyword">chan</span> <span class="keyword">int</span> <span class="comment">// ch3是单向channel，只用于读取int数据</span></span><br></pre></td></tr></table></figure></p>
 <p>那么单向channel如何初始化呢？之前我们已经提到过， channel是一个原生类型，因此不仅支持被传递，还支持类型转换。只有在介绍了单向channel的概念后，读者才会明白类型转换对于channel的意义：就是在单向channel和双向channel之间进行转换。示例如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ch4 := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line">ch5 := &lt;-<span class="keyword">chan</span> <span class="keyword">int</span>(ch4) <span class="comment">// ch5就是一个单向的读取channel</span></span><br><span class="line">ch6 := <span class="keyword">chan</span>&lt;- <span class="keyword">int</span>(ch4) <span class="comment">// ch6 是一个单向的写入channe</span></span><br></pre></td></tr></table></figure></p>
 <p>最后，关闭我们的channel，用一个内置函数close()即可。</p>
+<h2 id="同步锁"><a href="#同步锁" class="headerlink" title="同步锁"></a>同步锁</h2><p>Go当中也提供了显式同步锁(Java中有隐式同步锁，Go里没有)<br>sync.Mutex和sync.RWMutex。 Mutex是最简单的一种锁，RWMutex是读写锁。</p>
 </div>
 
             
