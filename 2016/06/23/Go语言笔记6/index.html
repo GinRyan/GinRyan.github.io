@@ -7,19 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="Go">
-  <meta name="description" content="任何编程语言都有自己的IO系统，IO系统的接口设计是最能体现一门语言哲学的功底。而其中最具代表性的，就是文件、网络的I/O接口。
-I/OIO系统其实也可以从例子看起。首先我们看一个文件的例子。123456789101112131415161718192021222324252627// io.gopackage mainimport (	&quot;fmt&quot;	&quot;os&quot;)func main() &amp;#123;">
+  <meta name="description" content="任何编程语言都有自己的IO系统，IO系统的接口设计是最能体现一门语言哲学的功底。而其中最具代表性的，就是文件、网络的I/O接口。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go笔记6-Go IO">
 <meta property="og:url" content="http://yoursite.com/2016/06/23/Go语言笔记6/index.html">
 <meta property="og:site_name" content="梁工春日的忧郁">
-<meta property="og:description" content="任何编程语言都有自己的IO系统，IO系统的接口设计是最能体现一门语言哲学的功底。而其中最具代表性的，就是文件、网络的I/O接口。
-I/OIO系统其实也可以从例子看起。首先我们看一个文件的例子。123456789101112131415161718192021222324252627// io.gopackage mainimport (	&quot;fmt&quot;	&quot;os&quot;)func main() &amp;#123;">
-<meta property="og:updated_time" content="2016-07-04T14:16:14.407Z">
+<meta property="og:description" content="任何编程语言都有自己的IO系统，IO系统的接口设计是最能体现一门语言哲学的功底。而其中最具代表性的，就是文件、网络的I/O接口。">
+<meta property="og:updated_time" content="2016-07-04T14:17:16.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go笔记6-Go IO">
-<meta name="twitter:description" content="任何编程语言都有自己的IO系统，IO系统的接口设计是最能体现一门语言哲学的功底。而其中最具代表性的，就是文件、网络的I/O接口。
-I/OIO系统其实也可以从例子看起。首先我们看一个文件的例子。123456789101112131415161718192021222324252627// io.gopackage mainimport (	&quot;fmt&quot;	&quot;os&quot;)func main() &amp;#123;">
+<meta name="twitter:description" content="任何编程语言都有自己的IO系统，IO系统的接口设计是最能体现一门语言哲学的功底。而其中最具代表性的，就是文件、网络的I/O接口。">
   
     <link rel="alternative" href="/atom.xml" title="梁工春日的忧郁" type="application/atom+xml">
   
@@ -116,7 +113,7 @@ I/OIO系统其实也可以从例子看起。首先我们看一个文件的例子
         <aside class="post-widget" id="post-widget">
 
           
-          <div class="post-share" id="post-share" data-title="Go笔记6-Go IO" data-pic="/img/logo.jpg" data-summary="技术随行，心动随笔" data-url="http://yoursite.com/2016/06/23/Go语言笔记6/index.html">
+          <div class="post-share" id="post-share" data-title="Go笔记6-Go IO" data-pic="/img/logo.jpg" data-summary="&lt;p&gt;任何编程语言都有自己的IO系统，IO系统的接口设计是最能体现一门语言哲学的功底。而其中最具代表性的，就是文件、网络的I/O接口。&lt;br&gt;" data-url="http://yoursite.com/2016/06/23/Go语言笔记6/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>
@@ -163,7 +160,7 @@ I/OIO系统其实也可以从例子看起。首先我们看一个文件的例子
 
         <div class="post-main">
 
-            <div class="post-content" itemprop="postContent"><p>任何编程语言都有自己的IO系统，IO系统的接口设计是最能体现一门语言哲学的功底。而其中最具代表性的，就是文件、网络的I/O接口。</p>
+            <div class="post-content" itemprop="postContent"><p>任何编程语言都有自己的IO系统，IO系统的接口设计是最能体现一门语言哲学的功底。而其中最具代表性的，就是文件、网络的I/O接口。<br><a id="more"></a></p>
 <h2 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h2><p>IO系统其实也可以从例子看起。首先我们看一个文件的例子。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// io.go</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"os"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">	buf := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">1024</span>)</span><br><span class="line">	f, e := os.Open(<span class="string">"H:/ans.md"</span>) <span class="comment">//打开文件， os.Open 返回一个实现了 io.Reader 和 io.Writer 的 *os.File；</span></span><br><span class="line">	<span class="keyword">if</span> e != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(e)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"BEGIN"</span>)</span><br><span class="line">		n, _ := f.Read(buf) <span class="comment">//一次读取 1024 字节；</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> n == <span class="number">0</span> &#123; <span class="comment">//到达文件末尾</span></span><br><span class="line">			fmt.Println(<span class="string">"END"</span>)</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">		os.Stdout.Write(buf[<span class="number">0</span>:n]) <span class="comment">//将内容写入 os.Stdout</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> f.Close() <span class="comment">//确保关闭了 f；</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>我们可以从这个例子中看出，对文件的IO是非常容易的。其实文件的读写两个方法分别实现了io.Reader和io.Writer，只要类的方法原型与这两个接口的原型相同，那么你可以任意为这些对象造型为io.Reader和io.Writer，让API更加“协议”化。</p>
 <p>有时候，我们可能会遇到较大的文件，我们可以考虑使用缓冲IO包，可以通过缓冲的方式读写文件。</p>
@@ -213,7 +210,7 @@ I/OIO系统其实也可以从例子看起。首先我们看一个文件的例子
   </main>
 <div class="mask" id="mask"></div>
 <a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-<div class="global-share" id="global-share" data-title="Go笔记6-Go IO" data-pic="/img/logo.jpg" data-summary="技术随行，心动随笔" data-url="http://yoursite.com/2016/06/23/Go语言笔记6/index.html">
+<div class="global-share" id="global-share" data-title="Go笔记6-Go IO" data-pic="/img/logo.jpg" data-summary="&lt;p&gt;任何编程语言都有自己的IO系统，IO系统的接口设计是最能体现一门语言哲学的功底。而其中最具代表性的，就是文件、网络的I/O接口。&lt;br&gt;" data-url="http://yoursite.com/2016/06/23/Go语言笔记6/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>
