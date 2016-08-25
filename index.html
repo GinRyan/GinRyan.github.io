@@ -103,6 +103,96 @@
   <ul class="post-list">
   
     <li class="post-list-item">
+  <article id="post-Spring学习16~18" class="article article-type-post" itemscope itemprop="blogPost">
+    
+      
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/08/21/Spring学习16~18/">Spring学习16-18节 AOP</a>
+    </h3>
+  
+
+
+
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/J2EE/">J2EE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+</div>
+        <time datetime="2016-08-21T02:30:30.000Z" itemprop="datePublished" class="post-tiem">
+  2016-08-21
+</time>
+      </div>
+      <div class="post-content" itemprop="postContent" >
+        
+          <p>#面向切面编程</p>
+<p>定义横切关注点，可以在主要业务以外增加横切面逻辑代码，使用公共功能，并且不需要修改原来的业务代码，实现横切关注点的模块化与主要业务的解耦。</p>
+<p>好处：</p>
+<ul>
+<li>每个事务的逻辑位于同一个位置，代码不分散，便于维护升级。</li>
+<li>业务模块更加简洁，与横切面逻辑完全解耦，只包含业务代码。</li>
+</ul>
+<p>AOP中的概念：</p>
+<ul>
+<li>切面(Aspect)：横切关注点,是被模块化的特殊对象</li>
+<li>通知(Advice)：切面必须要完成的工作</li>
+<li>目标(Target)：被通知的对象</li>
+<li>代理(Proxy)：向目标对象应用通知之后创建的代理对象，此时已组合了切面对象和目标对象的新对象。</li>
+<li>连接点(JoinPoint)：程序执行的某个特定位置。例如：Object#toString()<br>方法执行前的连接点执行点就是Object#toString()，方位为执行前的位置</li>
+<li>切点(PointCut)：每个类都有多个连接点。实际上一个类所有的方法都是连接点，也就是说，连接点就是程序类当中客观存在的事务。<strong>AOP通过切点定位到特定的连接点</strong>切点和连接点不是一对一的关系，一个切点可以匹配多个连接点。通过PointCut接口描述。</li>
+</ul>
+<h2 id="前置通知"><a href="#前置通知" class="headerlink" title="前置通知"></a>前置通知</h2><p>我们现在来看一下前置通知一个标准的范例：</p>
+<p>首先，我们需要制定一个我们的标准业务方法类：</p>
+<p>定义一个行为模型，比如四则运算的行为接口，如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.ginryan.aop;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ArithmeticCalculator</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">sub</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">mul</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">div</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义一个我们的默认实现：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.ginryan.aop;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="comment">//将该默认实现加入到IoC容器中，并添加默认的bean名称。</span></span><br><span class="line"><span class="meta">@Component</span>(<span class="string">"arithmeticCalculator"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArithmeticCalculatorImpl</span></span><br><span class="line">		<span class="keyword">implements</span> <span class="title">ArithmeticCalculator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> result = i + j;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">sub</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> result = i - j;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">mul</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> result = i * j;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">div</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> result = i / j;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后添加一个我们的配置文件，指定扫描的Bean，并且告知容器需要AOP自动代理。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span></span><br><span class="line">	<span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span><br><span class="line">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd</span><br><span class="line">		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"org.ginryan.aop"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 使注解起作用:自动为匹配的类生成代理对象 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>定义一个我们的切面对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 日志将声明为切面</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@author</span> 95</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoggingAspect</span> </span>&#123;</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 该方法是一个前置通知：在目标方法之前执行</span><br><span class="line">	 *</span><br><span class="line">	 * 切面表达式中可以用通配符在指明通用哪些连接点</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="meta">@Before</span>(<span class="string">"execution (public int org.ginryan.aop.ArithmeticCalculator.add(int , int ))"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeMethod</span><span class="params">(JoinPoint jp)</span> </span>&#123;</span><br><span class="line">		String methodName = jp.getSignature().getName();</span><br><span class="line">		List&lt;Object&gt; args = Arrays.asList(jp.getArgs());</span><br><span class="line">		System.out.println(<span class="string">"The method "</span> + methodName + <span class="string">" begins with "</span> + args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的这个用于切面的类我们可以看到几个不一样的地方，首先这个类除了已经有@Component加入IoC容器以外，还有一个@Aspect注解，将这个类标记为切面对象。这个切面中的方法中有一个@Before注解，注解参数中有切面表达式。<br>所以我们看，@Aspect可以将某一个类定义为切面对象，并且必须在这个切面对象当中的方法加上切面表达式来指定这个切面关注了哪个连接点。@Before就是前置环绕注解，其参数的切面表达式的格式也很简单，主要就是为了指定在执行时关注哪个连接点。格式为：<br>“execution ( [方法的全局签名] )”，在上例中，被关注的连接点的方法签名就是</p>
+<pre><code>public int org.ginryan.aop.ArithmeticCalculator.add(int , int )
+</code></pre><p>那么这个前置环绕就关注了这个add方法。当从IoC容器中获得这个Bean的实例时，就已经加入了这个切面。如果我需要将这个类当中所有符合这个方法签名的方法都关注，那么我们可以改用通配符来写方法签名，那么整个切面表达式就是：</p>
+<pre><code>execution (public int org.ginryan.aop.ArithmeticCalculator.*(int , int ))
+</code></pre><p>原本方法名是add，现在可以改为通配符来匹配所有符合这个签名的方法。</p>
+<p>同理，这个原则也可以适用在类名、返回类型和访问标识符上。<br>例：</p>
+<pre><code>execution (* org.ginryan.aop.*.*(int , int ))
+</code></pre><p>最后，我们可以使用测试代码来验证我们的想法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AopMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ClassPathXmlApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</span><br><span class="line">		ArithmeticCalculator arithmeticCalculator = (ArithmeticCalculator) ctx.getBean(<span class="string">"arithmeticCalculator"</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">int</span> result = arithmeticCalculator.add(<span class="number">1</span>, <span class="number">3</span>);</span><br><span class="line">		System.out.println(<span class="string">"result: "</span> + result);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">int</span> result2 = arithmeticCalculator.div(<span class="number">12</span>, <span class="number">3</span>);</span><br><span class="line">		System.out.println(<span class="string">"result2: "</span> + result2);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果为：</p>
+<pre><code>The method add begins with [1, 3]
+result: 4
+The method div begins with [12, 3]
+result2: 4
+</code></pre><h2 id="后置通知"><a href="#后置通知" class="headerlink" title="后置通知"></a>后置通知</h2><p>无论是否出现异常，连接点返回结果或者抛出异常时，后置通知记录了方法的终止。<br><strong>一个切面可以包括一个或者多个通知</strong></p>
+<p>实际上，只要将上例中前置通知的<code>@Before</code>换一个名字，叫<code>@After</code>就是后置通知。<br>不过无法获取目标方法执行结果。需要了解后面说到<strong>返回通知、异常通知</strong>和<strong>环绕通知</strong>。</p>
+<p>在LoggingAspect中，可以加上一个方法，成为后置通知：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@After</span>(<span class="string">"execution (public int org.ginryan.aop.ArithmeticCalculator.*(int , int ))"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterMethod</span><span class="params">(JoinPoint jp)</span> </span>&#123;</span><br><span class="line">    String methodName = jp.getSignature().getName();</span><br><span class="line">    List&lt;Object&gt; args = Arrays.asList(jp.getArgs());</span><br><span class="line">    System.out.println(<span class="string">"After The method "</span> + methodName + <span class="string">" begins with "</span> + args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>@After</code>就是后置通知使用的注解。</p>
+<h2 id="返回通知"><a href="#返回通知" class="headerlink" title="返回通知"></a>返回通知</h2><p>在方法<strong>正常</strong>结束后执行的代码，返回通知可以访问到方法的返回值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@AfterReturning</span>(value = <span class="string">"execution (public int org.ginryan.aop.ArithmeticCalculator.*(int , int ))"</span>,returning=<span class="string">"ret"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterReturnMethod</span><span class="params">(JoinPoint jp,Object ret)</span> </span>&#123;<span class="comment">//ret就是结果接收参数</span></span><br><span class="line">    String methodName = jp.getSignature().getName();</span><br><span class="line">    List&lt;Object&gt; args = Arrays.asList(jp.getArgs());</span><br><span class="line">    System.out.println(<span class="string">"After return The method "</span> + methodName + <span class="string">" return with "</span> + ret);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>增加以上方法并且使用@AfterReturning，并且指定它的一个returning值，指定哪个参数作为返回值接收者。</p>
+<h2 id="异常通知"><a href="#异常通知" class="headerlink" title="异常通知"></a>异常通知</h2><p>一旦一个方法抛出异常，无法正常返回计算值，那么<code>@AfterReturning</code>就不会执行，就需要<code>@AfterThrowing</code>注解来作为异常的通知。也就是说，<br><code>@AfterReturning</code>和<code>@AfterThrowing</code>只有一个可以被执行。而<code>@After</code>无论是否发生异常都会执行，通过throwing来指定接收参数。<br>异常通知很强大，如果需要指定某种异常才会执行时，只需要修改要注入接收异常的参数类型就可以了。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@AfterThrowing</span>(value = <span class="string">"execution (public int org.ginryan.aop.ArithmeticCalculator.*(int , int ))"</span>, throwing = <span class="string">"exception"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterThrowingMethod</span><span class="params">(JoinPoint jp, Exception exception)</span> </span>&#123;<span class="comment">//Exception捕捉所有类型异常，可以改成空指针异常，如此一来只有空指针异常发生时才会执行。</span></span><br><span class="line">    String methodName = jp.getSignature().getName();</span><br><span class="line">    List&lt;Object&gt; args = Arrays.asList(jp.getArgs());</span><br><span class="line">    System.out.println(<span class="string">"After throwing The exception from method "</span> + methodName + <span class="string">" occurred with "</span> + exception.getMessage());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="环绕通知"><a href="#环绕通知" class="headerlink" title="环绕通知"></a>环绕通知</h2><p>环绕通知相当于动态代理的全过程，会为注解的函数注入一个ProceedingJoinPoint参数。<br>而且还决定着是否调用目标方法。环绕通知有返回值<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Around</span>(value = <span class="string">"execution (public int org.ginryan.aop.ArithmeticCalculator.*(int , int ))"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">aroundMethod</span><span class="params">(ProceedingJoinPoint pjd)</span> </span>&#123;</span><br><span class="line">	Object ret = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		ret = pjd.proceed();<span class="comment">//这个方法的调用就是目标方法的执行</span></span><br><span class="line">	&#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	System.out.println(<span class="string">"Around the method "</span>);</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>环绕通知相当于完全自己定义前置，后置，返回和异常通知的过程，还可以做其他任意事情。</p>
+<h2 id="切面的优先级"><a href="#切面的优先级" class="headerlink" title="切面的优先级"></a>切面的优先级</h2><p>如果有多个切面，可以在切面类上，可以通过<code>@Order</code>指定切面的优先级<br>比如<code>@Order(1)</code>，那么同一个关注点的多个切面就会按照<code>@Order</code>中的数字的顺序执行。</p>
+<h2 id="重用切面表达式"><a href="#重用切面表达式" class="headerlink" title="重用切面表达式"></a>重用切面表达式</h2><p>通过<code>@PointCut</code>注解定义一个方法，来声明切入点表达式，这个方法不需要填入其他的代码。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"execution (public int org.ginryan.aop.ArithmeticCalculator.*(int, int ))"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">declareJointPoint</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如此一来，后面声明通知时，就可以只是指定这个方法名作为通知关注点。<br>就可以这么写：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before</span>(<span class="string">"declareJointPoint()"</span>)</span><br><span class="line">...</span><br><span class="line"><span class="meta">@After</span>(<span class="string">"declareJointPoint()"</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>如果不是使用当前类下声明的切点方法，需要加上所在包的类名。</p>
+<p>关于AOP大致就这些了，留下了一点坑放了好久才填上。<br>下一次就是Spring对JDBC的支持。</p>
+
+        
+      </div>
+      <div class="post-footer clearfix">
+        <a href="/2016/08/21/Spring学习16~18/" class="post-more waves-button-light">MORE</a>
+      </div>
+    
+
+  </article>
+
+
+</li>
+  
+    <li class="post-list-item">
   <article id="post-Go语言笔记6" class="article article-type-post" itemscope itemprop="blogPost">
     
       
@@ -207,48 +297,6 @@
       </div>
       <div class="post-footer clearfix">
         <a href="/2016/05/24/Go语言笔记4面向对象编程/" class="post-more waves-button-light">MORE</a>
-      </div>
-    
-
-  </article>
-
-
-</li>
-  
-    <li class="post-list-item">
-  <article id="post-Spring学习16~18" class="article article-type-post" itemscope itemprop="blogPost">
-    
-      
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/05/21/Spring学习16~18/">Spring学习16-18节 AOP</a>
-    </h3>
-  
-
-
-
-      <div class="post-meat flex-row">
-        <div class="flex-col">
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/J2EE/">J2EE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
-</div>
-        <time datetime="2016-05-21T02:30:30.000Z" itemprop="datePublished" class="post-tiem">
-  2016-05-21
-</time>
-      </div>
-      <div class="post-content" itemprop="postContent" >
-        
-          <p>#面向切面编程</p>
-<p>定义横切关注点，可以在主要业务以外增加横切面逻辑代码，使用公共功能，并且不需要修改原来的业务代码，实现横切关注点的模块化与主要业务的解耦。</p>
-<p>好处：</p>
-<ul>
-<li>每个事务的逻辑位于同一个位置，代码不分散，便于维护升级。</li>
-<li>业务模块更加简洁，与横切面逻辑完全解耦，只包含业务代码。
-        
-      </div>
-      <div class="post-footer clearfix">
-        <a href="/2016/05/21/Spring学习16~18/" class="post-more waves-button-light">MORE</a>
       </div>
     
 
