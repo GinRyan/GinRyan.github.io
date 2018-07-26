@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.45.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Go笔记6-Go IO &middot; 梁工春日的忧郁</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="http://ginryan.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="http://ginryan.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="http://ginryan.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="http://ginryan.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="梁工春日的忧郁" />
+
+  
+</head>
+
+  <body class="theme-base-09 ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://ginryan.github.io/"><h1>梁工春日的忧郁</h1></a>
+      <p class="lead">
+       代码既是数据.
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="http://ginryan.github.io/">Home</a> </li>
+      
+    </ul>
+
+    <p>&copy; 2018. All rights reserved. </p>
+  </div>
+</div>
+
+    <div class="content container">
+    <div class="post">
+  <h1>Go笔记6-Go IO</h1>
+  <span class="post-date">Thu, Jun 23, 2016</span>
+  <p>任何编程语言都有自己的IO系统，IO系统的接口设计是最能体现一门语言哲学的功底。而其中最具代表性的，就是文件、网络的I/O接口。
+</p>
+
+<h2 id="i-o">I/O</h2>
+
+<p>IO系统其实也可以从例子看起。首先我们看一个文件的例子。</p>
+
+<pre><code class="language-go">// io.go
+package main
+
+import (
+    &quot;fmt&quot;
+    &quot;os&quot;
+)
+
+func main() {
+    buf := make([]byte, 1024)
+    f, e := os.Open(&quot;H:/ans.md&quot;) //打开文件， os.Open 返回一个实现了 io.Reader 和 io.Writer 的 *os.File；
+    if e != nil {
+        fmt.Println(e)
+    }
+
+    for {
+        fmt.Println(&quot;BEGIN&quot;)
+        n, _ := f.Read(buf) //一次读取 1024 字节；
+
+        if n == 0 { //到达文件末尾
+            fmt.Println(&quot;END&quot;)
+            break
+        }
+        os.Stdout.Write(buf[0:n]) //将内容写入 os.Stdout
+    }
+    defer f.Close() //确保关闭了 f；
+}
+
+
+</code></pre>
+
+<p>我们可以从这个例子中看出，对文件的IO是非常容易的。其实文件的读写两个方法分别实现了io.Reader和io.Writer，只要类的方法原型与这两个接口的原型相同，那么你可以任意为这些对象造型为io.Reader和io.Writer，让API更加“协议”化。</p>
+
+<p>有时候，我们可能会遇到较大的文件，我们可以考虑使用缓冲IO包，可以通过缓冲的方式读写文件。</p>
+
+<p>如下例：</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;;
+    &quot;bufio&quot;;
+    &quot;os&quot;
+)
+
+func main() {
+    fmt.Print(&quot;Application started&quot;)
+    var buf []byte = make([]byte, 1024)
+    f, _ := os.Open(&quot;G:\\ans.md&quot;)
+    defer f.Close()//保证即便发生恐慌最后也要执行关闭
+    //这里返回的是一个Reader指针
+    var r *bufio.Reader = bufio.NewReader(f)
+    //这里返回的是一个Writer指针
+    var w *bufio.Writer = bufio.NewWriter(os.Stdout)
+    defer w.Flush()//保证即便发生恐慌最后也要执行关闭
+    for {
+        n, _ := r.Read(buf)
+        if n == 0 {
+            break
+        }
+        w.Write(buf[:n])
+    }
+}
+
+</code></pre>
+
+<p>如果要对一个目录操作，也是十分简单的</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;os&quot;
+    &quot;fmt&quot;
+)
+
+func main() {
+    //我们希望判断一个目录存在与否
+    if _, e := os.Stat(&quot;videos&quot;); e != nil {
+        os.Mkdir(&quot;videos&quot;, 0777)
+        fmt.Println(&quot;文件夹不存在，已创建&quot;)
+
+    } else {
+        fmt.Println(&quot;文件夹已存在&quot;)
+    }
+}
+
+</code></pre>
+
+<h2 id="命令行参数">命令行参数</h2>
+
+<p>我们可以从os.Args获取切片来获取输入的命令行参数，不过这限于无参数名参数,例如</p>
+
+<pre><code>mkdir filename
+</code></pre>
+
+<p>。flag包提供了带参数标识的参数，例如 -file /dev/null 这种，指定命令参数名一一对应的参数。
+来举一个DNS解析的小例子（不是真的解析，还是看一下命令调用的方式和解析命令参数）</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;flag&quot;
+    &quot;fmt&quot;
+    &quot;os&quot;
+)
+
+func main() {
+    dnssec := flag.Bool(&quot;dnssec&quot;, false, &quot;Request DNSSEC Record&quot;)
+    port := flag.String(&quot;port&quot;, &quot;53&quot;, &quot;Set the query port&quot;)
+    flag.Usage = func() {
+        fmt.Fprint(os.Stdout, &quot;Usage: %s [options] [name ...]\n&quot;, os.Args[0])
+        flag.PrintDefaults()
+    }
+    flag.Parse()
+
+    if *dnssec {
+        fmt.Print(&quot; dnssec :&quot;, *dnssec, &quot;port: &quot;, *port)
+    }
+}
+</code></pre>
+
+<p>执行系统命令
+os/exec包有函数可以执行外部命令，可以很简单的调用命令行命令并做其他操作。</p>
+
+<pre><code class="language-go">package main
+
+import &quot;os/exec&quot;
+
+func main() {
+    var cmd *exec.Cmd = exec.Command(&quot;dir&quot;,&quot;/w&quot;)
+    cmd.Run()
+}
+</code></pre>
+
+<p>这是个很简单的命令调用，但是没有输出，如果我们的命令调用有输出的调用的话，那么我们就需要用cmd.Output()</p>
+
+<pre><code class="language-go">...
+    buf,err := cmd.Output() //buf是[]byte
+...
+</code></pre>
+</div>
+
+
+    </div>
+
+    
+  </body>
+</html>

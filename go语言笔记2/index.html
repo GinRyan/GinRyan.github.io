@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.45.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Go笔记2-Go语法 &middot; 梁工春日的忧郁</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="http://ginryan.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="http://ginryan.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="http://ginryan.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="http://ginryan.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="梁工春日的忧郁" />
+
+  
+</head>
+
+  <body class="theme-base-09 ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://ginryan.github.io/"><h1>梁工春日的忧郁</h1></a>
+      <p class="lead">
+       代码既是数据.
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="http://ginryan.github.io/">Home</a> </li>
+      
+    </ul>
+
+    <p>&copy; 2018. All rights reserved. </p>
+  </div>
+</div>
+
+    <div class="content container">
+    <div class="post">
+  <h1>Go笔记2-Go语法</h1>
+  <span class="post-date">Sun, May 1, 2016</span>
+  <p>#Go语言笔记2</p>
+
+<p>上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。
+这一节包含认识Go语言的变量与常量系统，类型系统，流程控制，函数系统和错误处理特性等。
+
+Go语言编程一书中说道，学习完顺序编程这一章以后会觉得Go语言是“更好的C语言”</p>
+
+<h2 id="环境搭建">环境搭建</h2>
+
+<p>关于环境搭建，其实我在这里并不想以多图的方式介绍，因为对于计算机专业的同学们同志们来说，使用图片的方式会将原本灵活的过程写死，当IDE环境和编译器都升级以后，那么这份“教程”也就过期了，因此我将均以文本的方式叙述。</p>
+
+<p>我们可以考虑使用的IDE环境其实有很多，都可以配合Go语言官方的编辑器进行对代码的编辑。首先，我们可以确定的是，一门编程语言，无论是编译型、翻译型，都需要编译器，翻译型语言除了编译器还需要额外的运行时库环境，解释型语言也许不需要编译器，但是需要一个运行时环境(如JavaScript)。然而Go语言是编译型，而且是本地化编译，不需要额外的运行时库，所以我们首先要做的是下载编译器工具包。笔者在编写这份笔记时的版本是1.6.2版，因此需要下载1.6.2版的SDK包进行安装,并且将二进制执行目录写到系统PATH变量中。
+Go的开发工具包的下载页面地址是：<a href="https://golang.org/dl/">https://golang.org/dl/</a>
+由于一些众所周知的原因，各位下载时可能会遇到困难，可以到国内的Go语言社区去下载Go的工具包。
+比如这里：<a href="http://www.golangtc.com/download">http://www.golangtc.com/download</a></p>
+
+<p>要高效地编写一门语言的项目时必定少不了程序员的瑞士军刀：IDE。Go语言其实是有一个开源的LiteIDE，可以用在学习Go时使用。
+下载地址为：<a href="https://sourceforge.net/projects/liteide/">https://sourceforge.net/projects/liteide/</a>如果希望使用的可以到这里下载。
+不过我很推荐国内社区的完善的汉化版本：<a href="http://www.golangtc.com/download/liteide">http://www.golangtc.com/download/liteide</a>
+不但有LiteIDE可以用，而且对于Eclipse用户来说，还可以为预装了C++和Java编程支持的Eclipse安装GoClipse插件，让Eclipse成为一个完整的Go语言支持的IDE。不过安装过程比较折腾，尤其是为Eclipse安装插件的过程。笔者在安装时使用的版本是Eclipse Mars2版， Java用户版，安装CDT 8.8插件，然后再安装GoClipse插件。这才安装成功。当然，这个过程中还会有莫名其妙的问题发生，所以学习期还是不要被这些拖住。LiteIDE还是不错的。</p>
+
+<p>环境变量的配置，需要配置GOROOT到Go安装目录，PATH增加Go的bin目录，关于更多的环境搭建的描述就不多说了。我希望更快的进入语言的学习。</p>
+
+<h2 id="go编译器命令">go编译器命令</h2>
+
+<p>我们的Go命令已经存在于PATH中了。我们可以通过以下命令查看版本：</p>
+
+<pre><code>go version
+</code></pre>
+
+<p>返回的内容是：</p>
+
+<pre><code>go version go1.6.2 windows/amd64
+</code></pre>
+
+<p>我们创建一个main.go文件，并保存以下代码：</p>
+
+<pre><code class="language-go">// Study1 project main.go
+package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    fmt.Println(&quot;Hello World!&quot;)
+    fmt.Println(&quot;你好Go语言！&quot;)
+}
+
+</code></pre>
+
+<p>我们从hello world代码中看得出来，语句行结尾不需要分号了
+我们要编译并运行一个go文件：</p>
+
+<pre><code>go run main.go
+</code></pre>
+
+<p>控制台为我们直接编译连接并运行，直接打印结果：</p>
+
+<pre><code>Hello World!
+你好Go语言！
+</code></pre>
+
+<p>然而实际上go命令可以为我们分步骤编译-运行。比如我们只编译到exe文件不运行，我们可以使用build参数：</p>
+
+<pre><code>go build main.go
+</code></pre>
+
+<h2 id="变量">变量</h2>
+
+<p><strong>变量的声明</strong></p>
+
+<p>Go中的变量定义和C/C++、Java、C#等语言有着明显的不同，它没有沿袭C系语言的变量类型在前的传统，而是类似Pascal的方式，将类型后置，前面用var告知这是个变量。读者会说了，难道这个var还有别的？有，定义常量时我们用const。
+我们详细的可以看以下代码：</p>
+
+<pre><code class="language-go">    var v1 int = 15                     //定义int变量
+    var v2 string = &quot;this is string0&quot;   //定义string类型变量
+    var v3 [10]int                      //数组
+    var v4 []int                        //数组切片
+    var v5 struct {                     //结构
+        mem int                         //成员变量
+    }
+    var v6 *int                         //指针类型
+    var v7 map[string]int           //map映射，key为string类型，value为int类型
+    var v8 func(param int) int
+    const PI_7 float64 = 3.1415926      //定义一个64位浮点型常量
+
+
+</code></pre>
+
+<p>以上的代码每一行对应的一种类型的定义格式，当然还有一种更方便的定义方式，适合我这种懒人节约var关键字的：</p>
+
+<pre><code class="language-go">    var {
+     v1 int
+     v2 string
+    }
+</code></pre>
+
+<p>写到这里的时候，我想列举一个关于Go语言编译运行的一种错误示范，如下段代码：</p>
+
+<pre><code class="language-go">// Study1 project main.go
+package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    var v1 int = 15
+    var v2 string = &quot;this is string0&quot;
+    var v3 [10]int  //数组
+    var v4 []int    //数组切片
+    var v5 struct { //结构
+        mem int //成员变量
+    }
+    var v6 *int           //指针类型
+    var v7 map[string]int //map映射，key为string类型，value为int类型
+    var v8 func(param int) int
+    const PI_7 float64 = 3.1415926 //定义一个64位浮点型常量
+}
+
+</code></pre>
+
+<p>如果尝试编译运行这段代码，以我们使用C、C++、Java等语言的经验，它应该是编译成功且什么也不输出的。但是
+这在Go语言编译器看来，事情没那么简单了。编译这段代码时，编译器返回了如下错误提示：</p>
+
+<pre><code>.\main.go:5: imported and not used: &quot;fmt&quot;
+错误: 进程退出代码 2.
+</code></pre>
+
+<p>从报错信息上看，是我们导入的fmt包没有被使用，由此看出，Go语言是不允许在一个文件里保留没有使用的包引用的。将&rdquo;fmt&rdquo;包引用去掉后，我们再编译：</p>
+
+<pre><code>.\main.go:5: v1 declared and not used
+.\main.go:6: v2 declared and not used
+.\main.go:7: v3 declared and not used
+.\main.go:8: v4 declared and not used
+.\main.go:11: v5 declared and not used
+.\main.go:12: v6 declared and not used
+.\main.go:13: v7 declared and not used
+.\main.go:14: v8 declared and not used
+错误: 进程退出代码 2.
+</code></pre>
+
+<p>从以上错误提示可以看出，不仅仅不允许有未使用的包、也不允许有未使用的变量。要不你使用这个包里的函数或者结构等做点，什么，要不删掉。变量也是，要不你使用这些变量，要不就删掉。</p>
+
+<p><strong>变量的初始化</strong></p>
+
+<p>我们上面可以看到，变量可以通过var v1 int = 10这种方式为v1变量进行初始化。当然，除了这种默认完整的初始化的方式外还有两种，综合为以下三种初始化变量值的方式：</p>
+
+<pre><code>var v1 int = 1 //完整初始化
+var v2 = 10 //推导初始化，v2的类型由编译器自动为变量进行类型推导
+v3 := 10 //推导初始化，v3也由编译器自动推导，省掉var改为:=符号组合告知v3是变量。、
+</code></pre>
+
+<p>我相信第三种方式应该是像我这种懒人程序员喜欢做的事情，因为省掉了好多字符呢。尽管省掉类型，看起来有点像动态语言，让编译器自动推导变量类型，但是Go依然是一个不折不扣的静态类型语言。但是注意， “:=”符号组合仅仅是对var类型变量进行定义的符号，没有赋值符号的作用，它不替代“=”。</p>
+
+<p><strong>变量赋值</strong>
+我们可以如下方式赋值：</p>
+
+<pre><code class="language-go">    var v10 int
+    v10 = 99
+</code></pre>
+
+<p>新特性：<strong>多重赋值</strong></p>
+
+<p>Go中提供了一个C系语言里没有的新功能：多重赋值；
+当我们希望为为两个变量交换值时，我们在Go中可以这样做：</p>
+
+<pre><code class="language-go">i,j = j,i
+</code></pre>
+
+<p>十分简练。
+然而我们在C系语言中需要引入第三个变量：
+swap = i;
+i = j;
+j = swap;</p>
+
+<p><strong>匿名变量</strong></p>
+
+<p>Go中有一种情况，由于函数支持多返回值，而有时候我们可能用不到那么多的值，只需要取其一，我们可以用“_”取代一个需要声明的变量名。“_”可以多次在变量位置上出现。
+假设GetName()函数的定义如下，它返回3个值分别为firstName、lastName和nickName：</p>
+
+<pre><code class="language-go">func GetName() (firstName, lastName, nickName string) {
+    return &quot;May&quot;, &quot;Chan&quot;, &quot;Chibi Maruko&quot;
+}
+</code></pre>
+
+<p>若只想获得nickName，则函数调用语句可以用如下方式编写：</p>
+
+<pre><code class="language-go">_, _, nickName := GetName()
+</code></pre>
+
+<p>上面出现了多返回值函数的写法，后面会介绍。</p>
+
+<h2 id="常量">常量</h2>
+
+<p><strong>字面量</strong>
+所谓字面常量（literal），是指程序中硬编码的常量，如：</p>
+
+<pre><code>-12
+3.14159265358979323846 // 浮点类型的常量
+3.2+12i // 复数类型的常量
+true // 布尔类型的常量
+&quot;foo&quot; // 字符串常量
+</code></pre>
+
+<p>在其他语言中，常量通常有特定的类型，比如12在C语言中会认为是一个int类型的常量。如果要指定一个值为-12的long类型常量，需要写成-12l，这有点违反人们的直观感觉。 Go语言的字面常量更接近我们自然语言中的常量概念，它是无类型的。只要这个常量在相应类型的值域范围内，就可以作为该类型的常量，比如上面的常量-12，它可以赋值给int、 uint、 int32、int64、 float32、 float64、 complex64、 complex128等类型的变量。</p>
+
+<p><strong>定义常量</strong>
+借助const关键字，可以给字面量制定一个可以识别的名字：</p>
+
+<pre><code class="language-go">    const PI float64 = 3.1415926535897932384626
+    const zero = 0.0    //无类型赋值
+    const{
+        size int64 = 1024
+        eof = -1
+    }
+    const u,v float32 = 0,3 //常量多赋值
+    const a,b,b = 3,4,&quot;foo&quot; //无类型整形和字符串常量
+
+</code></pre>
+
+<p>如果常量在定义时没有指定类型，那么它和字面量一样，是无类型常量。常量的right value也可以是个编译期运算的常量表达式。例如：const mask = 1 &lt;&lt; 3,但不可以是运行时计算的值。</p>
+
+<p><strong>预定义常量</strong>
+Go语言预定义了这些常量： true、 false和iota。iota比较特殊，可以被认为是一个可被编译器修改的常量，在每一个const关键字出现时被重置为0，然后在下一个const出现之前，每出现一次iota，其所代表的数字会自动增1。
+如下代码示例：</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    const (
+        c0 = iota
+        c1 = iota
+        c2 = iota
+    )
+    const ( //如果这几个值的赋值表达式相同的话，可以省略第二个后面的表达式
+        c3 = iota
+        c4
+        c5
+    )
+    fmt.Println(c0)
+    fmt.Println(c1)
+    fmt.Println(c2)
+    fmt.Println(c3)
+    fmt.Println(c4)
+    fmt.Println(c5)
+}
+
+</code></pre>
+
+<p><strong>枚举</strong>
+枚举指一系列相关的常量，比如下面关于一个星期中每天的定义。通过上一节的例子，我们看到可以用在const后跟一对圆括号的方式定义一组常量，这种定义法在Go语言中通常用于定义枚举值。 Go语言并不支持众多其他语言明确支持的enum关键字。下面是一个常规的枚举表示法，其中定义了一系列整型常量：</p>
+
+<pre><code class="language-go">const (
+    Sunday = iota
+    Monday
+    Tuesday
+    Wednesday
+    Thursday
+    Friday
+    Saturday
+    numberOfDays // 这个常量没有导出
+)
+</code></pre>
+
+<p>同Go语言的其他符号（symbol）一样，以<strong>大写字母开头的常量在包外可见</strong>。以上例子中<strong>n</strong>umberOfDays为<strong>包内私有</strong>，其他符号则可被其他包访问。</p>
+
+<p><strong>类型</strong>
+Go内置了以下基础类型：
+ - 布尔类型：bool
+ - 整形：int8、byte、int16、int、uint、uintptr等
+ - 浮点型：float32、float64
+ - 复数类型：complex64、complex128
+ - 字符串：string
+ - 字符类型：rune
+ - 错误类型：error</p>
+
+<p>此外，Go还支持以下复合类型
+ - 指针(pointer)
+ - 数组(array)
+ - 切片(slice)
+ - 字典/映射(map)
+ - 通道(chan)
+ - 结构体(struct)
+ - 接口(interface)</p>
+
+<p>在这些基础类型之上Go还封装了下面这几种类型： int、 uint和uintptr等。这些类型的特点在于使用方便，但使用者不能对这些类型的长度做任何假设。对于常规的开发来说，用int和uint就可以了，没必要用int8之类明确指定长度的类型，以免导致移植困难</p>
+
+<p><strong>布尔类型</strong>
+布尔类型的用法：</p>
+
+<pre><code>    var v1 bool
+    v1 = true
+    v2 := (1==2) //可以被推导为bool
+</code></pre>
+
+<p>bool不支持其他类型的强制类型转换，不能以C语言方式零值和非零值方式赋值。</p>
+
+<p><strong>整型</strong>
+整型类型比较多，这是我从Go语言编程一书中摘抄下来的表格：</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">类 型</th>
+<th align="center">长度（字节）</th>
+<th align="center">值 范 围</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">int8</td>
+<td align="center">1</td>
+<td align="center">-128 ~ 127</td>
+</tr>
+
+<tr>
+<td align="center">uint8（即byte）</td>
+<td align="center">1</td>
+<td align="center">0 ~ 255</td>
+</tr>
+
+<tr>
+<td align="center">int16</td>
+<td align="center">2</td>
+<td align="center">-32 768 ~ 32 767</td>
+</tr>
+
+<tr>
+<td align="center">uint16</td>
+<td align="center">2</td>
+<td align="center">0 ~ 65 535</td>
+</tr>
+
+<tr>
+<td align="center">int32</td>
+<td align="center">4</td>
+<td align="center">-2 147 483 648 ~ 2 147 483 647</td>
+</tr>
+
+<tr>
+<td align="center">uint32</td>
+<td align="center">4</td>
+<td align="center">0 ~ 4 294 967 295</td>
+</tr>
+
+<tr>
+<td align="center">int64</td>
+<td align="center">8</td>
+<td align="center">-9 223 372 036 854 775 808 ~ 9 223 372 036 854 775 807</td>
+</tr>
+
+<tr>
+<td align="center">uint64</td>
+<td align="center">8</td>
+<td align="center">0 ~ 18 446 744 073 709 551 615</td>
+</tr>
+
+<tr>
+<td align="center">int</td>
+<td align="center">平台相关</td>
+<td align="center">平台相关</td>
+</tr>
+
+<tr>
+<td align="center">uint</td>
+<td align="center">平台相关</td>
+<td align="center">平台相关</td>
+</tr>
+
+<tr>
+<td align="center">uintptr</td>
+<td align="center">同指针</td>
+<td align="center">在32位平台下为4字节， 64位平台下为8字节</td>
+</tr>
+</tbody>
+</table>
+
+<ol>
+<li><p>类型表示
+int和int32在Go语言里被认为是不同的类型，编译器并不会为其做自动类型转换。因此需要使用强制类型转换。
+例如：</p>
+
+<pre><code class="language-go">var value2 int32
+value1 := 64 // value1将会被自动推导为int类型
+value2 = value1 // 编译错误
+</code></pre>
+
+<p>这种情况下就会报错，但是将第三行改为：</p>
+
+<pre><code class="language-go">value2 = int32(value1) // 使用强制类型转换编译通过
+</code></pre>
+
+<p>就可以编译通过。当然，这里同C系语言一样，在做强制类型转换时需要注意类型被截断发生的精度丢失（比如将浮点数强制转为整数）和值溢出（值超过转换的目标类型的值范围时）问题。</p></li>
+
+<li><p>数值运算
+Go语言支持下面的常规整数运算： +、 、 *、 /和%。加减乘除就不详细解释了，需要说下的
+是， % 和在C语言中一样是求余运算，比如：</p>
+
+<pre><code class="language-go">5 % 3 // 结果为： 2
+</code></pre></li>
+
+<li><p>比较运算
+Go语言支持以下的几种比较运算符： &gt;、 &lt;、 ==、 &gt;=、 &lt;=和!=。这一点与大多数其他语言相同，与C语言完全一致。
+两个不同类型的整型数不能直接比较，比如int8类型的数和int类型的数不能直接比较，但各种类型的整型变量都可以直接与字面常量（literal）进行比较</p></li>
+
+<li><p>位运算
+Go语言支持表2-2所示的位运算符。
+表 2-2
+|运 算 |含 义| 样 例|
+|:&mdash;:|:&mdash;:|:&mdash;:|
+|x &lt;&lt; y |左移 |124 &lt;&lt; 2 // 结果为496|
+|x &gt;&gt; y |右移 |124 &gt;&gt; 2 // 结果为31|
+|x ^ y |异或| 124 ^ 2 // 结果为126|
+|x &amp; y |与 |124 &amp; 2 // 结果为0|
+|x I y |或 |124 I 2 // 结果为126|
+|^x |取反| ^2 // 结果为-3|
+Go语言的大多数位运算符与C语言都比较类似，除了取反在C语言中是~x，而在Go语言中是^x。</p></li>
+</ol>
+
+<p><strong>浮点型</strong></p>
+
+<ol>
+<li><p>浮点数表示
+Go语言定义了两个类型float32和float64，其中float32等价于C语言的float类型，float64等价于C语言的double类型。
+在Go语言里，定义一个浮点数变量的代码如下：</p>
+
+<pre><code class="language-go">var fvalue1 float32
+fvalue1 = 12
+fvalue2 := 12.0 // 如果不加小数点， fvalue2会被推导为整型而不是浮点型
+</code></pre>
+
+<p>对于以上例子中类型被自动推导的fvalue2，需要注意的是其类型将被自动设为float64，而不管赋给它的数字是否是用32位长度表示的。因此，对于以上的例子，下面的赋值将导致编译错误：
+fvalue1 = fvalue2
+而必须使用这样的强制类型转换：</p>
+
+<p>fvalue1 = float32(fvalue2)</p></li>
+
+<li><p>浮点数比较
+因为浮点数不是一种精确的表达方式，所以像整型那样直接用==来判断两个浮点数是否相等是不可行的，这可能会导致不稳定的结果。下面是一种推荐的替代方案：</p>
+
+<pre><code class="language-go">import &quot;math&quot;
+// p为用户自定义的比较精度，比如0.00001
+func IsEqual(f1, f2, p float64) bool {
+    return math.Fdim(f1, f2) &lt; p
+}
+</code></pre></li>
+</ol>
+
+<p><strong>复杂数类型</strong>
+说之前先吐槽一下数学上复数这个概念的命名哈~上中学的时候学习开方的时候降到对复数的开偶数次方是需要虚数的参与的，那么将所学过的数的类型就又上了一层。我们使用的实数和虚数所构成的集合叫做复数。我对复数这个名词是怎么想也想不通为什么叫复数，有一天看到对实数、虚数和复数的英文单词的时候，瞬间明白为什么了。实数(Real)和虚数(Imaginary)用英文单词来解释反而更容易，实数是“真实的”，而虚数是“假想的”。这两个名称都还好理解，复数，肯定不是指的英文说的单数或者复数的那个“复数”，这个复数实际上应该叫“复杂数”，因为“真实的”和“假想的”数混合的值，是个“复杂的”数，因此真正的名称要叫“复杂数”(Complex)，以外国人的思维去看待这些概念的命名，反而简单地不得了。然而回归复杂数的讨论，一个复杂数的数值分为实数部和虚数部，用单词来罗列的话就是：Complex=Real+Imaginary，虚虚实实，实实虚虚，所以复杂。所以，这个数值类型的结构是两个浮点值相加的结构。</p>
+
+<ol>
+<li>复杂数的表示
+用一个小栗子展示一下复杂数的赋值和输出表示：</li>
+</ol>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+
+    var cp1 complex64
+    cp1 = complex(54, -64)
+    fmt.Println(cp1)
+
+    cp2 := 9 + 6i
+    fmt.Println(cp2)
+}
+</code></pre>
+
+<p>编译输出为：</p>
+
+<pre><code>(54-64i)
+(9+6i)
+</code></pre>
+
+<ol>
+<li>实部和虚部
+对于一个复数z = complex(x, y)，就可以通过Go语言内置函数real(z)获得该复数的实部，也就是x，通过imag(z)获得该复数的虚部，也就是y。更多关于复数的函数，需要我们查阅math/cmplx标准库的文档。</li>
+</ol>
+
+<p><strong>字符串</strong>
+在Go语言中，字符串也是一种基本类型。相比之下， C/C++语言中并不存在原生的字符串类型，通常使用字符数组来表示，并以字符指针来传递。Go语言中字符串的声明和初始化非常简单，举例如下：</p>
+
+<pre><code class="language-go">var str string // 声明一个字符串变量
+str = &quot;Hello world&quot; // 字符串赋值
+ch := str[0] // 取字符串的第一个字符
+fmt.Printf(&quot;The length of \&quot;%s\&quot; is %d \n&quot;, str, len(str))
+fmt.Printf(&quot;The first character of \&quot;%s\&quot; is %c.\n&quot;, str, ch)
+</code></pre>
+
+<p>输出结果为：</p>
+
+<pre><code>The length of &quot;Hello world&quot; is 11 
+The first character of &quot;Hello world&quot; is H.
+</code></pre>
+
+<p>字符串的内容可以用类似于数组下标的方式获取，但与数组不同，字符串的内容不能在初始化后被修改，比如以下的例子：</p>
+
+<pre><code class="language-go">    str := &quot;Hello world&quot; // 字符串也支持声明时进行初始化的做法
+    str[0] = 'X' // 编译错误
+</code></pre>
+
+<p>编译器会报类似如下的错误：</p>
+
+<pre><code class="language-go">    cannot assign to str[0]
+</code></pre>
+
+<p>在这个例子中我们使用了一个Go语言内置的函数len()来取字符串的长度。这个函数非常有用，我们在实际开发过程中处理字符串、数组和切片时将会经常用到。在这段范例中还顺便示范了Printf()函数的用法。有C语言基础的读者会发现， Printf()函数的用法与C语言运行库中的printf()函数如出一辙，但也能看出来，Go没有提供类似Java中用&rdquo;+&ldquo;作为跨类型的字符串连接符，也就是说，加号前后仍然必须是相同类型，而不能让基本类型自动转换为字符串并连接。在以后学习更多的Go语言特性时，可以配合使用Println()和Printf()来打印各种自己感兴趣的信息，从而让学习过程更加直观明显。</p>
+
+<ol>
+<li>字符串操作</li>
+</ol>
+
+<p>以下是字符串的常用的操作：</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">运 算</th>
+<th align="center">含 义</th>
+<th align="center">样 例</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">x + y</td>
+<td align="center">字符串连接</td>
+<td align="center">&ldquo;Hello&rdquo; + &ldquo;123&rdquo; // 结果为Hello123</td>
+</tr>
+
+<tr>
+<td align="center">len(s)</td>
+<td align="center">字符串长度</td>
+<td align="center">len(&ldquo;Hello&rdquo;) // 结果为5</td>
+</tr>
+
+<tr>
+<td align="center">s[i]</td>
+<td align="center">取字符</td>
+<td align="center">&ldquo;Hello&rdquo; [1] // 结果为&rsquo;e&rsquo;</td>
+</tr>
+</tbody>
+</table>
+
+<p>更多的字符串操作，参考标准库strings包</p>
+
+<ol>
+<li><p>字符串遍历
+Go语言支持两种方式遍历字符串。一种是以字节数组的方式遍历：</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    str1 := &quot;Hello，世界！&quot;
+    n := len(str1)
+    for i := 0; i &lt; n; i++ {
+        ch := str1[i]
+        fmt.Println(i, ch)
+    }
+}
+</code></pre>
+
+<p>这个例子输出结果为：</p>
+
+<p>0 72
+1 101
+2 108
+3 108
+4 111
+5 239
+6 188
+7 140
+8 228
+9 184
+10 150
+11 231
+12 149
+13 140
+14 239
+15 188
+16 129</p>
+
+<p>可以看出，这个字符串长度为13。尽管从直观上来说，这个字符串应该只有9个字符。这是
+因为每个中文字符在UTF-8中占3个字节，而不是1个字节。
+另一种是以Unicode字符遍历：</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    str1 := &quot;Hello，世界！&quot;
+
+    for i, ch := range str1 {
+        fmt.Println(i, ch) //ch的类型为rune
+    }
+}
+
+</code></pre>
+
+<p>输出结果为：</p>
+
+<p>0 72
+1 101
+2 108
+3 108
+4 111
+5 65292
+8 19990
+11 30028
+14 65281</p>
+
+<p>以Unicode字符方式遍历时，每个字符的类型是rune（早期的Go语言用int类型表示Unicode
+字符），而不是byte。</p></li>
+</ol>
+
+<p><strong>字符类型</strong>
+在Go语言中支持两个字符类型，一个是byte（实际上是uint8的别名），代表UTF-8字符串的单个字节的值；另一个是rune，代表单个Unicode字符。关于rune相关的操作，可查阅Go标准库的unicode包。另外unicode/utf8包也提供了UTF8和Unicode之间的转换。出于简化语言的考虑， Go语言的多数API都假设字符串为UTF-8编码。尽管Unicode字符在标准库中有支持，但实际上较少使用。</p>
+
+<p><strong>数组</strong>
+以下为一些常规的数组声明方法：</p>
+
+<pre><code class="language-go">    [32]byte // 长度为32的数组，每个元素为一个字节
+    [2*N] struct { x, y int32 } // 复杂类型数组
+    [1000]*float64 // 指针数组
+    [3][5]int // 二维数组
+    [2][2][2]float64 // 等同于[2]([2]([2]float64))
+</code></pre>
+
+<p>在Go语言中，数组长度在定义后就不可更改，在声明时长度可以为一个常量或者一个常量表达式（常量表达式是指在编译期即可计算结果的表达式）。数组的长度是该数组类型的一个内置常量，可以用Go语言的内置函数len()来获取。下面是一个获取数组arr元素个数的写法：</p>
+
+<pre><code class="language-go">    arrLength := len(arr)
+</code></pre>
+
+<ol>
+<li><p>元素遍历
+我们可以使用C语言风格的for循环来遍历数组：</p>
+
+<pre><code class="language-go">for i := 0; i &lt; len(array); i++ {
+fmt.Println(&quot;Element&quot;, i, &quot;of array is&quot;, array[i])
+}
+</code></pre>
+
+<p>Go还提供了一个关键字range，可以快捷便利容器中的元素。数组也可以使用range。</p>
+
+<pre><code class="language-go">for i, v := range array {
+fmt.Println(&quot;Array element[&quot;, i, &quot;]=&quot;, v)
+}
+</code></pre>
+
+<p>在上面的例子里可以看到， range具有两个返回值，第一个返回值是元素的数组下标，第二个返回值是元素的值。</p></li>
+
+<li><p>值类型
+类似C语言中数组指针的概念，在Go语言中数组是一个值类型（value type）。所有的值类型变量在赋值和作为参数传递时都将产生一次复制动作，这意味着一个数组变量在不同作用域下的操作不会影响原来的数组。如果将数组作为函数的参数类型，则在函数调用时该参数将发生数据复制。因此，在函数体中无法修改传入的数组的内容，因为函数内操作的只是所传入数组的一个副本。用一个例子来看这个问题(Go语言编程一书中的范例在Go 1.6.2中执行有错误，我重新修改这个范例，使之正确执行来演示这个论述)：</p>
+
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func modify(array [5]int) {
+    array[0] = 10 // 试图修改数组的第一个元素
+    fmt.Println(&quot;In modify(), array values:&quot;, array)
+}
+func main() {
+    array := [5]int{1, 2, 3, 4, 5} // 定义并初始化一个数组
+    modify(array)                  // 传递给一个函数，并试图在函数体内修改这个数组内容
+    fmt.Println(&quot;In main(), array values:&quot;, array)
+}
+
+</code></pre>
+
+<p>执行结果为：</p>
+
+<pre><code>In modify(), array values: [10 2 3 4 5]
+In main(), array values: [1 2 3 4 5]
+</code></pre>
+
+<p>从执行结果可以看出， 函数modify()内操作的那个数组跟main()中传入的数组是两个不同的实例。那么，如何才能在函数内操作外部的数据结构呢？我们将下节中详细介绍如何用数组切片功能来达成这个目标。
+<strong>数组切片</strong>
+经过上一节的学习我们发现数组长度不可变，数组是值类型，经过函数传递后会产生一个副本。显然这无法满足开发者的真实需求。当然我们发现在C语言中也有类似的情况。因此，Go内置了数组切片这种神奇的类型。然而这个类型在Java中可以近似看作List，然而他是有自己的数据结构的，对比Java，List有至少两种实现，包括顺序表式ArrayList和链表式LinkedList，以及线程安全的Vector。有C++经验的患者们会脑补到STL中std::vector和数组的关系，那我们来看数组切片，数组切片可以抽象为三个变量：</p>
+
+<ul>
+<li>一个指向原生数组的指针</li>
+<li>数组切片中元素的个数</li>
+<li>数组切片已分配的存储空间
+基于数组的基础上，增加数据结构的管理功能，可以随时动态扩充存储空间扩充元素数量，并且可以随意传递不会让管理元素被重复复制。</li>
+</ul></li>
+
+<li><p>创建数组切片</p></li>
+
+<li><p>基于现有数组
+我们可以基于一个已存在的数组创建切片。</p>
+
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    //先定义一个数组
+    var myArray [10]int = [10]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+    //基于数组创建一个数组切片
+    var mySlice []int = myArray[3:6]
+    fmt.Println(&quot;myArray数组元素有：&quot;)
+    for _, v := range myArray {
+        fmt.Print(v, &quot;  &quot;)
+    }
+    fmt.Println(&quot;\nmySlice切片中的元素有：&quot;)
+    for _, v := range mySlice {
+        fmt.Print(v, &quot;  &quot;)
+    }
+    fmt.Println()
+}
+
+</code></pre>
+
+<p>执行结果为：</p>
+
+<p>myArray数组元素有：
+1  2  3  4  5  6  7  8  9  10<br />
+mySlice切片中的元素有：
+4  5  6<br />
+Go语言支持用myArray[first:last]这样的方式来基于数组生成一个数组切片，而且这个用法还很灵活，比如下面几种都是合法的。
+基于myArray的所有元素创建数组切片：</p>
+
+<pre><code class="language-go">mySlice = myArray[:]
+</code></pre>
+
+<p>基于myArray的前5个元素创建数组切片：</p>
+
+<pre><code class="language-go">mySlice = myArray[:5]
+</code></pre>
+
+<p>基于从第5个元素开始的所有元素创建数组切片：</p>
+
+<pre><code class="language-go">mySlice = myArray[5:]
+</code></pre></li>
+
+<li><p>直接创建
+并非一定要事先准备一个数组才能创建数组切片。 Go语言提供的内置函数make()可以用于灵活地创建数组切片。下面的例子示范了直接创建数组切片的各种方法。创建一个初始元素个数为5的数组切片，元素初始值为0：</p>
+
+<pre><code class="language-go">mySlice1 := make([]int, 5)
+</code></pre>
+
+<p>创建一个初始元素个数为5的数组切片，元素初始值为0，并预留10个元素的存储空间：</p>
+
+<pre><code class="language-go">mySlice2 := make([]int, 5, 10)
+</code></pre>
+
+<p>直接创建并初始化包含5个元素的数组切片：</p>
+
+<pre><code class="language-go">mySlice3 := []int{1, 2, 3, 4, 5}
+</code></pre>
+
+<p>当然，事实上还会有一个匿名数组被创建出来，只是不需要我们来操心而已。</p></li>
+
+<li><p>元素遍历
+操作数组元素的所有方法都适用于数组切片，比如数组切片也可以按下标读写元素，用len()函数获取元素个数，并支持使用range关键字来快速遍历所有元素。传统的元素遍历方法如下:</p>
+
+<pre><code class="language-go">for i := 0; i &lt; len(mySlice); i++ {
+fmt.Println(&quot;mySlice[&quot;, i, &quot;] =&quot;, mySlice[i])
+}
+</code></pre>
+
+<p>使用range关键字可以让遍历代码显得更整洁。 range表达式有两个返回值，第一个是索引，第二个是元素的值：</p>
+
+<pre><code class="language-go">for i, v := range mySlice {
+fmt.Println(&quot;mySlice[&quot;, i, &quot;] =&quot;, v)
+}
+</code></pre>
+
+<p>对比上面的两个方法，我们可以很容易地看出使用range的代码更简单易懂。</p></li>
+
+<li><p>动态增减元素
+这一端原封不动从《Go语言编程》一书中摘抄过来，因为这段内容没有办法更加精炼的描述了。可动态增减元素是数组切片比数组更为强大的功能。与数组相比，数组切片多了一个存储能力（capacity）的概念，即元素个数和分配的空间可以是两个不同的值。合理地设置存储能力的值，可以大幅降低数组切片内部重新分配内存和搬送内存块的频率，从而大大提高程序性能。假如你明确知道当前创建的数组切片最多可能需要存储的元素个数为50，那么如果你设置的存储能力小于50，比如20，那么在元素超过20时，底层将会发生至少一次这样的动作——重新分配一块“够大”的内存，并且需要把内容从原来的内存块复制到新分配的内存块，这会产生比较明显的开销。给“够大”这两个字加上引号的原因是系统并不知道多大才是够大，所以只是一个简单的猜测。比如，将原有的内存空间扩大两倍，但两倍并不一定够，所以之前提到的内存重新分配和内容复制的过程很有可能发生多次，从而明显降低系统的整体性能。但如果你知道最大是50并且一开始就设置存储能力为50，那么之后就不会发生这样非常耗费CPU的动作，从而达到空间换时间的效果。数组切片支持Go语言内置的cap()函数和len()函数，以下简单示范了这两个内置函数的用法。可以看出， cap()函数返回的是数组切片分配的空间大小，而len()函数返回的是数组切片中当前所存储的元素个数。
+如下范例：</p>
+
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    mySlice := make([]int, 5, 10)
+    fmt.Println(&quot;len(mySlice):&quot;, len(mySlice))
+    fmt.Println(&quot;cap(mySlice):&quot;, cap(mySlice))
+}
+
+</code></pre>
+
+<p>该程序的输出结果为：</p>
+
+<p>len(mySlice): 5
+cap(mySlice): 10</p></li>
+</ol>
+
+<p><strong>数组切片追加元素</strong>
+如果需要往上例中mySlice已包含的5个元素后面继续新增元素，可以使用append()函数。下面的代码可以从尾端给mySlice加上3个元素，从而生成一个新的数组切片：</p>
+
+<pre><code class="language-go">    mySlice = append(mySlice, 1, 2, 3)
+</code></pre>
+
+<p>函数append()的第二个参数其实是一个不定参数，我们可以按自己需求添加若干个元素，甚至直接将一个数组切片追加到另一个数组切片的末尾：</p>
+
+<pre><code class="language-go">    mySlice2 := []int{8, 9, 10}
+    // 给mySlice后面添加另一个数组切片
+    mySlice = append(mySlice, mySlice2...)//这个省略号（三个句点）不能省略，这是为了自动将切片打散传入
+</code></pre>
+
+<p>上述调用等同于：</p>
+
+<pre><code class="language-go">    mySlice = append(mySlice, 8, 9, 10)
+</code></pre>
+
+<p>需要注意的是，我们在第二个参数mySlice2后面加了三个点，即一个省略号，如果没有这个省略号的话，会有编译错误，因为按append()的语义，从第二个参数起的所有参数都是待附加的元素。因为mySlice中的元素类型为int，所以直接传递mySlice2是行不通的。加上省略号相当于把mySlice2包含的所有元素打散后传入。数组切片会自动处理存储空间不足的问题。如果追加的内容长度超过当前已分配的存储空间（即cap()调用返回的信息），数组切片会自动分配一块足够大的内存。</p>
+
+<p><strong>基于数组切片创建数组切片</strong>
+类似于数组切片可以基于一个数组创建，数组切片也可以基于另一个数组切片创建。下面的例子基于一个已有数组切片创建新数组切片：</p>
+
+<pre><code class="language-go">oldSlice := []int{1, 2, 3, 4, 5}
+newSlice := oldSlice[:3] // 基于oldSlice的前3个元素构建新数组切片
+</code></pre>
+
+<p>选择的oldSlicef元素范围甚至可以超过所包含的元素个数，比如newSlice可以基于oldSlice的前6个元素创建，虽然oldSlice只包含5个元素。只要这个选择的范围不超过oldSlice存储能力（即cap()返回的值），那么这个创建程序就是合法的。 newSlice中超出oldSlice元素的部分都会填上0。</p>
+
+<p><strong>内容复制</strong>
+数组切片支持Go语言的另一个内置函数copy()，用于将内容从一个数组切片复制到另一个数组切片。如果加入的两个数组切片不一样大，就会按其中较小的那个数组切片的元素个数进行复制。下面的示例展示了copy()函数的行为：</p>
+
+<pre><code class="language-go">slice1 := []int{1, 2, 3, 4, 5}
+slice2 := []int{5, 4, 3}
+copy(slice2, slice1) // 只会复制slice1的前3个元素到slice2中
+copy(slice1, slice2) // 只会复制slice2的3个元素到slice1的前3个位置
+</code></pre>
+
+<h2 id="map-字典-映射">map 字典/映射</h2>
+
+<p>在C++/Java中， map一般都以库的方式提供，比如在C++中是STL的std::map&lt;&gt;，在C#中是Dictionary&lt;&gt;，在Java中是Hashmap&lt;&gt;，在这些语言中，如果要使用map，事先要引用相应的库。而在Go中，使用map不需要引入任何库，并且用起来也更加方便。map是一堆键值对的未排序集合。比如以身份证号作为唯一键来标识一个人的信息，则这个map可以定义为以下代码所示的方式。</p>
+
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+// PersonInfo是一个包含个人详细信息的类型
+type PersonInfo struct {
+    ID      string
+    Name    string
+    Address string
+}
+
+func main() {
+    //map类型变量的声明
+    var personDB map[string]PersonInfo
+    // 通过make创建一个键为string类型value为PersonInfo类型的map
+    personDB = make(map[string]PersonInfo)
+    // 往这个map里插入几条数据
+    personDB[&quot;12345&quot;] = PersonInfo{&quot;12345&quot;, &quot;Tom&quot;, &quot;Room 203,...&quot;}
+    personDB[&quot;1&quot;] = PersonInfo{&quot;1&quot;, &quot;Jack&quot;, &quot;Room 101,...&quot;}
+    // 从这个map查找键为&quot;1234&quot;的信息
+    person, ok := personDB[&quot;1234&quot;]
+    // ok是一个返回的bool型，返回true表示找到了对应的数据
+    if ok {
+        fmt.Println(&quot;Found person&quot;, person.Name, &quot;with ID 1234.&quot;)
+    } else {
+        fmt.Println(&quot;Did not find person with ID 1234.&quot;)
+    }
+}
+
+</code></pre>
+
+<p>我们可以使用Go语言内置的函数make()来创建一个新map。下面的这个例子创建了一个键类型为string、值类型为PersonInfo的map:</p>
+
+<pre><code class="language-go">myMap = make(map[string] PersonInfo)
+</code></pre>
+
+<p>也可以选择是否在创建时指定该map的初始存储能力，下面的例子创建了一个初始存储能力为100的map:</p>
+
+<pre><code class="language-go">myMap = make(map[string] PersonInfo, 100)
+</code></pre>
+
+<p>创建并初始化map的代码如下：</p>
+
+<pre><code class="language-go">myMap = map[string] PersonInfo{
+    &quot;1234&quot;: PersonInfo{&quot;1&quot;, &quot;Jack&quot;, &quot;Room 101,...&quot;},
+}
+</code></pre>
+
+<p><strong>元素赋值</strong>
+赋值过程非常简单明了，就是将键和值用下面的方式对应起来即可：
+myMap[&ldquo;1234&rdquo;] = PersonInfo{&ldquo;1&rdquo;, &ldquo;Jack&rdquo;, &ldquo;Room 101,&hellip;&rdquo;}</p>
+
+<p><strong>元素删除</strong>
+Go语言提供了一个内置函数delete()，用于删除容器内的元素。下面我们简单介绍一下如何用delete()函数删除map内的元素：</p>
+
+<pre><code class="language-go">delete(myMap, &quot;1234&quot;)
+</code></pre>
+
+<p>上面的代码将从myMap中删除键为“1234”的键值对。如果“1234”这个键不存在，那么这个调用将什么都不发生，也不会有什么副作用。但是如果传入的map变量的值是nil，该调用将导致程序抛出异常（panic）。
+<strong>元素查找</strong>
+在Go语言中，要从map中查找一个特定的键，可以通过下面的代码来实现：</p>
+
+<pre><code class="language-go">value, ok := myMap[&quot;1234&quot;]//直接获取，返回两个函数返回值
+if ok { // 找到了
+// 处理找到的value
+}
+</code></pre>
+
+<p>本节笔记用较长篇幅记录了大量Go语言中的丰富的类型系统和强大的变量系统，下一节开始学习Go语言的流程控制、函数、以及错误处理方面的内容。</p>
+</div>
+
+
+    </div>
+
+    
+  </body>
+</html>

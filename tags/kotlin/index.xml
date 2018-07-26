@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kotlin on 梁工春日的忧郁</title>
+    <link>http://ginryan.github.io/tags/kotlin/</link>
+    <description>Recent content in Kotlin on 梁工春日的忧郁</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 19 Mar 2016 22:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://ginryan.github.io/tags/kotlin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Android Kotlin函数式编程(I)：释放函数式编程的洪荒之力</title>
+      <link>http://ginryan.github.io/android%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8Bi/</link>
+      <pubDate>Sat, 19 Mar 2016 22:00:00 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/android%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8Bi/</guid>
+      <description>&lt;p&gt;#&lt;strong&gt;Android函数式编程(I)：释放函数式编程的洪荒之力&lt;/strong&gt;#&lt;/p&gt;
+
+&lt;p&gt;原文来自：&lt;a href=&#34;http://antonioleiva.com/functional-programming-android-kotlin-lambdas/&#34;&gt;系列第一部分:释放函数范式的洪荒之力&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;当我们在合理地使用函数式编程特性的时候，他可以成为我们的强悍的助力，尽管Java 8包含了一些函数式工具，你也能想象得到Android开发者不会很快地用上（甚至不支持）。所以有很多(JVM平台上)可以替换的语言开始尝试解决这个问题。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;译者注：前几天Google破天荒的提前在Google IO发布会之前发布了Android N预览版，并且发布了Jack编译器，
+宣布支持OpenJSD提供的Java 8特性的编译并且向下兼容至Android 2.3，译者暂时还没有在Android上尝试
+Java 8和全新的Jack编译器。相信Google不我欺。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Android Kotlin函数式编程(II)</title>
+      <link>http://ginryan.github.io/android%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8Bii/</link>
+      <pubDate>Tue, 15 Mar 2016 20:33:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/android%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8Bii/</guid>
+      <description>&lt;p&gt;#&lt;strong&gt;Android函数式编程(II)&lt;/strong&gt;#&lt;/p&gt;
+
+&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+
+&lt;p&gt;最近Kotlin 1.0正式版的发布，让Kotlin在众多开发者眼前一亮，越来越多的人开始着眼新的语言进行
+学习，然而网上的文章多数是介绍Kotlin这门新语言的语法以及一些技术性细节，却发现鲜有讨论
+Kotlin这门新语言带来的一些方便的函数式语言特性。翻译这篇文章的目的是，把Kotlin提供的内置的
+一些函数式特性详细的展现出来，以便于我们用到这门语言的一些场景时可以适的用上这些特性，帮助增
+强我们的代码。尽管Kotlin要大范围的使用，还有一段距离，但是这并不能阻挡我们学习新语言的新特
+性的脚步。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

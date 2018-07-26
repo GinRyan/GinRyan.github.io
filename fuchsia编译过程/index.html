@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.45.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Fuchsia 编译过程 &middot; 梁工春日的忧郁</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="http://ginryan.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="http://ginryan.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="http://ginryan.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="http://ginryan.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="梁工春日的忧郁" />
+
+  
+</head>
+
+  <body class="theme-base-09 ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://ginryan.github.io/"><h1>梁工春日的忧郁</h1></a>
+      <p class="lead">
+       代码既是数据.
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="http://ginryan.github.io/">Home</a> </li>
+      
+    </ul>
+
+    <p>&copy; 2018. All rights reserved. </p>
+  </div>
+</div>
+
+    <div class="content container">
+    <div class="post">
+  <h1>Fuchsia 编译过程</h1>
+  <span class="post-date">Thu, Apr 26, 2018</span>
+  <p>Fuchsia是Google最新开发的操作系统，这款操作系统并非基于当下任一个已有的操作系统内核开发，而是自开发的微内核Zircon。相比很多人已经看过了Google开放的截图，它的界面基于Material Design，设计页面及其简练易懂，其源码也是任何人均可以下载并且编译运行。</p>
+
+<p></p>
+
+<p>接下来我记录了一次Fuchsia的编译过程。</p>
+
+<p>操作系统Ubuntu 16.04
+ 首先需要下载所有需要的依赖包和应用程序</p>
+
+<pre><code class="language-shell">sudo apt-get install texinfo libglib2.0-dev liblz4-tool autoconf libtool libsdl-dev build-essential golang git curl unzip
+</code></pre>
+
+<p>然后在此过程中缺少什么程序或者命令，都可以通过apt install命令安装；</p>
+
+<p>接下来要下载Fuchsia安装用的jiri工具：</p>
+
+<blockquote>
+<pre><code class="language-shell">&gt; curl -s &quot;https://fuchsia.googlesource.com/scripts/+/master/bootstrap?format=TEXT&quot; | base64 --decode | bash -s &lt;layer&gt;
+&gt; ```
+
+请注意&lt;layer&gt;，这个layer有四个层可以选：
+
+Zircon:   这是操作系统的最底层内核层，用于访问硬件、对硬件抽象访问，以及提供低级应用程序接口。比如说它包含内核、设备管理器第三方设备驱动，以及低级系统库，例如libc和launchpad，zircon定义了Fuchsia IDL(FIDL)，作为在系统中进程间的通讯协议，其后端是C以及C++。而其他语言的后端会在其他层上加入。
+
+Garnet:  这一层提供了设备级别的的软件安装、管理、远程系统通讯和部署等。比如，Garnet包含网络、媒体服务、图形服务以及包管理器和更新系统。
+
+Peridot: 这一层提供了耦合性的、可定制的、多设备用户体验的模块、结构层、实体、用户代理层和一些其他的组件。比如他包含设备、用户、结构层维护者以及上下文引擎等。
+
+ Topaz：这一层包含了所有层。他包含所有类型的软件，模块、用户代理程序、外壳程序以及程序。比如这些模块有日历、邮件、终端，shell包含基本shell和用户shell，用户代理程序包含邮件、聊天内容提供者，以及一些运行程序例如Web，Dart和Flutter程序。
+
+我们一般选：Topaz，来编译所有层。
+
+一般为了方便，我们把`jiri_root/bin` 目录到\$PATH中。
+
+如果不想乱搞你的环境变量，你只是想要jiri能在你所在的当前工作目录，那么可以复制到你的PATH中。一般来说，**你必须要让jiri所在的目录有写权限**。如果不这么做，jiri自身文件无法保持自动更新。
+
+```shell
+cp .jiri_root/bin/jiri ~/bin
+</code></pre>
+</blockquote>
+
+<p>我们还会用到fx命令。要使用fx命令，你可以创建一个软链接到~/bin目录中：</p>
+
+<pre><code class="language-powershell">ln -s `pwd`/scripts/fx ~/bin
+</code></pre>
+
+<p>准备工作如果已经做好，那么我们现在可以开始设置一下编译选项：</p>
+
+<pre><code class="language-shell">fx set x64
+</code></pre>
+
+<p>然后开始下载源码开始编译：</p>
+
+<pre><code class="language-shell">fx full-build
+</code></pre>
+
+<p>这个编译过程会输出debug-x64版本的编译产物，得有10多G那么大。编译产物会保存在out/debug-x64目录中。</p>
+
+<blockquote>
+<p>其他的可选项：</p>
+
+<p>默认我们会得到x86的debug版编译产物，我们可以选择其他的类型的产物。</p>
+
+<p>比如：</p>
+
+<pre><code class="language-shell">&gt; fx set x64                 # x64 debug 版本的构建
+&gt; fx set arm64               # arm64 debug 版本的构建
+&gt; fx set x64 --release       # x64 release 版本的构建
+&gt; ```
+
+
+
+&gt; 加速构建的可选项：
+&gt;
+&gt; ccache可以从上一次的构建产物缓存加速构建。默认情况下如果设置了``CCACHE_DIR`` 环境变量，并且指向的目录是存在的合法目录，那么就会启用ccache。
+&gt;
+&gt; 要修改默认的行为，就在`fx set`命令执行时传入参数开关。
+&gt;
+&gt; ```
+&gt; --ccache     # 强制使用ccache，即便goma可用
+&gt; --no-ccache  # 关闭ccache
+&gt; --no-goma    # 关闭goma
+&gt; ```
+
+
+
+构建过程中如果出现问题，并且在重新执行`fx full-build`也不能继续编译过程的话，建议执行
+
+```shell
+fx clean-build
+jiri update -gc
+</code></pre>
+</blockquote>
+
+<p>删除所有上一次构建，并且更新最新的源代码，保持代码是没有问题的。然后执行</p>
+
+<pre><code class="language-shell">fx full-build
+</code></pre>
+
+<p>当我们编译完成后，我们就可以执行</p>
+
+<pre><code class="language-shell">fx run
+</code></pre>
+
+<p>来运行虚拟机来启动Fuchsia操作系统。</p>
+
+<p>有几个参数可以控制启动QEMU选项：</p>
+
+<ul>
+<li><code>-m</code> 设置QEMU内存</li>
+<li><code>-g</code>可以启用图形界面</li>
+<li><code>-N</code>启用网络</li>
+</ul>
+
+<p>可以通过<code>fx run -h</code>看所有的选项。</p>
+
+<p>如果还有其他的问题，可以到</p>
+
+<p><a href="https://fuchsia.googlesource.com/docs/+/master/getting_started.md">https://fuchsia.googlesource.com/docs/+/master/getting_started.md</a></p>
+
+<p>上寻找。</p>
+</div>
+
+
+    </div>
+
+    
+  </body>
+</html>

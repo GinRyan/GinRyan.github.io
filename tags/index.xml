@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 梁工春日的忧郁</title>
+    <link>http://ginryan.github.io/tags/</link>
+    <description>Recent content in Tags on 梁工春日的忧郁</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 19 Mar 2016 22:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://ginryan.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Android</title>
+      <link>http://ginryan.github.io/tags/android/</link>
+      <pubDate>Sat, 19 Mar 2016 22:00:00 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/tags/android/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go</title>
+      <link>http://ginryan.github.io/tags/go/</link>
+      <pubDate>Thu, 23 Jun 2016 20:00:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kotlin</title>
+      <link>http://ginryan.github.io/tags/kotlin/</link>
+      <pubDate>Sat, 19 Mar 2016 22:00:00 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/tags/kotlin/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>梁工春日的忧郁</title>
+    <link>http://ginryan.github.io/</link>
+    <description>Recent content on 梁工春日的忧郁</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 26 Apr 2018 20:22:30 +0800</lastBuildDate>
+    
+	<atom:link href="http://ginryan.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fuchsia 编译过程</title>
+      <link>http://ginryan.github.io/fuchsia%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Thu, 26 Apr 2018 20:22:30 +0800</pubDate>
+      
+      <guid>http://ginryan.github.io/fuchsia%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/</guid>
+      <description>&lt;p&gt;Fuchsia是Google最新开发的操作系统，这款操作系统并非基于当下任一个已有的操作系统内核开发，而是自开发的微内核Zircon。相比很多人已经看过了Google开放的截图，它的界面基于Material Design，设计页面及其简练易懂，其源码也是任何人均可以下载并且编译运行。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go笔记6-Go IO</title>
+      <link>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B06/</link>
+      <pubDate>Thu, 23 Jun 2016 20:00:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B06/</guid>
+      <description>&lt;p&gt;任何编程语言都有自己的IO系统，IO系统的接口设计是最能体现一门语言哲学的功底。而其中最具代表性的，就是文件、网络的I/O接口。
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go笔记5-Go并发编程</title>
+      <link>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B05/</link>
+      <pubDate>Fri, 03 Jun 2016 20:20:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B05/</guid>
+      <description>&lt;p&gt;关于并发和多线程，我反而不想在这里写很多东西。为什么呢？
+相信了解到Go语言并且愿意看到这里的人，应该是对各种语言的多线程的管理和锁机制应该都是有所感触，甚至对Java这类语言的多线程管理的复杂性和效率问题感到厌烦了。而近些年来越来越被开发者们对消息机制和分布式消息机制更加宠幸，因为多线程的开销太大，锁机制容易出现问题和效能的低下，CPU时间片的等待和浪费，让消息机制显出他的高效、non-blocking的本领。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go笔记4-Go面向对象编程1</title>
+      <link>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B04%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Tue, 24 May 2016 22:15:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B04%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</guid>
+      <description>&lt;h2 id=&#34;面向对象的特性&#34;&gt;面向对象的特性&lt;/h2&gt;
+
+&lt;p&gt;提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，更加简洁。这也可以侧面看出来为什么称Go是&amp;rdquo;更好的C语言&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go笔记3-Go流程控制和语法</title>
+      <link>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B03%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Fri, 20 May 2016 10:15:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B03%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%87%BD%E6%95%B0/</guid>
+      <description>&lt;h2 id=&#34;流程控制&#34;&gt;流程控制&lt;/h2&gt;
+
+&lt;p&gt;Go语言也不会免俗的加入基本的流程控制语句。这都是我们在其他语言当中都见到过的。当然也有没见到的和似曾相识的。
+ - &lt;strong&gt;条件语句&lt;/strong&gt; if,else, else if
+ - &lt;strong&gt;选择语句&lt;/strong&gt; switch, case和select
+ - &lt;strong&gt;循环语句&lt;/strong&gt; for,range
+ - &lt;strong&gt;跳转语句&lt;/strong&gt; goto
+ - 其他控制关键字：break,continue,fallthrough
+
+###条件语句
+我们可以编写如下条件语句：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go笔记2-Go语法</title>
+      <link>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B02/</link>
+      <pubDate>Sun, 01 May 2016 10:15:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B02/</guid>
+      <description>&lt;p&gt;#Go语言笔记2&lt;/p&gt;
+
+&lt;p&gt;上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。
+这一节包含认识Go语言的变量与常量系统，类型系统，流程控制，函数系统和错误处理特性等。
+
+Go语言编程一书中说道，学习完顺序编程这一章以后会觉得Go语言是“更好的C语言”&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go笔记1-认识Go语言</title>
+      <link>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B01/</link>
+      <pubDate>Thu, 28 Apr 2016 21:50:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B01/</guid>
+      <description>&lt;p&gt;#认识Go语言&lt;/p&gt;
+
+&lt;p&gt;##前言
+这两天再看一些关于并发的资料，我原本是Android程序员，但是并发的话题引起了我的兴趣。在Java的开发生态当中，可以用作并发的当属NIO包，cocurrent包了。但是它们学习起来难度曲线较高，然而Scala又进入我的眼中，发现Scala有一个Akka库可以作为高性能的并发库使用。不过Scala语言本身较为复杂，希望在有更多的空隙的时间去了解Scala。另外，就是Go语言了。这个语言天生就为并发而生，我认为它最令人激动的就是语法更精炼简洁，go关键字把所有需要并发的事情负责到底，是个很有意思的语言。
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Android Kotlin函数式编程(I)：释放函数式编程的洪荒之力</title>
+      <link>http://ginryan.github.io/android%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8Bi/</link>
+      <pubDate>Sat, 19 Mar 2016 22:00:00 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/android%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8Bi/</guid>
+      <description>&lt;p&gt;#&lt;strong&gt;Android函数式编程(I)：释放函数式编程的洪荒之力&lt;/strong&gt;#&lt;/p&gt;
+
+&lt;p&gt;原文来自：&lt;a href=&#34;http://antonioleiva.com/functional-programming-android-kotlin-lambdas/&#34;&gt;系列第一部分:释放函数范式的洪荒之力&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;当我们在合理地使用函数式编程特性的时候，他可以成为我们的强悍的助力，尽管Java 8包含了一些函数式工具，你也能想象得到Android开发者不会很快地用上（甚至不支持）。所以有很多(JVM平台上)可以替换的语言开始尝试解决这个问题。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;译者注：前几天Google破天荒的提前在Google IO发布会之前发布了Android N预览版，并且发布了Jack编译器，
+宣布支持OpenJSD提供的Java 8特性的编译并且向下兼容至Android 2.3，译者暂时还没有在Android上尝试
+Java 8和全新的Jack编译器。相信Google不我欺。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Android Kotlin函数式编程(II)</title>
+      <link>http://ginryan.github.io/android%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8Bii/</link>
+      <pubDate>Tue, 15 Mar 2016 20:33:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/android%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8Bii/</guid>
+      <description>&lt;p&gt;#&lt;strong&gt;Android函数式编程(II)&lt;/strong&gt;#&lt;/p&gt;
+
+&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+
+&lt;p&gt;最近Kotlin 1.0正式版的发布，让Kotlin在众多开发者眼前一亮，越来越多的人开始着眼新的语言进行
+学习，然而网上的文章多数是介绍Kotlin这门新语言的语法以及一些技术性细节，却发现鲜有讨论
+Kotlin这门新语言带来的一些方便的函数式语言特性。翻译这篇文章的目的是，把Kotlin提供的内置的
+一些函数式特性详细的展现出来，以便于我们用到这门语言的一些场景时可以适的用上这些特性，帮助增
+强我们的代码。尽管Kotlin要大范围的使用，还有一段距离，但是这并不能阻挡我们学习新语言的新特
+性的脚步。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>http://ginryan.github.io/about/</link>
+      <pubDate>Tue, 26 Jan 2016 16:31:30 +0800</pubDate>
+      
+      <guid>http://ginryan.github.io/about/</guid>
+      <description>&lt;p&gt;XellossRyan&amp;rsquo;z Blog&lt;/p&gt;
+
+&lt;p&gt;​      大家好，我是XellossRyan，这是我第N个Blog，我在很多地方写过技术博客，但是由于我的毅力和能力比较有限，没有在一个地方持之以恒，也没有做到坚持写Blog和知识的高产，所以这次选定Hugo+Gh Page来帮助我。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

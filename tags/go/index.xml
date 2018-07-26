@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go on 梁工春日的忧郁</title>
+    <link>http://ginryan.github.io/tags/go/</link>
+    <description>Recent content in Go on 梁工春日的忧郁</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 23 Jun 2016 20:00:30 +0000</lastBuildDate>
+    
+	<atom:link href="http://ginryan.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go笔记6-Go IO</title>
+      <link>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B06/</link>
+      <pubDate>Thu, 23 Jun 2016 20:00:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B06/</guid>
+      <description>&lt;p&gt;任何编程语言都有自己的IO系统，IO系统的接口设计是最能体现一门语言哲学的功底。而其中最具代表性的，就是文件、网络的I/O接口。
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go笔记5-Go并发编程</title>
+      <link>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B05/</link>
+      <pubDate>Fri, 03 Jun 2016 20:20:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B05/</guid>
+      <description>&lt;p&gt;关于并发和多线程，我反而不想在这里写很多东西。为什么呢？
+相信了解到Go语言并且愿意看到这里的人，应该是对各种语言的多线程的管理和锁机制应该都是有所感触，甚至对Java这类语言的多线程管理的复杂性和效率问题感到厌烦了。而近些年来越来越被开发者们对消息机制和分布式消息机制更加宠幸，因为多线程的开销太大，锁机制容易出现问题和效能的低下，CPU时间片的等待和浪费，让消息机制显出他的高效、non-blocking的本领。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go笔记4-Go面向对象编程1</title>
+      <link>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B04%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Tue, 24 May 2016 22:15:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B04%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</guid>
+      <description>&lt;h2 id=&#34;面向对象的特性&#34;&gt;面向对象的特性&lt;/h2&gt;
+
+&lt;p&gt;提到面向对象，我们第一反应会想到C++，Java，Python，C#一众语言。在学习时我们也会多多少少地去类比这些传统OOP语言。Go语言相较之下设计非常简洁而又优雅。它在语言层面上做了巨大的革新，放弃了传统OOP当中耳熟能详的概念，比如继承、虚函数、构造函数、析构函数、隐藏this指针等。整个类型系统通过接口自动变形来串联起来，更加简洁。这也可以侧面看出来为什么称Go是&amp;rdquo;更好的C语言&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go笔记3-Go流程控制和语法</title>
+      <link>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B03%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Fri, 20 May 2016 10:15:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B03%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%87%BD%E6%95%B0/</guid>
+      <description>&lt;h2 id=&#34;流程控制&#34;&gt;流程控制&lt;/h2&gt;
+
+&lt;p&gt;Go语言也不会免俗的加入基本的流程控制语句。这都是我们在其他语言当中都见到过的。当然也有没见到的和似曾相识的。
+ - &lt;strong&gt;条件语句&lt;/strong&gt; if,else, else if
+ - &lt;strong&gt;选择语句&lt;/strong&gt; switch, case和select
+ - &lt;strong&gt;循环语句&lt;/strong&gt; for,range
+ - &lt;strong&gt;跳转语句&lt;/strong&gt; goto
+ - 其他控制关键字：break,continue,fallthrough
+
+###条件语句
+我们可以编写如下条件语句：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go笔记2-Go语法</title>
+      <link>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B02/</link>
+      <pubDate>Sun, 01 May 2016 10:15:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B02/</guid>
+      <description>&lt;p&gt;#Go语言笔记2&lt;/p&gt;
+
+&lt;p&gt;上一次了解过了Go语言的一些大体的语言特性，我们这一次来了解一下Go语言的具体语法。
+这一节包含认识Go语言的变量与常量系统，类型系统，流程控制，函数系统和错误处理特性等。
+
+Go语言编程一书中说道，学习完顺序编程这一章以后会觉得Go语言是“更好的C语言”&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go笔记1-认识Go语言</title>
+      <link>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B01/</link>
+      <pubDate>Thu, 28 Apr 2016 21:50:30 +0000</pubDate>
+      
+      <guid>http://ginryan.github.io/go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B01/</guid>
+      <description>&lt;p&gt;#认识Go语言&lt;/p&gt;
+
+&lt;p&gt;##前言
+这两天再看一些关于并发的资料，我原本是Android程序员，但是并发的话题引起了我的兴趣。在Java的开发生态当中，可以用作并发的当属NIO包，cocurrent包了。但是它们学习起来难度曲线较高，然而Scala又进入我的眼中，发现Scala有一个Akka库可以作为高性能的并发库使用。不过Scala语言本身较为复杂，希望在有更多的空隙的时间去了解Scala。另外，就是Go语言了。这个语言天生就为并发而生，我认为它最令人激动的就是语法更精炼简洁，go关键字把所有需要并发的事情负责到底，是个很有意思的语言。
+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
